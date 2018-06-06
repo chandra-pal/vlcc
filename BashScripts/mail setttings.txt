@@ -1,0 +1,46 @@
+function send_email($reciever = "e.salamati.taba@gmail.com", $mail_arr = '') { // This function will be upgraded later
+$mail = new PHPMailer();
+$body = $mail_arr['body'];
+//$body = eregi_replace("[\]", '', $body);
+$mail->IsSMTP(); // telling the class to use SMTP
+$mail->SMTPDebug = true;
+$mail->SMTPDebug = 2; // enables SMTP debug information (for testing)
+// 1 = errors and messages
+// 2 = messages only
+$mail->SMTPAuth = true; // enable SMTP authentication
+$mail->SMTPSecure = "TLS"; // sets the prefix to the servier
+$mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
+$mail->Port = 587; // set the SMTP port for the GMAIL server
+$mail->Username = "user"; // GMAIL username
+$mail->Password = "pass"; // GMAIL password
+$mail->SetFrom('e.salamati.taba@gmail.com', 'no-reply gmail.com');
+$mail->Subject = $mail_arr['subject'];
+$mail->MsgHTML($body);
+echo "-----------------------";
+$address = $reciever;
+$mail->AddAddress($address, "e.salamati.taba@gmail.com");
+
+if(! $mail->Send()) {
+    echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    echo "Message sent!";
+}
+
+
+ $mail = new PHPMailer(); // create a new object
+                                        $mail->IsSMTP(); // enable SMTP
+                                        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+                                        $mail->SMTPAuth = true; // authentication enabled
+                                        $mail->SMTPSecure = 'TLS'; // secure transfer enabled REQUIRED for Gmail or ssl or tsl
+                                        $mail->Host = "mail.vlccwellness.com";
+                                        $mail->Port = 587; // or 587,465
+                                        $mail->IsHTML(true);
+                                    $mail->Username = 'info1@vlccwellness.com';
+                                        $mail->Password = 'INFO#$^$ss*128';
+                                        $mail->From="info1@vlccwellness.com";
+                                        //$mail->FromName="Bookworm Central";
+                                        $mail->Sender="info1@vlccwellness.com";
+                                        $mail->Subject = "Performance evaluation";
+                                        $mail->Body = $message;
+                                        $mail->AddAddress($to);
+                                        $mail->AddAddress($cc);
