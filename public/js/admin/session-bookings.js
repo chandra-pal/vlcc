@@ -207,6 +207,29 @@ siteObjJs.admin.sessionBookingsJs = function () {
             $("#time-to").val("");
         });
 
+		$('.date-submit').click(function(){
+			var fromDate = $("#time-from").val();
+			var toDate = $("#time-to").val();
+			var arrStartDate = fromDate.split("-");
+			var date1 = new Date(arrStartDate[2],arrStartDate[1],arrStartDate[0]);
+			var arrEndDate = toDate.split("-");
+			var date2 = new Date(arrEndDate[2],arrEndDate[1],arrEndDate[0]);
+			if(fromDate == "")
+			{
+				$("#date-error").css('display','block');
+				return false;
+			}
+			if(date1 > date2)
+			{
+				$("#date-range-error").css('display','block');
+				return false;
+			}
+			else
+			{
+				$("#date-range-error").css('display','none');
+			}
+		});
+		
         $('body').on('change', '.session_status', function (e) {
             var session_status = $(this).val();
             $('.cancellation_comment').val('');
@@ -248,15 +271,16 @@ siteObjJs.admin.sessionBookingsJs = function () {
             var formId = this.form.id;
             var startTime = $('#' + formId + ' #session_start_time').val();
             var session_date = $('#' + formId + ' #session_date').val();
-            // Check if Difference between todays date & session date is not greater than 30 days
+            // Check if Difference between todays date & session date is not greater than 90 days
             var todaysDate = new Date();
             var diff = new Date(new Date(session_date) - todaysDate);
             // get days
             var days = diff / 1000 / 60 / 60 / 24;
-            if (Math.floor(days) >= 30) {
+            if (Math.floor(days) >= 90) {
+				
                 Metronic.alert({
                     type: 'danger',
-                    message: "Booking date should be before 30 days from today.",
+                    message: "Booking date should be before 90 days from today.",
                     container: $('#ajax-response-text'),
                     place: 'prepend',
                     closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
@@ -473,7 +497,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
         });
     };
 
-    var handleDatePicker = function () {
+    var handleDatePicker = function (dateArray) {
         if (!jQuery().datepicker) {
             return;
         }
@@ -507,6 +531,28 @@ siteObjJs.admin.sessionBookingsJs = function () {
 //            }
 
         });
+		$('#time-from').datepicker({
+           format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#time-to').datepicker('setStartDate', startDate);
+        }).on('clearDate', function (selected) {
+            $('#time-to').datepicker('setStartDate', null);
+        });
+
+        $('#time-to').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#time-from').datepicker('setEndDate', endDate);
+        }).on('clearDate', function (selected) {
+           $('#time-from').datepicker('setEndDate', null);
+       });
+		
     };
 
     var checkSessionAvailable = function (formId) {   

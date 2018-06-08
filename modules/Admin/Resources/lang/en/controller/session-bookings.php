@@ -14,7 +14,7 @@ return [
     'session-cancellation-comment' => 'Cancellation Comment',
     'action' => 'Action',
     'status-help' => 'Status of the role',
-    'view-sessions' => 'Todays Appointments',
+    'view-sessions' => ' Appointments',
     'staff' => 'Staff',
     'machine' => 'Machine',
     'room' => 'Room',

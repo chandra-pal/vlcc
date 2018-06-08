@@ -106,8 +106,10 @@ class SessionBookingsRepository extends BaseRepository
                 $response = SessionBookings::with('MemberPackage', 'Member')
                     ->where('dietician_id', $params['user_id'])
                     ->where('session_date', $params['session_date'])
+					->orWhere('session_date', $params['session_date1'])
+					->orWhere('session_date', $params['session_date2'])
                     ->orderBy('session_date', 'DESC')
-                    ->orderBy('start_time', 'ASC')
+                    ->orderBy('start_time', 'DESC')
                     ->get();
             } elseif ($params['user_type_id'] == 6 || $params['user_type_id'] == 9 || $params['user_type_id'] == 5 || $params['user_type_id'] == 7 || $params['user_type_id'] == 11) { // Physiotherapist, Center Head, Doctors, ATH and Center Admin
                 $centerIds = DB::select("SELECT group_concat(center_id) as center_id FROM admin_centers WHERE user_id = " . $params['user_id'] . "");
@@ -724,20 +726,28 @@ class SessionBookingsRepository extends BaseRepository
         return $mobile_no;
     }
 
-    public function bookingHistoryStatus($user_name, $time_from, $time_to)
-    {
-        $var = DB::select("SELECT members.dietician_username,members.first_name, members.mobile_number,member_session_bookings.package_id, member_packages.package_title,member_session_bookings.session_date,member_session_bookings.start_time, 
-        member_session_bookings.end_time,member_session_bookings.status, adm.first_name as Created_BY, adm1.first_name as Updated_BY , member_session_bookings.id AS session_id,
-        (SELECT GROUP_CONCAT(mps.service_name) FROM member_session_bookings AS mbs_new
-        INNER JOIN member_package_services AS mps ON FIND_IN_SET(mps.id, mbs_new.service_id) > 0
-        WHERE mbs_new.id = session_id) as service_name , beauty_services.service_name as service_name1
-        FROM `member_session_bookings` LEFT JOIN members ON members.id = member_session_bookings.member_id 
-        LEFT JOIN member_package_services ON member_package_services.id = member_session_bookings.service_id
-        LEFT JOIN member_packages ON member_packages.id = member_session_bookings.package_id LEFT JOIN admins as adm ON adm.id = member_session_bookings.created_by
-        LEFT JOIN admins as adm1 ON adm1.id = member_session_bookings.updated_by
-        LEFT JOIN beauty_services ON beauty_services.id = member_session_bookings.service_id
-        WHERE (member_session_bookings.dietician_id='$user_name' AND (member_session_bookings.session_date >='$time_from' AND member_session_bookings.session_date <= '$time_to'))
-        ORDER BY member_session_bookings.session_date DESC ");
-        return $var;
-    }
+    public function bookingHistoryStatus($params, $flag)
+	{	
+       $var = DB::table('member_session_bookings')
+	->select('members.dietician_username','members.first_name','members.mobile_number','member_session_bookings.package_id', 'member_packages.package_title','member_session_bookings.session_date','member_session_bookings.start_time', 
+	'member_session_bookings.end_time','member_session_bookings.status','adm.first_name as Created_BY', 'adm1.first_name as Updated_BY' , 'member_session_bookings.id AS session_id',
+	DB::raw("(SELECT GROUP_CONCAT(mps.service_name) FROM member_session_bookings AS mbs_new INNER JOIN member_package_services AS mps ON FIND_IN_SET(mps.id, mbs_new.service_id) > 0
+     WHERE mbs_new.id = session_id) as service_name"),'beauty_services.service_name as service_name1')
+	->leftJoin( 'members', 'members.id','=','member_session_bookings.member_id')
+	->leftJoin('member_package_services','member_package_services.id','=','member_session_bookings.service_id')
+	->leftJoin('member_packages','member_packages.id','=','member_session_bookings.package_id')
+	->leftJoin('admins as adm','adm.id','=','member_session_bookings.created_by')
+	->leftJoin('admins as adm1', 'adm1.id','=', 'member_session_bookings.updated_by')
+	->leftJoin('beauty_services','beauty_services.id','=','member_session_bookings.service_id')
+	->where('member_session_bookings.dietician_id','=',$params['dietician_id'])
+	->where('member_session_bookings.session_date','>=',$params['from'])
+	->where('member_session_bookings.session_date','<=',$params['to'])
+	->orderBy('member_session_bookings.session_date','DESC');
+	
+	if($flag == 1 )
+		return $var->get();
+	else
+		return $var;
+	
+	}
 }

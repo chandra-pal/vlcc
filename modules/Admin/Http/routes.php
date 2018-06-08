@@ -246,6 +246,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controller
 
 
     Route::get('booking-history', ['as' => 'admin.session-bookings.booking-history', 'uses' => 'SessionBookingsController@bookingHistory']);
+	Route::get('download-booking-history', ['as' => 'admin.session-bookings.download-booking-history', 'uses' => 'SessionBookingsController@downloadBookingHistory', 'permissions' => 'index']);
     Route::get('view-todays-sessions', ['as' => 'admin.view-todays-sessions.list', 'uses' => 'SessionBookingsController@viewTodaysSessions', 'permission' => 'index']);
     Route::get('view-todays-sessions/data', ['as' => 'admin.view-todays-sessions.data', 'uses' => 'SessionBookingsController@getTodaysSessions', 'permission' => 'index']);
     Route::post('check-session-booking', ['as' => 'admin.session-bookings.check_session_booking', 'uses' => 'SessionBookingsController@checkSessionBooking', 'permission' => 'index']);
