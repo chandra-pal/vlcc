@@ -1,0 +1,145 @@
+COMPOSER INSTALL
+	curl -sS https://getcomposer.org/installer | php;
+	sudo mv composer.phar /usr/local/bin/composer;
+
+APPLICATION CODE
+	cd /var/www/html;
+	git clone git@github.com:iprogrammers/vlcc-admin.git
+	OR
+	git clone https://github.com/iprogrammers/vlcc-admin.git
+	
+    cd vlcc-admin
+
+FOLDER PERMISSIONS
+	sudo chown -R apache storage
+	sudo chown -R apache bootstrap/cache  // if require then only
+	sudo chown -R apache public/admintheme/filemanager/userfiles
+
+FOR DEVELOPER (User development branch)
+	git checkout -b development origin/development (development of release branch for staging)
+	git pull origin development
+
+TOOLKIT (SDK/FRAMEWORK) PACKAGES
+	composer install --no-dev (for development without --no-dev option)
+	composer update --no-dev (for development without --no-dev option)
+	NOTE: DEPENDENCIES get installed to vendor/ directory
+
+    //if you create any new class or route then please run bellow command
+    composer dump-autoload
+
+CREATE DATABASE
+	CREATE DATABASE vlcc DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CONFIG
+    Create a new file in root ".env"
+    sudo vi .env
+        Add following content in the file
+            APP_ENV=local
+            APP_DEBUG=true
+            APP_KEY=fzgLkv5nQZnA4vJTyzzgsdAiP5fsK4Im
+            APP_TIMEZONE=Asia/Kolkata
+            DB_HOST=localhost
+            DB_DATABASE=vlcc
+            DB_USERNAME=<username>
+            DB_PASSWORD=<password>
+            CACHE_DRIVER=memcached
+            SESSION_DRIVER=memcached
+            MAIL_DRIVER=mail
+            MAIL_HOST=<host>
+            MAIL_PORT=110
+            MAIL_USERNAME=<from>
+            MAIL_PASSWORD=<password>
+            MAIL_FROM=<from@server.com>
+            MAIL_NAME=<server.com>
+            AWS_S3_KEY=<AWS_KEY>
+            AWS_S3_SECRET=<AWS_SECRET>
+            AWS_S3_REGION=<(default = us-east-1)>
+            AWS_S3_BUCKET=<Bucket Name>
+            
+ARTISAN COMMANDS
+	Artisian Commands useful to create base database for laravel and migrate schema with seeding data
+
+	php artisan (list available command)
+	php artisan migrate
+	php artisan migrate --seed
+
+	//Following command is used to create a migration class for the tablename.
+	php artisan migrate:make create_tablename_table --create=tablename
+
+	//for clear artisan cache
+	php artisan cache:clear
+	//Vendor publish command
+	php artisan vendor:publish
+	
+	//Following command is used to seed a particular class from module
+	//where admin is module name, and --class parameter is a full path to the seeder class that is to be seeded
+	php artisan module:seed admin --class="Modules\Admin\Database\Seeders\ClassSeeder"
+	(NOTE : Quoatation Marks (") are important)
+	
+	(NOTE : find sql in the database/migrations folder)
+    
+    # modules based migration commands
+        php artisan module:migrate admin
+        php artisan module:seed admin        
+        php artisan module:migrate-refresh --seed admin
+        php artisan module:make-migration create_users_table admin
+
+Sequence to Run ARTISAN COMMANDS
+      php artisan migrate
+      php artisan migrate --seed
+      php artisan module:migrate admin
+      php artisan module:seed admin        
+
+RUN IN BROWSER
+      localhost/vlcc-admin/public/index.php/admin
+      localhost/vlcc-admin/public/admin
+
+
+<Virtualhost> Setup Commands
+    cd /etc/httpd/conf.d
+    vi default.conf
+
+    <VirtualHost *:80>
+        DocumentRoot /var/www/html
+        ServerName localhost
+
+        Alias /vlcc-admin /var/www/html/vlcc-admin/public
+
+        <Directory "/var/www/html/vlcc-admin/public">
+
+            AllowOverride none
+            Options +FollowSymLinks
+
+            RewriteEngine On
+            RewriteBase /vlcc-admin
+
+            # Redirect Trailing Slashes...
+            RewriteRule ^(.*)/$ /$1 [L,R=301]
+	    # Authorization Header
+	    RewriteCond %{HTTP:Authorization} .
+	    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+            # Handle Front Controller...
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^ index.php [L]
+        </Directory>
+    </VirtualHost>
+    // After entry restart apache
+    sudo systemctl restart httpd.service
+
+PHP INI SETTINGS
+	post_max_size = 100M
+	upload_max_filesize = 100M
+	max_file_uploads = 100
+
+Limitation: You must have memcached support enable
+
+File Manager >> To show folder icons
+
+File Path - vlcc-admin/vendor/pqb/filemanager-laravel/src/Pqb/FilemanagerLaravel/Filemanager.php
+
+Add
+
+following line  In function getfolder()
+
+$this->config['icons']['path'] = url('/').$this->dir_separate_real.'/images/fileicons/';

@@ -1,0 +1,1 @@
+{!! Form::select('schedule_type_id', [''=>'Select Schedule Type'] + $scheduleList, null,['class'=>'select2me form-control form-filter', 'id' => 'schedule_type_id', 'data-rule-required'=>'true', 'data-msg-required'=>'Please select Schedule Type.']) !!}

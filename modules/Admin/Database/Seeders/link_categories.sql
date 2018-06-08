@@ -1,0 +1,12 @@
+INSERT INTO `link_categories` (`id`,`menu_group_id`, `category`, `category_icon`, `header_text`, `position`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Admin User Mgmt', 'icon-user', 'Admin User Management section allows you to create more admin users, accept or reject the IP Addresses from where they can login and also see date and time they logged into the system', 12, 1, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'Territories', 'icon-globe', 'From here you can manage countries, states within countries, cities within states and countries and also locations within a city.', 15, 1, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 2, 'Global Site Settings', 'icon-settings', 'These are the various settings like if you want to change the phone number or sales email address or session time out value on the front end of the site then the same can be done from here. You can also manage the sms and email templates from here.', 13, 1, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 2, 'Webmaster Links', 'icon-list', 'This section is to manage the various admin section links that you can see on the left hand side. These are the links that are actually assigned to each of the admin users based on their user type. No one other than webmaster should access this section.', 14, 1, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 1, 'Page Management', 'icon-docs', 'Page Management section gives you a nice file manager to manage any documents, images or pictures. It also has a section to manage the static pages of the front end of the site.', 2, 0, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 1, 'FAQs', 'icon-question', 'Frequently Asked Questions', 9, 1, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 3, 'VLCC Master Tables', 'icon-screen-tablet', 'VLCC Master Tables', 21, 1, 1, 1, '2017-05-23 23:57:30', '2017-06-13 08:13:09'),
+(8, 3, 'Customer Management', 'icon-users', 'View specific client related data like BCA, Diet Plan, Diet Diary, Activity Plan etc.', 22, 1, 1, 1, '2017-06-13 08:14:25', '2017-06-15 04:23:55'),
+(9, 3, 'Reports', 'icon-book-open', 'View Reports', 23, 1, 1, 1, '2017-06-13 08:14:25', '2017-06-15 04:23:55'),
+(10, 1, 'Engagement Diary', 'icon-social-dribbble', 'This section gives information about machines, rooms, staff, their availability & session booking.', 1, 1, 1, 0, '2017-11-24 06:38:42', '2017-11-24 06:38:42');
+

@@ -1,0 +1,332 @@
+S.no,CENTRE,name,designation,username,mobile,EMAIL.ID
+1,KOCHI,Jinumol Thomas           ,Dietician,V01437,8281613290,jinumolt@gmail.com
+2,KOCHI,Neethu Raj s,Dietician,V04547,9496979765,neethuoct12@gmail.com
+3,KOCHI,Annet Rachel Mathew,Physiotherapist,V04643,8075836878,annetrachelvellaramala@gmail.com
+4,,Dr. Thajnees,Doctor,RET01486,8089804567,thajnees17@gmail.com
+5,,Jishnu Shaji             ,Therapist,V03151,8714170080,jishnushaji8714@gmail.com
+6,Madurai,Nancy Ramya,Slimming Head,V01342,9655863915,vadhanaramya@gmail.com
+7,,Dr. Dyuthi Siri,Doctor,RET01495,8095146524,dyuthild@gmail.com
+8,KOCHI,Gracy Angel,Dietician,V04616,8344563641,gracyangelm@yahoo.com
+9,KOCHI,Pasupathi,Physiotherapist,V02366,8110934542,pavithra06mail@gmail.com
+10,,Christina,Therapist,V00741,9486367574,
+11,,Anand nagarajan,Therapist,V03515,9626713154,
+12,Trivandrum,Divya J ,Slimming Head,V00243,9495803473,jaydevsukumaran123@gmail.com
+13,KOCHI,Tinu Thomas,Dietician,V04272,9567836221,tinulijo17@gmail.com
+14,,Dyana Dorin,Therapist,V00213,9995269257,No mail ID
+15,,Bindu P,Therapist,V02944,8129737049,No mail ID
+16,,Suresh Kumar K,Therapist,V00231,9995317795,No mail ID
+17,,Shiju Vikraman,Therapist,V00653,9745450080,No mail ID
+18,,Dr Chitra B Pillai,Doctor,RET00769,9947910299,
+19,ADYAR,T.SAILAJA,SLIMMING HEAD,V02915,9884710415,sailajatharani@gmail.COM
+20,KOCHI,KANIMOZHI.P,Dietician,V03876,9894820017,kani.vis1@gmail.com
+21,KOCHI,PREETHI.R,Physiotherapist,V02105,9894254325,dr.r.preethi@gmail.com
+22,,MOHANA,Therapist,V01434,9790954019,nil
+23,,DHANALAKSHMI,Therapist,V04122,9094322695,nil
+24,,DEVI.V,Therapist,V04525,9003239422,NIL
+25,KOCHI,SUNIL SUBBA,Dietician,V02695,8682883152,nil
+26,,VIGNESH,Therapist,V04581,8072742407,nil
+27,,KOWSALYA,Therapist,NEW JOINEE,9710577142,vkkowsi2798@GMAIL.COM
+28,,DR.SHANTHI,Doctor,,9500410535,shanthiswap@gmail.com
+29,Chennai Anna Nagar,Jenitta S                ,Therapist,V00584,9094507201,
+30,,Vasanthi S               ,Therapist,V01152,9941956672,
+31,,K Sathish Kumar          ,Therapist,V01329,9710962496,
+32,KOCHI,Estharsonia              ,Dietician,V02538,9940223059,
+33,,Logammal                 ,Therapist,V03620,-,
+34,,Vijay Veeramani          ,Therapist,V03674,9597533757,
+35,KOCHI,Mohammed Yakub           ,Physiotherapist,V03748,9176874480,
+36,,saraswati Chetry,Therapist,V04669,7630818437,
+37,,Zenaide Peters,Doctor,RET01554,9940056798,
+38,Chennai P.H.Road,pragadeeswari.S. Ms,Dietician,V02282,7358697607,pragu.sp.23@gmail.com
+39,Chennai P.H.Road,Muneera .MS,Dietician,V03682,7358005274,muneeramd@gmail.com
+40,Chennai P.H.Road,panmini parthasarathy .Mrs,Physiotherapist,V03741,9841620779,minisa_79@gmail.com
+41,,Lalitha       .Mrs,Therapist,V00052,9710804020,NIL
+42,,Mani Megalai.S.Mrs,Therapist,V01226,9841870572,NIL
+43,,Devan K Mr.,Therapist,V01872,7401239374,Nil
+44,Chennai P.H.Road,sujatah gavaei .Mrs,Dietician,V03683,9543076809,NIL
+45,,HEMAVATHY.K .Mrs,Therapist,V04474,9840056509,NIL
+46,Chennai P.H.Road,Rubul Nath Mr.,Dietician,V04791 ,9950427782,varunnath180@gmail.com
+47,COIMBATORE -1,SATHYA BEULAH,SLIMMING HEAD,V00451,8760463632,sathyaemmanual@gmail.com
+48,Chennai P.H.Road,MAHESWARI,Physiotherapist,V04383,9994073880,mahiprabhu1626@gmail.com
+49,,Dr. Priya,Doctor,,8122012044,priya23swami@gmail.com
+50,,Jegath,Therapist,V00343,9994468448,NIL
+51,,MADHAN KUMAR,Therapist,V04680,9789267158,
+52,,Sudha,Therapist,V01241,9566759009,
+53,,Nithya,Therapist,V02278,9087977346,
+54,,Baby Aiswarya,Therapist,V04403,9629768153,
+55,Coimbatore RS Puram,Senthilkumar C,Therapist,V01335,9003371188,Not Available
+56,,Rosali,Therapist,V01489,8220613902,Not Available
+57,,Indrani S,Therapist,V01653,7667122433,Not Available
+58,,Baby sree lekshmi,Therapist,V02593,9842389252,sblnair05@gmail.com
+59,,Annamalai,Therapist,V03855,9159732374,annamalai.slm.007@gmail.com
+60,Chennai P.H.Road,David,Physiotherapist,V04693,7022388712,maildvr999@gmail.com
+61,VELACHERY,SUGANYA.B,Dietician,V03703,7358558669,suganyabala2992@gmail.com
+62,VELACHERY,JENIFFA.D,Dietician,V04462,9710313656,jenijose.d@gmail.com
+63,VELACHERY,MANIKANDAN.V,Physiotherapist,V02886,8110934543,manikbpt@gmail.com
+64,,DR.SHANTHI,Doctor,,9500410535,
+65,VELACHERY,SUMATHI,Dietician,V01353,8754727827,
+66,,JENIFER,Therapist,V00588,9600168155,
+67,,KALAIVANI,Therapist,V01228,7358604004,
+68,,LYDIA SELVI,Therapist,V04399,9840615680,
+69,,ARUMUGAM,Therapist,V00634,9677257286,
+70,VELACHERY,CHANDRASEKAR V,Dietician,V04486,9790704851,
+71,CHENNAI TTK,DEEPA,Dietician,V03806,8939790581,deepaarumugam10@gmail.com
+72,CHENNAI TTK,ROSHNA DEEPAK,Physiotherapist,V04538,9840139563,rohnadeepak@yahoo.com
+73,,RADHIKA,Therapist,V01694,9043538421,
+74,,JAYA,Therapist,V01540,9551049905,
+75,,SHEELA,Therapist,V01512,9790902952,
+76,,SINDU,Therapist,V02694,7871688276,
+77,,SARJAN,Therapist,V00785,9677033801,
+78,,IRUTHAYARAJ,Therapist,V00054,9941119532,
+79,,Dr. Faaru,Doctor,RETO1395,9884661852,farru78679@gmail.com
+80,CHENNAI TTK,SHIBANI,Dietician,V03334,9094571303,shibuwaiting@gmail.com
+81,AMBALA,Dr. Surbhi ,Physiotherapist,v03364,8295587761,surbhiparashar786@gmail.com
+82,AMBALA,Dt. Ashamjeet Kaur ,Dietician,v03786,8901336011,ashamjeet.kaur@gmail.com
+83,AMRITSAR1,Dt. Sarita ,Dietician,v01768,8427210943,sarita.kehta@vlccwellness.com
+84,AMRITSAR1,Dt. Bavneet,Dietician,v02024,7009189157,mehak.sahni76@yahoo.in
+85,AMRITSAR1,Dt. Shivangi ,Dietician,v04358,9115831871,shivangikhanna22@gmail.com
+86,AMRITSAR SLS,Dt. Sonal ,Dietician,v03943,8054626251,Sahilsonal64@gmail.com
+87,AMRITSAR SLS,Dr. Anureet Kaur ,Physiotherapist,v04696,9463038778,physio.aj.1@gmail.com
+88,CHANDIGARH,Dt. Apoorva Oberoi,Dietician,v03582,9736884941,apurva.oberoi26@gmail.com
+89,CHANDIGARH,Dt. Khwaish Sethi ,Dietician,v04087,7837817981,khwaishsethi@gmail.com
+90,CHANDIGARH MANIMAJRA,Dt. Gitika ,Dietician,v04568,9915902949,mgitika6@gmail.com
+91,CHANDIGARH MANIMAJRA,Dr. Sarthak ,Physiotherapist,v93794,9888887656,sarthak.shrma@gmail.com
+92,JALANDHAR,Dr. Shvani shourie,Doctor,,9100122907,dr.sreedevi_bn@yahoo.com
+93,CHANDIGARH MANIMAJRA,Dr. Ramanpreet kaur,Physiotherapist,v03167,9876266488,physiodoad@gmail.com
+94,CHANDIGARH MANIMAJRA,Dt. Kamaljit kaur ,Dietician,v04559,9915650737,kamaljit_1987@yahoo.com
+95,CHANDIGARH MANIMAJRA,Dt. Mandeep Kaur ,Dietician,v03642,9915650737,mkaur3163@gmail.com
+96,JAMMU1,Dt. Deepakshi Vaid ,Dietician,v04554,8492040088,deepakshi.vaid@gmail.com
+97,JAMMU1,Dr. Juhi Gupta ,Physiotherapist,RET01088,8717050084,juhi21in@gmail.com
+98,,Samriti Gupta ,Slimming Head,V01293,9596627745,samritigupta24@gmail.com
+99,JAMMU CHANNI HIMMAT,Dt. Rashmeet kaur ,Dietician,v03167,8803455595,rasmeetcour@gmail.com
+100,,Dr. Archana Bhatt,Slimming Head ,v04032,596877192,archanabhat83@yahoo.co.in
+101,JAMMU CHANNI HIMMAT,Dr. Taniya Sharma,Physiotherapist,v03898,9622227713,taniyasharma2613@gmail.com
+102,LUDHIANA,Dt. Priya Dost ,Dietician,RET01501,7508898829,priyadietician_ozone@yahoo.com
+103,LUDHIANA,Dt. Shelly Sekhri ,Dietician,v02975,9814866741,shellysekhri@yahoo.in
+104,KOLKATA THEATRE ROAD,Lopamudra Ghosh Dastidar,Slimming head,V00951 ,9432233288,lopamudraghoshdastidar@gmail.com
+105,LUDHIANA,Monalisa Chakraborty,Dietician,V01159 ,9874522213,monalisa.chakraborty@gmail.com
+106,LUDHIANA,Moumita Saha,Dietician,V04090,9681190238,bulbulsaha92@gmail.com
+107,LUDHIANA,Kanchan Banerjee,Physiotherapist,V02652 ,9831620743,kanchanbanerjee1982@gmail.com
+108,,Dr.Thongram Biju Singh,Doctor,RET00016,9831012848,drbijusingh@gmail.com
+109,,Nirmala Dunlop,Therapist,V00281,9831160110,
+110,,Ratna Das,Therapist,V00282 ,9836880534,
+111,,Gopal Debnarth,Therapist,V00315 ,9831702008,
+112,,Soma Seth,Therapist,V00782 ,7980832831,
+113,,Sutrishna Manna,Therapist,V01581 ,9831931892,
+114,,Durga Halder,Therapist,V02330 ,7044575319,
+115,,Samson Callistus Marandi,Therapist,V02842 ,8583013020,
+116,NEW ALIPORE,sucharita maiti,Slimming head,v00287,9836082590,sucharitapalmaiti@gmail.com
+117,LUDHIANA,tania acharjee,Dietician,v04307,8400245510,ansh.acharjee@yahoo.co.in
+118,LUDHIANA,banhishikha samaddar,Dietician,v03326,9007683966,banhishikha.samaddar@gmail.com
+119,LUDHIANA,piyasha mandal,Dietician,v03554,9874587012,piyasha.26@gmail.com
+120,LUDHIANA,krishanu singha roy,Physiotherapist,v05543,8617684331,krishanu.singha.roy1@gmail.com
+121,,dr. t biju singh,Doctor,RET00016,9831012848,drbijusingh@gmail.com 
+122,,monobina sarkar,Doctor,,9830056361,monobinasarker1@gmail.com 
+123,,robin halder,Therapist,v04677,9874112161,rabinhalder101@gmail.com
+124,,jayanta biswas,Therapist,v01203,9775923363,jayantab618@gmail.com
+125,,sumitra lama,Therapist,v00267,9836451576,na
+126,,kalpana roy,Therapist,v00268,9339830107,na
+127,,mousumi bose,Therapist,v00283,8420544620,bosemousumi98@gmail.com
+128,,tuhina pathak ,Therapist,v00813,9836775043,tuhinapathak2015@gmail.com
+129,,anjana chanda,Therapist,v01090,8583814395,anjanachanda03@gmail.com
+130,KANKURGACHI,IPSHITA CHAKRABORTY,Slimming head,V02062,9051565886,ipshical@gmail.com
+131,LUDHIANA,SUHITA BISWAS,Dietician,V01452,9051739255,suhitabiswas@ymail.com
+132,LUDHIANA,DEBASMITA CHANDRA,Dietician,V03190,7044074380,me.smita2009@gmail.com
+133,LUDHIANA,SUBHANKAR DUTTA,Physiotherapist,V01815,9874353122,subhankardutta72@gmail.com
+134,,DR. AMIT SANKAR JANA,Doctor,RET01061,9903500829,dramitjana@gmail.com
+135,,DR. SHUBRA DAS,Doctor,RET00020,9830033938,
+136,,CHAITALI SANDHUKAN,Therapist,V00328,8017449488,NA
+137,,PINKY PATRA,Therapist,V02329,9874038994,NA
+138,,TAPAS DEY,Therapist,V00412,8116478384,NA
+139,,CHANDAN DAS,Therapist,V04077,9038650550,dasc05755@gmail.com
+140,,MANI RANI SAHU,Therapist,V03614,9433688046,NA
+141,,SAMAPTI CHOWLAY,Therapist,V00772,9830123649,NA
+142,,SIMA HARI,Therapist,V01510,9007910083,NA
+143,,PINTU MAJUMDER,Therapist,V00516,9831531601,pintu.majumdar84@gmail.com
+144,,ANJANA DAS,Therapist,V00736,9051627666,NA
+145,HOWRAH,DEBJANI SEN,Slimming head,,9836851371,debjani191086@gmail.com
+146,LUDHIANA,NABANITA DAS,Dietician,,9143357008/7908540918,transdata88@gmail.com
+147,,DR SUCHANDANA DUTTAGUPTA,Doctor,,9883225990,dr.suchandana@gmail.com
+148,LUDHIANA,TAMAL KANTI MANNA,Physiotherapist,V00907,7063779846,tamalmannaphysio2008@gmail.com
+149,,PUJA SINGH,Therapist,,9883540993,singhpuja.riya@gmail.com
+150,,NILIMA SADHUKHAN,Therapist,,9874190410,
+151,,SHAFALI BARIK,Therapist,,8334058216,
+152,,NAZMOON SIDDIQUE,Therapist,,7908826349,
+153,VIP,DEBIKA SAHA,Dietician,V00365,9830727204,debikas13@gmail.com
+154,,Sakil  Siddique,Slimming head,v00861,9830705499,siddiquesakil@gmail.com
+155,VIP,Sonali Hui,Dietician,v01886,8697416469,huisonali@gmail.com
+156,VIP,SUBHANKAR DUTTA,Physiotherapist,V01815,9874353122,subhankardutta72@gmail.com
+157,,DR. AMIT SANKAR JANA,Doctor,RET01061,9903500829,dramitjana@gmail.com
+158,,Ranju AcharIya,Therapist,V00277,9163494008,ranjuacharya1178@gmail.com
+159,,BijolI  Achariya,Therapist,V00311,9051562690,acharjeesneha77@gmail.com
+160,,PARTHA SARTHI KUNDU,Therapist,V00304,,
+161,,SUBHAYN MUKHARJEE,Therapist,V00305,8240537163,subhayan24121981@gmail.com
+162,,CHAITALI BHADRA,Therapist,V00746,9874994062,
+163,,ARZOO PARVEEN,Therapist,v01210,8013782947,arzoo000888@gmail.com
+164,KOLKATA JODHPURPARK,Shyamali Patra,Slimming head,V00337,9007596391,
+165,VIP,Debolina Das,Dietician,V01723,9804127564,
+166,VIP,Chandrayee chanda,Dietician,V04346,8609525935,
+167,VIP,TAMAL KANTI MANNA,Physiotherapist,V00907,7063779846,tamalmannaphysio2008@gmail.com
+168,,Dr Subarna Goswami,Doctor,,,
+169,,Krisna Bose,Therapist,V00271,,
+170,,Jasmine Roy,Therapist,V04344,,
+171,,Indrajit Adhikari,Therapist,V00309,9231981859,
+172,,Sulata Roy,Therapist,V00336,,
+173,,Sima Biswas,Therapist,V00347,9051115730,
+174,,Sabita Samui,Therapist,V01044,,
+175,,Sumit Patra,Therapist,V01103,9831274820,
+176,WILLOW TOWER,KANCHAN SAHA,Slimming head,V00807,9007355222,kaanchan74@gmail.com
+177,VIP,SANGEETA BERA,Dietician,V01308,8017787377,sangeetabera10@gmail.com
+178,VIP,TAMAL KANTI MANNA,Physiotherapist,V00907,7063779846,tamalmannaphysio2008@gmail.com
+179,,AMIT SHANKAR JANA,Doctor,RET07061,9903500829,dramitjana@gmail.com
+180,,SIKHA CHANDA,Therapist,V00265,9051163417,sikhachanda5@gmail.com
+181,,RAKHI MAJUMDER,Therapist,V00468,8820046066,NIL
+182,,DEBJANI NATH,Therapist,V01304,9831868311,NIL
+183,,MOUMITA GHORUI,Therapist,V01568,9903546614,moumitashaw2894@gmail.com
+184,,PRASUN BANERJEE,Therapist,V04081,8335034904,NIL
+185,KOLKATA SALTLAKE,Madhumita Mukherjee,Slimming head,V03365,9804444595,modhumita.ghosh1983@rediffmail.com
+186,VIP,Asif Chand Mia,Dietician,V01926,7003492754,asif.sujoy001@gmail.com
+187,VIP,TAMAL KANTI MANNA,Physiotherapist,V00907,7063779846,tamalmannaphysio2008@gmail.com
+188,,Dr Tanusree Das,Doctor,,9038824635,
+189,,Bobby Dutta,Therapist,V00915,9831663030,bobbydutta321@gmail.com
+190,,Madhabi Sen,Therapist,V01947,9681316289,………
+191,,Manasi Mukherjee,Therapist,V03902,8697377278,manasimukherjee1980@gmail.com
+192,,Jyotsna Saha,Therapist,V00912,9830341250,jyotsnasaha26@gmail.com
+193,,Abdul Selim,Therapist,V04076,8240146152,abdulselim902@gmail.com
+194,KASBA,RESHMI KUMARI SENGUPTA,Slimming head,V00517,9038620330,reshmi.kumari14@yahoo.com
+195,VIP,POULOMI CHAKRABORTY,Dietician,V02170,9831626356,poulomichak@gmail.com
+196,VIP,ANTARLINA BOSE,Dietician,V02012,8961294766,burntsayana@gmail.com
+197,VIP,SHAOLI GOPE,Dietician,V04316,8335906849,shaoligope@gmail.com
+198,VIP,TAMAL KANTI MANNA,Physiotherapist,V00907,7063119846,tamalmannaphysio2008@gmail.com
+199,,DR. AMIT JANA,Doctor,RET01061,9903500829,dramitjana@gmail.com
+200,,SUBRATA MANNA,Therapist,V00345,9830367084,subratamanna1979@gmail.com
+201,,TILAK BHATTACHARYA,Therapist,V01770,9804472877,bhattacharya2sanu@gmail.com
+202,,SRABANI SANTRA,Therapist,V02470,8334009888,         -
+203,,SOMA CHOUDHURY,Therapist,V03009,8017054590,         -
+204,,AFSARI KHATUN,Therapist,V04527,7980857798,         -
+205,,MALLIKA BARIK,Therapist,V02786,9830953008,         -
+206,,LISI SAMADDAR,Therapist,V03735,9903684124,         -
+207,PATNA-1,NIDHI SINHA,Slimming head,V00987,8540083620,nidhik510@gmail.com
+208,VIP,VIJAYA LAXMI KANUMURU,Dietician,V00937,9985303730,vijaya1291@gmail.com
+209,VIP,ROMA ,Dietician,V04452,8650722656,hiroma06@yahoo.co.in
+210,VIP,DHIRAJ KUMAR PANDEY,Physiotherapist,V01453,9973541212,dhiraj2842@gmail.com
+211,,DR GEETA KUMARI,Doctor,Retainer,8002975560,geetakumari1960@gmail.com
+212,,GEETA DEVI,Therapist,V00529,9334836766,NA
+213,,MALTI DEVI,Therapist,V01179,8651791438,NA
+214,,KOMAL SINGH,Therapist,V02459,98525431463,NA
+215,,BASANTI DEVI,Therapist,V02224,9801872453,NA
+216,,GOURI DEVI,Therapist,V04724,7033951113,NA
+217,GHY-1,BARNALI KUMARI,Dietician,v01227,8822359595,barnalikumari03@gmail.com
+218,GHY-1,RUBI ACHARJEE,Dietician,V01451,9954415600,
+219,,Dr sashibha barman,Doctor,v04549,9435552155,sashibha@gmail.com
+220,,SANJAY DAS,Therapist,V00136,9854090601,
+221,,MRIDUL PHUKAN,Therapist,V00794,9854090606,
+222,,JARITUN BEGUM,Therapist,V00141,9859107097,
+223,,SUMA DUTTA,Therapist,V00143,7002754570,
+224,,NAMITA SHARMA,Therapist,V00139,9613920778,
+225,,PADMA KALITA,Therapist,V00209,9854966947,
+226,,LABITA BAISHYA,Therapist,V00162,7002856053,
+227,GHY-2,PATRALEKHA MUKHERJEE,Dietician,V04557,7980977910,patralekhamukherjee1991@gmail.com
+228,,Dr sashibha barman,Doctor,v04549,9435552155,sashibha@gmail.com
+229,,babita baisya,Therapist,V00641,9864547236,
+230,,jita rajkhowa,Therapist,V00642,,
+231,,rajib das,Therapist,v00444,7399246918,
+232,,momot swargiary,Therapist,v1957,8402018123,
+233,BHUBANESWAR,RITU KUMARI,Slimming head,v03572,"89,084,710,427,978,500,000",ritu_mick@yahoo.com
+234,GHY-2,MADHUMITA PAIRE,Dietician,v03436,8660144586,paira825@gmail.com
+235,GHY-2,Madhusmita padhan,Dietician,v04191,9658805044,askmadhusmita@gmail.com
+236,GHY-2,Prasenjit Mukherjee,Physiotherapist,V03573,7205315086,
+237,,DR SIDDHARTH MOHANTY,Doctor,,9437231922,
+238,,ANIMA PRADHAN,Therapist,V01496,7655861668,
+239,,KABITA MARTHA,Therapist,V00577,9777432691,
+240,,CHANDRIKA SWAIN,Therapist,V00485,9090010935,
+241,,BIJAYALAXMI PRADHAN,Therapist,V03671,8093702034,
+242,,SAURI NAYAK,Therapist,V01404,7894539280,
+243,,SARBESWAR NAYAK,Therapist,V02128,7539895979,
+244,PATNA CITY,GARIMA KUMARI,Slimming head,V00849,9304980324,
+245,GHY-2,SHWETA,Physiotherapist,V01925,7979780200,
+246,,Dr Sarita Sinha,Doctor,,,
+247,,BHOLA KUMAR,Therapist,V01714,9122657112,
+248,,VIKASH PASWAN,Therapist,V04589,8757648789,
+249,,RUBAN,Therapist,V03960,7480087183,
+250,,SABITA DEVI,Therapist,V02490,8804352287,
+251,,ANURADHA THAKUR,Therapist,V04457,9006947579,
+252,A S RAO NAGAR(HYDERABAD 05),Sushmitha.J,Slimming head,V00462,9963112511,sushmithajajula@gmail.com
+253,GHY-2,Namita dubey,Dietician,V01502,9640666520,namita.manya@yahoo.co.in
+254,,mona prasad .k,Therapist,V00429,8341145236,Not available
+255,,kavitha gandamalla,Therapist,V02516,8297227964,Not available
+256,,ramesh jaligam,Therapist,V00482,9000908386,marvk123@gmail.com
+257,HIMAYATHNAGAR HYDERABAD,P Parveen,slimming head,V00723,9885233253,dadagarishaj.9885@gmail.com
+258,GHY-2,Afreen Fathima,Dietician,V04625,7893058624,afreenfathima78930@gmail.com
+259,GHY-2,akshada kulkarni,Dietician,V03536,9573507104,akshadakulkarni1995@gmail.com
+260,GHY-2,Sukhjinder Kaur,Physiotherapist,V02664,8374802976,sukhjinder.kaur@vlccwellness.com
+261,,Mohd Jaweed ali,Therapist,V00752,9703590348,javeedali537@gmail.com
+262,,Padma Allamsheety,Therapist,V00522,9951705623,na
+263,,Madhavi gooty,Therapist,V3532,9618930572,na
+264,,Komal,Therapist,V04965,9100885849,na
+265,HITECH,MONICA LOPEZ,SLIMMING HEAD,v03830,8655139433,monica_llopez@Yahoo.co.in
+266,GHY-2,fatima begum,Physiotherapist,V03270,9676215010,mdfati33@gmail.com
+267,GHY-2,M.DEEPIKA,Dietician,V04148,9553794039,deepushannu143@gmail.com
+268,,SUKANTHI BEHRA,Therapist,V00489,9177525406,na
+269,,SUDHAKAR G,Therapist,V00333,9948872531,na
+270,,PANJAGUTTA VANI,Therapist,V03601,9440079376,na
+271,,PRATHIMA PRADHAN,Therapist,V01811,9989913447,na
+272,HYDERABAD BANJARAHILLS,Dr.farha Fatima,Physiotherapist,V03423,9573085531,farha29fatima@gmail.com
+273,HYDERABAD BANJARAHILLS,Syes sajida begum,Dietician,V02251,8142177341,syedsajida26@gmail.com
+274,HYDERABAD BANJARAHILLS,nida fatima,Dietician,v03892,9640439722,Nidakhan636@rocketmail.com
+275,,Aleemunnisa,Therapist,v00174,8686724011,nil
+276,,Zaverie philomena,Therapist,v01136,9247394299,nil
+277,,Ankhmare rakesh,Therapist,v02468,9912611772,nil
+278,,Yellapragada rakesh sharma,Therapist,v02352,7731823916,nil
+279,,Sonar laxmi,Therapist,v01052,8686791120,nil
+280,,Dr singham shravani,Therapist,,7702418888,nil
+281,KKP,dr sridevi,Doctor,,9100122907,dr.sreedevi_bn@yahoo.com
+282,SECUNDERABAD - SINDHI COLONY,Bindhu natarajan,Dietician,V04004,9014851943,bindudeepak@yahoo.com
+283,SECUNDERABAD - SINDHI COLONY,Dr Akula Sindhu,Physiotherapist,V03675,,sindhu.873@gmail.com
+284,,Dr Ilka,Doctor,RET00768,9989179618,drilkamaria@gmail.com
+285,,Kalpana M,Therapist,V03251,9618600921,na
+286,,Surender Singh mitesh,Therapist,V03534,9291413775,na
+287,,Manjula S,Therapist,V00957,8978031937,na
+288,SRINAGAR,Hafeez mohiuddin,Therapist,V02234,9618018493,hafeezpathan986@gmail.com
+289,,Usharani.B,Therapist,V01040,9959166923,urani8286@gmail.com
+290,,Mahaboobee,Therapist,V03309,8977180284,shaikmahek123@gmail.com
+291,HYDERABAD-KUKATPALLY,Deepa Y P C,Physiotherapist,V03633,7306733758,deeparabhucharan@gmail.com
+292,,Naveen,Therapist,V04048,8096642230,naveenakula52254@gmail.com
+293,,Buggu Radhika,Therapist,V01678,7386854475,nil
+294,,Nagamani Ragutla,Therapist,V04723,9866996204,nagamaniragutla@gmail.com
+295,,Dr.Sreedevi,Doctor,,9100122907,dr.sreedevi_bnyahoo.com
+296,VISHAKAPATNAM,Merugumala Si Sree Nanda,Dietician,v01924,8978626566,sreenanda19@yahoo.in
+297,VISHAKAPATNAM,Gubbala Priyanka babli,Physiotherapist,v03517,9948268388,priyankababli17@gmail.com
+298,,palarete srinu,Therapist,v00410,9951282360,donsrinu1415@gmail.com
+299,,Mohana  rao k,Therapist,v00409,9618672763,mohanarao3nov@gmail.com
+300,,Savitri panduri,Therapist,v00257,9642575139,savitripanduri@gmail.com
+301,,Rajyalakshmi m,Therapist,v00453,8096742210,rajyalakshmi@gmail.com
+302,,K Revathi,Therapist,v00197,9948494668,revathi.k@gmail.com
+303,GAJUWAKA,Sudeeptha A,Dietician,V03236,9581229694,chinnyc8@gmail.com
+304,GAJUWAKA,Lavanya P C,Dietician,V04121,8374750782,pclavanya@gmail.com
+305,GAJUWAKA,Sonam Sahu,Physiotherapist,V03905,8820462169,soooooonum@gmail.com
+306,,Yerra Nooka Ratnam,Therapist,EMP12894,9948028845,nil
+307,,D Parvathi,Therapist,EMP11369,9063275460,nil
+308,,Shivaji,Therapist,V04280,9493886251,sivaji.chintapalli143@gmail.com
+309,VIJAYAWADA,AKULA DIVYA,SLIMMING HEAD,V04534,9948076345,akula.divya6@gmail.com
+310,GAJUWAKA,YAMAPOGULA SRILAKSHMI,Dietician,V03535,9491274910,srilakshmiyamapogu@gmail.com
+311,GAJUWAKA,AKASAPU RAJESWARI,Dietician,V04528,9177331136,rajeshwariakasapu394@gmail.com
+312,,CHILAKALAPALLI ANAND,Therapist,V01068,9676688238,NIL
+313,,UMA MAHESWAR RAO,Therapist,V04519,9553525666,maheshnaidur6@gmail.com
+314,,SAMATHAM SWATI,Therapist,V01273,8465009536,nil
+315,,ASILETI PRASANTHI,Therapist,V01085,9177440356,NIL
+316,,BINDHU,Therapist,V04393,9494820771,nil
+317,,DR LAKSHMI PRASUNA,Doctor,V00053,9959620777,drprasuna2411@gmail.com
+318,GAJUWAKA,DR BHARAT,Physiotherapist,RET00842,9951141093,sivaramabharath@yahoo.com
+319,RAJHAMUNDRY,Dhanalakshmi Nancher   K,Dietician,v00443,9553975506,nil
+320,RAJHAMUNDRY,Saka ratna jyothi,Physiotherapist,v02331,9550714790,ratnajyothi.saka@gmail.com
+321,,N.D  Siva kumar,Therapist,v03110,9912627222,sivamani489@gmail.com
+322,,Raju P,Therapist,v00763,9391284887,rajurokz887@gmail.com
+323,,Chinnari M,Therapist,v03983,9490054375,nil
+324,, Sailaja G,Therapist,V004596,9553659764,santhisailaja86@gmail.com
+325,WARANGAL,Dr.Rubina,Dermat Doctor,V04592,9989145191,rubinashoeb@yahoo.in
+326,,Saritha Sree,Slimming Head,V03359,9949793725,
+327,RAJHAMUNDRY,Kalyani,Physiotherapist,V01838,8523841691,chinnivarna027@gmail.com
+328,RAJHAMUNDRY,Sumalatha,Dietician,V03142,9989706277,sumalatha1013@gmail.com
+329,,Mounika,Therapist,V01793,9949327796,mothemounika886@gmail.com
+330,,Marapaka.Raju,Therapist,V01757,9666463618,rajumarapaka7799@gmail.com
+331,,Kumar. Banala,Therapist,V01756,9989081262,kumarbanala41@gmail.com

@@ -1,0 +1,1 @@
+<div id="city-drop-down">{!! Form::select('city_id', [''=> trans('admin::messages.select-name',['name'=>trans('admin::controller/locations.city')]) ] + $cityList, null,['class'=>'select2me form-control form-filter city_id', 'id' => 'city_id', 'data-rule-required'=>'true', 'data-msg-required'=>'Please select City.']) !!}</div>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/iplaravel/modules/Admin/Database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/nv.d3.min.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../js/html5shiv.min.js"></script>
+  <script src="../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../index.html">/var/www/html/iplaravel/modules/Admin</a></li>
+        <li><a href="index.html">Database</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Seeders/ConfigSettingsTableSeeder.php.html#9">ConfigSettingsTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/CountryTableSeeder.php.html#9">CountryTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/IpAddressesTableSeeder.php.html#9">IpAddressesTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/ConfigCategoryTableSeeder.php.html#10">ConfigCategoryTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/CityTableSeeder.php.html#9">CityTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_13_053656_create_link_categories_table.php.html#5">CreateLinkCategoriesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/AdminDatabaseSeeder.php.html#7">AdminDatabaseSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/AdminsTableSeeder.php.html#7">AdminsTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/LinkCategoriesTableSeeder.php.html#9">LinkCategoriesTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/LinksTableSeeder.php.html#9">LinksTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/UserLinksTableSeeder.php.html#7">UserLinksTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/UserTypeLinksTableSeeder.php.html#9">UserTypeLinksTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/UserTypeTableSeeder.php.html#9">UserTypeTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/SystemEmailsTableSeeder.php.html#11">SystemEmailsTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/StateTableSeeder.php.html#9">StateTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/LocationsTableSeeder.php.html#7">LocationsTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/MenuGroupsTableSeeder.php.html#7">MenuGroupsTableSeeder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_12_132402_create_menu_groups_table.php.html#5">CreateMenuGroupsTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_24_091627_create_table_site_pages.php.html#5">CreateTableSitePages</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094332_create_countries_table.php.html#6">CreateCountriesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094333_create_states_table.php.html#5">CreateStatesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094334_create_cities_table.php.html#5">CreateCitiesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_10_113225_create_faqs_table.php.html#5">CreateFaqsTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_141152_create_faq_categories_table.php.html#5">CreateFaqCategoriesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_072405_create_ip_addresses_table.php.html#5">CreateIpAddressesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_122409_create_link_category_table.php.html#5">CreateLinkCategoryTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_123841_create_links_table.php.html#5">CreateLinksTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_140319_create_locations_table.php.html#5">CreateLocationsTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_17_081145_create_login_logs.php.html#5">CreateLoginLogs</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_03_064423_create_userTypeLinks.php.html#5">CreateUserTypeLinks</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_05_103214_create_system_emails.php.html#5">CreateSystemEmails</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_07_093248_create_user_links_table.php.html#5">CreateUserLinksTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_31_113114_create_user_types_table.php.html#5">CreateUserTypesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_113457_create_config_settings_table.php.html#5">CreateConfigSettingsTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_24_130920_create_ip_login_fails_table.php.html#6">CreateIpLoginFailsTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_111005_create_config_categories_table.php.html#5">CreateConfigCategoriesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_02_061225_create_admins_table.php.html#5">CreateAdminsTable</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Seeders/SystemEmailsTableSeeder.php.html#11">SystemEmailsTableSeeder</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Seeders/ConfigCategoryTableSeeder.php.html#10">ConfigCategoryTableSeeder</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Migrations/2015_08_24_091627_create_table_site_pages.php.html#15"><abbr title="CreateTableSitePages::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_24_091627_create_table_site_pages.php.html#13"><abbr title="CreateTableSitePages::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_07_093248_create_user_links_table.php.html#35"><abbr title="CreateUserLinksTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_07_093248_create_user_links_table.php.html#15"><abbr title="CreateUserLinksTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_24_091627_create_table_site_pages.php.html#37"><abbr title="CreateTableSitePages::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_12_132402_create_menu_groups_table.php.html#13"><abbr title="CreateMenuGroupsTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_13_053656_create_link_categories_table.php.html#13"><abbr title="CreateLinkCategoriesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_12_132402_create_menu_groups_table.php.html#30"><abbr title="CreateMenuGroupsTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_12_132402_create_menu_groups_table.php.html#15"><abbr title="CreateMenuGroupsTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_07_093248_create_user_links_table.php.html#13"><abbr title="CreateUserLinksTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_05_103214_create_system_emails.php.html#39"><abbr title="CreateSystemEmails::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_31_113114_create_user_types_table.php.html#32"><abbr title="CreateUserTypesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_31_113114_create_user_types_table.php.html#15"><abbr title="CreateUserTypesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_31_113114_create_user_types_table.php.html#13"><abbr title="CreateUserTypesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_03_064423_create_userTypeLinks.php.html#13"><abbr title="CreateUserTypeLinks::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_03_064423_create_userTypeLinks.php.html#15"><abbr title="CreateUserTypeLinks::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_05_103214_create_system_emails.php.html#15"><abbr title="CreateSystemEmails::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_05_103214_create_system_emails.php.html#13"><abbr title="CreateSystemEmails::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_08_03_064423_create_userTypeLinks.php.html#29"><abbr title="CreateUserTypeLinks::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_13_053656_create_link_categories_table.php.html#29"><abbr title="CreateLinkCategoriesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2016_02_13_053656_create_link_categories_table.php.html#27"><abbr title="CreateLinkCategoriesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/StateTableSeeder.php.html#17"><abbr title="StateTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/MenuGroupsTableSeeder.php.html#15"><abbr title="MenuGroupsTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/LocationsTableSeeder.php.html#15"><abbr title="LocationsTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/SystemEmailsTableSeeder.php.html#14"><abbr title="SystemEmailsTableSeeder::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/SystemEmailsTableSeeder.php.html#19"><abbr title="SystemEmailsTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/UserTypeTableSeeder.php.html#17"><abbr title="UserTypeTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/UserTypeLinksTableSeeder.php.html#17"><abbr title="UserTypeLinksTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/UserLinksTableSeeder.php.html#15"><abbr title="UserLinksTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/LinksTableSeeder.php.html#17"><abbr title="LinksTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/LinkCategoriesTableSeeder.php.html#17"><abbr title="LinkCategoriesTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/CityTableSeeder.php.html#17"><abbr title="CityTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/AdminsTableSeeder.php.html#15"><abbr title="AdminsTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/AdminDatabaseSeeder.php.html#15"><abbr title="AdminDatabaseSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/ConfigCategoryTableSeeder.php.html#13"><abbr title="ConfigCategoryTableSeeder::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/ConfigCategoryTableSeeder.php.html#18"><abbr title="ConfigCategoryTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/IpAddressesTableSeeder.php.html#17"><abbr title="IpAddressesTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/CountryTableSeeder.php.html#17"><abbr title="CountryTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Seeders/ConfigSettingsTableSeeder.php.html#17"><abbr title="ConfigSettingsTableSeeder::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_113457_create_config_settings_table.php.html#33"><abbr title="CreateConfigSettingsTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_113457_create_config_settings_table.php.html#15"><abbr title="CreateConfigSettingsTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_141152_create_faq_categories_table.php.html#31"><abbr title="CreateFaqCategoriesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_141152_create_faq_categories_table.php.html#15"><abbr title="CreateFaqCategoriesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_141152_create_faq_categories_table.php.html#13"><abbr title="CreateFaqCategoriesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_123841_create_links_table.php.html#37"><abbr title="CreateLinksTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_10_113225_create_faqs_table.php.html#13"><abbr title="CreateFaqsTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_10_113225_create_faqs_table.php.html#15"><abbr title="CreateFaqsTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094332_create_countries_table.php.html#15"><abbr title="CreateCountriesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094332_create_countries_table.php.html#13"><abbr title="CreateCountriesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_10_113225_create_faqs_table.php.html#34"><abbr title="CreateFaqsTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_123841_create_links_table.php.html#15"><abbr title="CreateLinksTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_123841_create_links_table.php.html#13"><abbr title="CreateLinksTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_072405_create_ip_addresses_table.php.html#13"><abbr title="CreateIpAddressesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_02_061225_create_admins_table.php.html#41"><abbr title="CreateAdminsTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_02_061225_create_admins_table.php.html#15"><abbr title="CreateAdminsTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_072405_create_ip_addresses_table.php.html#15"><abbr title="CreateIpAddressesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_072405_create_ip_addresses_table.php.html#30"><abbr title="CreateIpAddressesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_122409_create_link_category_table.php.html#33"><abbr title="CreateLinkCategoryTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_122409_create_link_category_table.php.html#15"><abbr title="CreateLinkCategoryTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_08_122409_create_link_category_table.php.html#13"><abbr title="CreateLinkCategoryTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094332_create_countries_table.php.html#34"><abbr title="CreateCountriesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094333_create_states_table.php.html#13"><abbr title="CreateStatesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_24_130920_create_ip_login_fails_table.php.html#16"><abbr title="CreateIpLoginFailsTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_24_130920_create_ip_login_fails_table.php.html#14"><abbr title="CreateIpLoginFailsTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_17_081145_create_login_logs.php.html#31"><abbr title="CreateLoginLogs::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_24_130920_create_ip_login_fails_table.php.html#29"><abbr title="CreateIpLoginFailsTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_111005_create_config_categories_table.php.html#13"><abbr title="CreateConfigCategoriesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_113457_create_config_settings_table.php.html#13"><abbr title="CreateConfigSettingsTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_111005_create_config_categories_table.php.html#29"><abbr title="CreateConfigCategoriesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_30_111005_create_config_categories_table.php.html#15"><abbr title="CreateConfigCategoriesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_17_081145_create_login_logs.php.html#15"><abbr title="CreateLoginLogs::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_17_081145_create_login_logs.php.html#13"><abbr title="CreateLoginLogs::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094334_create_cities_table.php.html#13"><abbr title="CreateCitiesTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094333_create_states_table.php.html#34"><abbr title="CreateStatesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094333_create_states_table.php.html#15"><abbr title="CreateStatesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094334_create_cities_table.php.html#15"><abbr title="CreateCitiesTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_094334_create_cities_table.php.html#35"><abbr title="CreateCitiesTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_140319_create_locations_table.php.html#39"><abbr title="CreateLocationsTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_140319_create_locations_table.php.html#15"><abbr title="CreateLocationsTable::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_15_140319_create_locations_table.php.html#13"><abbr title="CreateLocationsTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Migrations/2015_07_02_061225_create_admins_table.php.html#13"><abbr title="CreateAdminsTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Seeders/SystemEmailsTableSeeder.php.html#19"><abbr title="SystemEmailsTableSeeder::run">run</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Seeders/ConfigCategoryTableSeeder.php.html#18"><abbr title="ConfigCategoryTableSeeder::run">run</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.2.4</a> using <a href="https://secure.php.net/" target="_top">PHP 5.6.23</a> and <a href="https://phpunit.de/">PHPUnit 4.8.27</a> at Thu Oct 20 7:56:03 UTC 2016.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../js/jquery.min.js" type="text/javascript"></script>
+  <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../js/holder.min.js" type="text/javascript"></script>
+  <script src="../js/d3.min.js" type="text/javascript"></script>
+  <script src="../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([37,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([81,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,3,"<a href=\"Migrations\/2015_07_02_061225_create_admins_table.php.html#5\">CreateAdminsTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_08_072405_create_ip_addresses_table.php.html#5\">CreateIpAddressesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_08_122409_create_link_category_table.php.html#5\">CreateLinkCategoryTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_08_123841_create_links_table.php.html#5\">CreateLinksTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_08_141152_create_faq_categories_table.php.html#5\">CreateFaqCategoriesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_10_113225_create_faqs_table.php.html#5\">CreateFaqsTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_15_094332_create_countries_table.php.html#6\">CreateCountriesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_15_094333_create_states_table.php.html#5\">CreateStatesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_15_094334_create_cities_table.php.html#5\">CreateCitiesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_15_140319_create_locations_table.php.html#5\">CreateLocationsTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_17_081145_create_login_logs.php.html#5\">CreateLoginLogs<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_24_130920_create_ip_login_fails_table.php.html#6\">CreateIpLoginFailsTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_30_111005_create_config_categories_table.php.html#5\">CreateConfigCategoriesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_30_113457_create_config_settings_table.php.html#5\">CreateConfigSettingsTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_07_31_113114_create_user_types_table.php.html#5\">CreateUserTypesTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_08_03_064423_create_userTypeLinks.php.html#5\">CreateUserTypeLinks<\/a>"],[0,3,"<a href=\"Migrations\/2015_08_05_103214_create_system_emails.php.html#5\">CreateSystemEmails<\/a>"],[0,3,"<a href=\"Migrations\/2015_08_07_093248_create_user_links_table.php.html#5\">CreateUserLinksTable<\/a>"],[0,3,"<a href=\"Migrations\/2015_08_24_091627_create_table_site_pages.php.html#5\">CreateTableSitePages<\/a>"],[0,3,"<a href=\"Migrations\/2016_02_12_132402_create_menu_groups_table.php.html#5\">CreateMenuGroupsTable<\/a>"],[0,3,"<a href=\"Migrations\/2016_02_13_053656_create_link_categories_table.php.html#5\">CreateLinkCategoriesTable<\/a>"],[0,1,"<a href=\"Seeders\/AdminDatabaseSeeder.php.html#7\">AdminDatabaseSeeder<\/a>"],[0,1,"<a href=\"Seeders\/AdminsTableSeeder.php.html#7\">AdminsTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/CityTableSeeder.php.html#9\">CityTableSeeder<\/a>"],[0,3,"<a href=\"Seeders\/ConfigCategoryTableSeeder.php.html#10\">ConfigCategoryTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/ConfigSettingsTableSeeder.php.html#9\">ConfigSettingsTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/CountryTableSeeder.php.html#9\">CountryTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/IpAddressesTableSeeder.php.html#9\">IpAddressesTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/LinkCategoriesTableSeeder.php.html#9\">LinkCategoriesTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/LinksTableSeeder.php.html#9\">LinksTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/LocationsTableSeeder.php.html#7\">LocationsTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/MenuGroupsTableSeeder.php.html#7\">MenuGroupsTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/StateTableSeeder.php.html#9\">StateTableSeeder<\/a>"],[0,3,"<a href=\"Seeders\/SystemEmailsTableSeeder.php.html#11\">SystemEmailsTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/UserLinksTableSeeder.php.html#7\">UserLinksTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/UserTypeLinksTableSeeder.php.html#9\">UserTypeLinksTableSeeder<\/a>"],[0,1,"<a href=\"Seeders\/UserTypeTableSeeder.php.html#9\">UserTypeTableSeeder<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Migrations\/2015_07_02_061225_create_admins_table.php.html#13\">CreateAdminsTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_02_061225_create_admins_table.php.html#15\">CreateAdminsTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_02_061225_create_admins_table.php.html#41\">CreateAdminsTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_072405_create_ip_addresses_table.php.html#13\">CreateIpAddressesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_072405_create_ip_addresses_table.php.html#15\">CreateIpAddressesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_072405_create_ip_addresses_table.php.html#30\">CreateIpAddressesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_122409_create_link_category_table.php.html#13\">CreateLinkCategoryTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_122409_create_link_category_table.php.html#15\">CreateLinkCategoryTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_122409_create_link_category_table.php.html#33\">CreateLinkCategoryTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_123841_create_links_table.php.html#13\">CreateLinksTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_123841_create_links_table.php.html#15\">CreateLinksTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_123841_create_links_table.php.html#37\">CreateLinksTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_141152_create_faq_categories_table.php.html#13\">CreateFaqCategoriesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_141152_create_faq_categories_table.php.html#15\">CreateFaqCategoriesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_08_141152_create_faq_categories_table.php.html#31\">CreateFaqCategoriesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_10_113225_create_faqs_table.php.html#13\">CreateFaqsTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_10_113225_create_faqs_table.php.html#15\">CreateFaqsTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_10_113225_create_faqs_table.php.html#34\">CreateFaqsTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094332_create_countries_table.php.html#13\">CreateCountriesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094332_create_countries_table.php.html#15\">CreateCountriesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094332_create_countries_table.php.html#34\">CreateCountriesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094333_create_states_table.php.html#13\">CreateStatesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094333_create_states_table.php.html#15\">CreateStatesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094333_create_states_table.php.html#34\">CreateStatesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094334_create_cities_table.php.html#13\">CreateCitiesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094334_create_cities_table.php.html#15\">CreateCitiesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_094334_create_cities_table.php.html#35\">CreateCitiesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_140319_create_locations_table.php.html#13\">CreateLocationsTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_140319_create_locations_table.php.html#15\">CreateLocationsTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_15_140319_create_locations_table.php.html#39\">CreateLocationsTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_17_081145_create_login_logs.php.html#13\">CreateLoginLogs::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_17_081145_create_login_logs.php.html#15\">CreateLoginLogs::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_17_081145_create_login_logs.php.html#31\">CreateLoginLogs::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_24_130920_create_ip_login_fails_table.php.html#14\">CreateIpLoginFailsTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_24_130920_create_ip_login_fails_table.php.html#16\">CreateIpLoginFailsTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_24_130920_create_ip_login_fails_table.php.html#29\">CreateIpLoginFailsTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_30_111005_create_config_categories_table.php.html#13\">CreateConfigCategoriesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_30_111005_create_config_categories_table.php.html#15\">CreateConfigCategoriesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_30_111005_create_config_categories_table.php.html#29\">CreateConfigCategoriesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_30_113457_create_config_settings_table.php.html#13\">CreateConfigSettingsTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_30_113457_create_config_settings_table.php.html#15\">CreateConfigSettingsTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_30_113457_create_config_settings_table.php.html#33\">CreateConfigSettingsTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_31_113114_create_user_types_table.php.html#13\">CreateUserTypesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_31_113114_create_user_types_table.php.html#15\">CreateUserTypesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_07_31_113114_create_user_types_table.php.html#32\">CreateUserTypesTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_03_064423_create_userTypeLinks.php.html#13\">CreateUserTypeLinks::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_03_064423_create_userTypeLinks.php.html#15\">CreateUserTypeLinks::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_03_064423_create_userTypeLinks.php.html#29\">CreateUserTypeLinks::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_05_103214_create_system_emails.php.html#13\">CreateSystemEmails::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_05_103214_create_system_emails.php.html#15\">CreateSystemEmails::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_05_103214_create_system_emails.php.html#39\">CreateSystemEmails::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_07_093248_create_user_links_table.php.html#13\">CreateUserLinksTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_07_093248_create_user_links_table.php.html#15\">CreateUserLinksTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_07_093248_create_user_links_table.php.html#35\">CreateUserLinksTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_24_091627_create_table_site_pages.php.html#13\">CreateTableSitePages::up<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_24_091627_create_table_site_pages.php.html#15\">CreateTableSitePages::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2015_08_24_091627_create_table_site_pages.php.html#37\">CreateTableSitePages::down<\/a>"],[0,1,"<a href=\"Migrations\/2016_02_12_132402_create_menu_groups_table.php.html#13\">CreateMenuGroupsTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2016_02_12_132402_create_menu_groups_table.php.html#15\">CreateMenuGroupsTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2016_02_12_132402_create_menu_groups_table.php.html#30\">CreateMenuGroupsTable::down<\/a>"],[0,1,"<a href=\"Migrations\/2016_02_13_053656_create_link_categories_table.php.html#13\">CreateLinkCategoriesTable::up<\/a>"],[0,1,"<a href=\"Migrations\/2016_02_13_053656_create_link_categories_table.php.html#29\">CreateLinkCategoriesTable::anonymous function<\/a>"],[0,1,"<a href=\"Migrations\/2016_02_13_053656_create_link_categories_table.php.html#27\">CreateLinkCategoriesTable::down<\/a>"],[0,1,"<a href=\"Seeders\/AdminDatabaseSeeder.php.html#15\">AdminDatabaseSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/AdminsTableSeeder.php.html#15\">AdminsTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/CityTableSeeder.php.html#17\">CityTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/ConfigCategoryTableSeeder.php.html#13\">ConfigCategoryTableSeeder::__construct<\/a>"],[0,2,"<a href=\"Seeders\/ConfigCategoryTableSeeder.php.html#18\">ConfigCategoryTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/ConfigSettingsTableSeeder.php.html#17\">ConfigSettingsTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/CountryTableSeeder.php.html#17\">CountryTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/IpAddressesTableSeeder.php.html#17\">IpAddressesTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/LinkCategoriesTableSeeder.php.html#17\">LinkCategoriesTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/LinksTableSeeder.php.html#17\">LinksTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/LocationsTableSeeder.php.html#15\">LocationsTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/MenuGroupsTableSeeder.php.html#15\">MenuGroupsTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/StateTableSeeder.php.html#17\">StateTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/SystemEmailsTableSeeder.php.html#14\">SystemEmailsTableSeeder::__construct<\/a>"],[0,2,"<a href=\"Seeders\/SystemEmailsTableSeeder.php.html#19\">SystemEmailsTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/UserLinksTableSeeder.php.html#15\">UserLinksTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/UserTypeLinksTableSeeder.php.html#17\">UserTypeLinksTableSeeder::run<\/a>"],[0,1,"<a href=\"Seeders\/UserTypeTableSeeder.php.html#17\">UserTypeTableSeeder::run<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

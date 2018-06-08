@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/iplaravel/modules/Admin/Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../css/nv.d3.min.css" rel="stylesheet">
+  <link href="../../../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../../../js/html5shiv.min.js"></script>
+  <script src="../../../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../../../index.html">/var/www/html/iplaravel</a></li>
+        <li><a href="../../index.html">modules</a></li>
+        <li><a href="../index.html">Admin</a></li>
+        <li><a href="index.html">Services</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="LoremIpsumGenerator.php.html#3">LoremIpsumGenerator</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/HtmlServiceProvider.php.html#3">HtmlServiceProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MaxValueDelay.php.html#5">MaxValueDelay</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#9">Validation</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#12">UserHasLink</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#3">FormBuilder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/UserInfoHelper.php.html#16">UserInfoHelper</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#15">AdminUserProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ConfigConstantHelper.php.html#18">ConfigConstantHelper</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#15">ImageHelper</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/MenuHelper.php.html#19">MenuHelper</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminGuard.php.html#13">AdminGuard</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#12">UserHasLink</a></td><td class="text-right">6320</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#3">LoremIpsumGenerator</a></td><td class="text-right">1560</td></tr>
+       <tr><td><a href="Validation.php.html#9">Validation</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#3">FormBuilder</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#15">ImageHelper</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#15">AdminUserProvider</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Helper/MenuHelper.php.html#19">MenuHelper</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Helper/ConfigConstantHelper.php.html#18">ConfigConstantHelper</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="MaxValueDelay.php.html#5">MaxValueDelay</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Validation.php.html#22"><abbr title="Validation::validateEmailMulti">validateEmailMulti</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#17"><abbr title="Validation::validateAlphaSpaces">validateAlphaSpaces</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#12"><abbr title="Validation::validateTags">validateTags</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#34"><abbr title="Validation::validateAddrSpecEmail">validateAddrSpecEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#45"><abbr title="Validation::validateCurrentPassword">validateCurrentPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#65"><abbr title="Validation::validateLinkRoute">validateLinkRoute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Validation.php.html#55"><abbr title="Validation::validateCurrentNewPassword">validateCurrentNewPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MaxValueDelay.php.html#39"><abbr title="MaxValueDelay::check">check</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MaxValueDelay.php.html#27"><abbr title="MaxValueDelay::increment">increment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#392"><abbr title="LoremIpsumGenerator::numberOfCommas">numberOfCommas</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#367"><abbr title="LoremIpsumGenerator::punctuate">punctuate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#409"><abbr title="LoremIpsumGenerator::gaussianSentence">gaussianSentence</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#423"><abbr title="LoremIpsumGenerator::gauss">gauss</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#445"><abbr title="LoremIpsumGenerator::random_0_1">random_0_1</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#440"><abbr title="LoremIpsumGenerator::gauss_ms">gauss_ms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#48"><abbr title="UserHasLink::setPermissions">setPermissions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#63"><abbr title="UserHasLink::links">links</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#261"><abbr title="UserHasLink::detachLinks">detachLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#251"><abbr title="UserHasLink::detachLink">detachLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#234"><abbr title="UserHasLink::assignTableColums">assignTableColums</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#273"><abbr title="UserHasLink::updateLink">updateLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#283"><abbr title="UserHasLink::updateLinks">updateLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#324"><abbr title="UserHasLink::mapPermission">mapPermission</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#299"><abbr title="UserHasLink::hasRoute">hasRoute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#217"><abbr title="UserHasLink::attachLinks">attachLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#207"><abbr title="UserHasLink::attachLink">attachLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#183"><abbr title="UserHasLink::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#76"><abbr title="UserHasLink::can">can</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#120"><abbr title="UserHasLink::assignPermission">assignPermission</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#146"><abbr title="UserHasLink::permissions">permissions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#168"><abbr title="UserHasLink::linkPermissions">linkPermissions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#157"><abbr title="UserHasLink::actions">actions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#350"><abbr title="LoremIpsumGenerator::paragraphToString">paragraphToString</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#335"><abbr title="LoremIpsumGenerator::getHTML">getHTML</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#37"><abbr title="ImageHelper::getUserUploadFolder">getUserUploadFolder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#22"><abbr title="ImageHelper::uploadUserAvatar">uploadUserAvatar</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ConfigConstantHelper.php.html#29"><abbr title="ConfigConstantHelper::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#51"><abbr title="ImageHelper::checkDirectory">checkDirectory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#61"><abbr title="ImageHelper::getDefaultImageLink">getDefaultImageLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#77"><abbr title="ImageHelper::getUserAvatar">getUserAvatar</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#69"><abbr title="ImageHelper::getDefaultImage">getDefaultImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/ConfigConstantHelper.php.html#24"><abbr title="ConfigConstantHelper::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#106"><abbr title="AdminUserProvider::validateCredentials">validateCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#34"><abbr title="AdminUserProvider::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminGuard.php.html#30"><abbr title="AdminGuard::getRecallerName">getRecallerName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#46"><abbr title="AdminUserProvider::retrieveById">retrieveById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#58"><abbr title="AdminUserProvider::retrieveByToken">retrieveByToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#86"><abbr title="AdminUserProvider::retrieveByCredentials">retrieveByCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#73"><abbr title="AdminUserProvider::updateRememberToken">updateRememberToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/MenuHelper.php.html#26"><abbr title="MenuHelper::getSideBarLinks">getSideBarLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/MenuHelper.php.html#41"><abbr title="MenuHelper::getRouteByPage">getRouteByPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#219"><abbr title="LoremIpsumGenerator::getContent">getContent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#34"><abbr title="LoremIpsumGenerator::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#236"><abbr title="LoremIpsumGenerator::getWords">getWords</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#257"><abbr title="LoremIpsumGenerator::getPlain">getPlain</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#308"><abbr title="LoremIpsumGenerator::getParagraphArr">getParagraphArr</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#294"><abbr title="LoremIpsumGenerator::getText">getText</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/HtmlServiceProvider.php.html#13"><abbr title="HtmlServiceProvider::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/HtmlServiceProvider.php.html#11"><abbr title="HtmlServiceProvider::registerFormBuilder">registerFormBuilder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/UserInfoHelper.php.html#23"><abbr title="UserInfoHelper::getAuthUserInfo">getAuthUserInfo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Helper/MenuHelper.php.html#58"><abbr title="MenuHelper::getSelectedPageLinkIcon">getSelectedPageLinkIcon</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#6"><abbr title="FormBuilder::dynamicSubmit">dynamicSubmit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#12"><abbr title="FormBuilder::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#30"><abbr title="FormBuilder::selection">selection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#17"><abbr title="FormBuilder::control">control</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/AdminGuard.php.html#20"><abbr title="AdminGuard::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#324"><abbr title="UserHasLink::mapPermission">mapPermission</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#120"><abbr title="UserHasLink::assignPermission">assignPermission</abbr></a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#76"><abbr title="UserHasLink::can">can</abbr></a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#168"><abbr title="UserHasLink::linkPermissions">linkPermissions</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#257"><abbr title="LoremIpsumGenerator::getPlain">getPlain</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#234"><abbr title="UserHasLink::assignTableColums">assignTableColums</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#17"><abbr title="FormBuilder::control">control</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#236"><abbr title="LoremIpsumGenerator::getWords">getWords</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#367"><abbr title="LoremIpsumGenerator::punctuate">punctuate</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#219"><abbr title="LoremIpsumGenerator::getContent">getContent</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#308"><abbr title="LoremIpsumGenerator::getParagraphArr">getParagraphArr</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#350"><abbr title="LoremIpsumGenerator::paragraphToString">paragraphToString</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#77"><abbr title="ImageHelper::getUserAvatar">getUserAvatar</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#217"><abbr title="UserHasLink::attachLinks">attachLinks</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Validation.php.html#22"><abbr title="Validation::validateEmailMulti">validateEmailMulti</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Auth/AdminUserProvider.php.html#86"><abbr title="AdminUserProvider::retrieveByCredentials">retrieveByCredentials</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#283"><abbr title="UserHasLink::updateLinks">updateLinks</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#299"><abbr title="UserHasLink::hasRoute">hasRoute</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#51"><abbr title="ImageHelper::checkDirectory">checkDirectory</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#183"><abbr title="UserHasLink::anonymous function">anonymous function</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#37"><abbr title="ImageHelper::getUserUploadFolder">getUserUploadFolder</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Helper/ConfigConstantHelper.php.html#24"><abbr title="ConfigConstantHelper::getValue">getValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Access/Traits/UserHasLink.php.html#261"><abbr title="UserHasLink::detachLinks">detachLinks</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Helper/ImageHelper.php.html#22"><abbr title="ImageHelper::uploadUserAvatar">uploadUserAvatar</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Validation.php.html#55"><abbr title="Validation::validateCurrentNewPassword">validateCurrentNewPassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#335"><abbr title="LoremIpsumGenerator::getHTML">getHTML</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#6"><abbr title="FormBuilder::dynamicSubmit">dynamicSubmit</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LoremIpsumGenerator.php.html#294"><abbr title="LoremIpsumGenerator::getText">getText</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#12"><abbr title="FormBuilder::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Helper/MenuHelper.php.html#41"><abbr title="MenuHelper::getRouteByPage">getRouteByPage</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="MaxValueDelay.php.html#27"><abbr title="MaxValueDelay::increment">increment</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Html/FormBuilder.php.html#30"><abbr title="FormBuilder::selection">selection</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Validation.php.html#45"><abbr title="Validation::validateCurrentPassword">validateCurrentPassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Validation.php.html#34"><abbr title="Validation::validateAddrSpecEmail">validateAddrSpecEmail</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Validation.php.html#65"><abbr title="Validation::validateLinkRoute">validateLinkRoute</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.2.4</a> using <a href="https://secure.php.net/" target="_top">PHP 5.6.23</a> and <a href="https://phpunit.de/">PHPUnit 4.8.27</a> at Wed Oct 19 13:38:44 UTC 2016.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../../js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../../js/holder.min.js" type="text/javascript"></script>
+  <script src="../../../js/d3.min.js" type="text/javascript"></script>
+  <script src="../../../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([12,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([66,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,2,"<a href=\"Auth\/AdminGuard.php.html#13\">AdminGuard<\/a>"],[0,8,"<a href=\"Auth\/AdminUserProvider.php.html#15\">AdminUserProvider<\/a>"],[0,3,"<a href=\"Helper\/ConfigConstantHelper.php.html#18\">ConfigConstantHelper<\/a>"],[0,12,"<a href=\"Helper\/ImageHelper.php.html#15\">ImageHelper<\/a>"],[0,4,"<a href=\"Helper\/MenuHelper.php.html#19\">MenuHelper<\/a>"],[0,1,"<a href=\"Helper\/UserInfoHelper.php.html#16\">UserInfoHelper<\/a>"],[0,12,"<a href=\"Html\/FormBuilder.php.html#3\">FormBuilder<\/a>"],[100,0,"<a href=\"Html\/HtmlBuilder.php.html#3\">HtmlBuilder<\/a>"],[0,2,"<a href=\"Html\/HtmlServiceProvider.php.html#3\">HtmlServiceProvider<\/a>"],[0,39,"<a href=\"LoremIpsumGenerator.php.html#3\">LoremIpsumGenerator<\/a>"],[0,3,"<a href=\"MaxValueDelay.php.html#5\">MaxValueDelay<\/a>"],[0,13,"<a href=\"Validation.php.html#9\">Validation<\/a>"],[0,79,"<a href=\"Access\/Traits\/UserHasLink.php.html#12\">UserHasLink<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Auth\/AdminGuard.php.html#20\">AdminGuard::getName<\/a>"],[0,1,"<a href=\"Auth\/AdminGuard.php.html#30\">AdminGuard::getRecallerName<\/a>"],[0,1,"<a href=\"Auth\/AdminUserProvider.php.html#34\">AdminUserProvider::__construct<\/a>"],[0,1,"<a href=\"Auth\/AdminUserProvider.php.html#46\">AdminUserProvider::retrieveById<\/a>"],[0,1,"<a href=\"Auth\/AdminUserProvider.php.html#58\">AdminUserProvider::retrieveByToken<\/a>"],[0,1,"<a href=\"Auth\/AdminUserProvider.php.html#73\">AdminUserProvider::updateRememberToken<\/a>"],[0,3,"<a href=\"Auth\/AdminUserProvider.php.html#86\">AdminUserProvider::retrieveByCredentials<\/a>"],[0,1,"<a href=\"Auth\/AdminUserProvider.php.html#106\">AdminUserProvider::validateCredentials<\/a>"],[0,2,"<a href=\"Helper\/ConfigConstantHelper.php.html#24\">ConfigConstantHelper::getValue<\/a>"],[0,1,"<a href=\"Helper\/ConfigConstantHelper.php.html#29\">ConfigConstantHelper::anonymous function<\/a>"],[0,2,"<a href=\"Helper\/ImageHelper.php.html#22\">ImageHelper::uploadUserAvatar<\/a>"],[0,2,"<a href=\"Helper\/ImageHelper.php.html#37\">ImageHelper::getUserUploadFolder<\/a>"],[0,2,"<a href=\"Helper\/ImageHelper.php.html#51\">ImageHelper::checkDirectory<\/a>"],[0,1,"<a href=\"Helper\/ImageHelper.php.html#61\">ImageHelper::getDefaultImageLink<\/a>"],[0,1,"<a href=\"Helper\/ImageHelper.php.html#69\">ImageHelper::getDefaultImage<\/a>"],[0,4,"<a href=\"Helper\/ImageHelper.php.html#77\">ImageHelper::getUserAvatar<\/a>"],[0,1,"<a href=\"Helper\/MenuHelper.php.html#26\">MenuHelper::getSideBarLinks<\/a>"],[0,2,"<a href=\"Helper\/MenuHelper.php.html#41\">MenuHelper::getRouteByPage<\/a>"],[0,1,"<a href=\"Helper\/MenuHelper.php.html#58\">MenuHelper::getSelectedPageLinkIcon<\/a>"],[0,1,"<a href=\"Helper\/UserInfoHelper.php.html#23\">UserInfoHelper::getAuthUserInfo<\/a>"],[0,2,"<a href=\"Html\/FormBuilder.php.html#6\">FormBuilder::dynamicSubmit<\/a>"],[0,2,"<a href=\"Html\/FormBuilder.php.html#12\">FormBuilder::destroy<\/a>"],[0,6,"<a href=\"Html\/FormBuilder.php.html#17\">FormBuilder::control<\/a>"],[0,2,"<a href=\"Html\/FormBuilder.php.html#30\">FormBuilder::selection<\/a>"],[0,1,"<a href=\"Html\/HtmlServiceProvider.php.html#11\">HtmlServiceProvider::registerFormBuilder<\/a>"],[0,1,"<a href=\"Html\/HtmlServiceProvider.php.html#13\">HtmlServiceProvider::anonymous function<\/a>"],[0,1,"<a href=\"LoremIpsumGenerator.php.html#34\">LoremIpsumGenerator::__construct<\/a>"],[0,4,"<a href=\"LoremIpsumGenerator.php.html#219\">LoremIpsumGenerator::getContent<\/a>"],[0,5,"<a href=\"LoremIpsumGenerator.php.html#236\">LoremIpsumGenerator::getWords<\/a>"],[0,7,"<a href=\"LoremIpsumGenerator.php.html#257\">LoremIpsumGenerator::getPlain<\/a>"],[0,2,"<a href=\"LoremIpsumGenerator.php.html#294\">LoremIpsumGenerator::getText<\/a>"],[0,4,"<a href=\"LoremIpsumGenerator.php.html#308\">LoremIpsumGenerator::getParagraphArr<\/a>"],[0,2,"<a href=\"LoremIpsumGenerator.php.html#335\">LoremIpsumGenerator::getHTML<\/a>"],[0,4,"<a href=\"LoremIpsumGenerator.php.html#350\">LoremIpsumGenerator::paragraphToString<\/a>"],[0,5,"<a href=\"LoremIpsumGenerator.php.html#367\">LoremIpsumGenerator::punctuate<\/a>"],[0,1,"<a href=\"LoremIpsumGenerator.php.html#392\">LoremIpsumGenerator::numberOfCommas<\/a>"],[0,1,"<a href=\"LoremIpsumGenerator.php.html#409\">LoremIpsumGenerator::gaussianSentence<\/a>"],[0,1,"<a href=\"LoremIpsumGenerator.php.html#423\">LoremIpsumGenerator::gauss<\/a>"],[0,1,"<a href=\"LoremIpsumGenerator.php.html#440\">LoremIpsumGenerator::gauss_ms<\/a>"],[0,1,"<a href=\"LoremIpsumGenerator.php.html#445\">LoremIpsumGenerator::random_0_1<\/a>"],[0,2,"<a href=\"MaxValueDelay.php.html#27\">MaxValueDelay::increment<\/a>"],[0,1,"<a href=\"MaxValueDelay.php.html#39\">MaxValueDelay::check<\/a>"],[0,1,"<a href=\"Validation.php.html#12\">Validation::validateTags<\/a>"],[0,1,"<a href=\"Validation.php.html#17\">Validation::validateAlphaSpaces<\/a>"],[0,3,"<a href=\"Validation.php.html#22\">Validation::validateEmailMulti<\/a>"],[0,2,"<a href=\"Validation.php.html#34\">Validation::validateAddrSpecEmail<\/a>"],[0,2,"<a href=\"Validation.php.html#45\">Validation::validateCurrentPassword<\/a>"],[0,2,"<a href=\"Validation.php.html#55\">Validation::validateCurrentNewPassword<\/a>"],[0,2,"<a href=\"Validation.php.html#65\">Validation::validateLinkRoute<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#48\">UserHasLink::setPermissions<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#63\">UserHasLink::links<\/a>"],[0,12,"<a href=\"Access\/Traits\/UserHasLink.php.html#76\">UserHasLink::can<\/a>"],[0,2,"<a href=\"Access\/Traits\/UserHasLink.php.html#183\">UserHasLink::anonymous function<\/a>"],[0,14,"<a href=\"Access\/Traits\/UserHasLink.php.html#120\">UserHasLink::assignPermission<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#146\">UserHasLink::permissions<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#157\">UserHasLink::actions<\/a>"],[0,8,"<a href=\"Access\/Traits\/UserHasLink.php.html#168\">UserHasLink::linkPermissions<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#207\">UserHasLink::attachLink<\/a>"],[0,3,"<a href=\"Access\/Traits\/UserHasLink.php.html#217\">UserHasLink::attachLinks<\/a>"],[0,7,"<a href=\"Access\/Traits\/UserHasLink.php.html#234\">UserHasLink::assignTableColums<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#251\">UserHasLink::detachLink<\/a>"],[0,2,"<a href=\"Access\/Traits\/UserHasLink.php.html#261\">UserHasLink::detachLinks<\/a>"],[0,1,"<a href=\"Access\/Traits\/UserHasLink.php.html#273\">UserHasLink::updateLink<\/a>"],[0,3,"<a href=\"Access\/Traits\/UserHasLink.php.html#283\">UserHasLink::updateLinks<\/a>"],[0,3,"<a href=\"Access\/Traits\/UserHasLink.php.html#299\">UserHasLink::hasRoute<\/a>"],[0,18,"<a href=\"Access\/Traits\/UserHasLink.php.html#324\">UserHasLink::mapPermission<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

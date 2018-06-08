@@ -1,0 +1,1 @@
+INSERT INTO `member_otp` (`id`, `mobile_number`, `otp`, `sms_delivered`, `error_message`, `otp_used`, `platform_generated_for`, `attempt_count`, `otp_generated_for`, `created_at`, `updated_at`) VALUES (NULL, '9766567895', '2979', '1', '', '0', '1', '0', '201', NULL, NULL);

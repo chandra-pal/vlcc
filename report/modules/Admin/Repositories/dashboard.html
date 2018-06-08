@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/iplaravel/modules/Admin/Repositories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../css/nv.d3.min.css" rel="stylesheet">
+  <link href="../../../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../../../js/html5shiv.min.js"></script>
+  <script src="../../../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../../../index.html">/var/www/html/iplaravel</a></li>
+        <li><a href="../../index.html">modules</a></li>
+        <li><a href="../index.html">Admin</a></li>
+        <li><a href="index.html">Repositories</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="LoginLogsRepository.php.html#17">LoginLogsRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#20">LocationsRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#18">LinksRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#18">MenuGroupRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#16">PagesRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#16">UserRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#20">SystemEmailRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#10">StateRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#21">LinkCategoryRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AuthRepository.php.html#17">AuthRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#19">ConfigCategoryRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#19">CityRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseRepository.php.html#3">BaseRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#19">ConfigSettingRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#15">CountryRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#19">FaqRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#18">FaqCategoryRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#20">UserTypeRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#13">IpAddressRepository</a></td><td class="text-right">2%</td></tr>
+       <tr><td><a href="IpLoginFailRepository.php.html#15">IpLoginFailRepository</a></td><td class="text-right">8%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="UserRepository.php.html#16">UserRepository</a></td><td class="text-right">9312</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#20">SystemEmailRepository</a></td><td class="text-right">1722</td></tr>
+       <tr><td><a href="LinksRepository.php.html#18">LinksRepository</a></td><td class="text-right">992</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#21">LinkCategoryRepository</a></td><td class="text-right">992</td></tr>
+       <tr><td><a href="PagesRepository.php.html#16">PagesRepository</a></td><td class="text-right">600</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#18">FaqCategoryRepository</a></td><td class="text-right">420</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#20">UserTypeRepository</a></td><td class="text-right">420</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#13">IpAddressRepository</a></td><td class="text-right">391</td></tr>
+       <tr><td><a href="FaqRepository.php.html#19">FaqRepository</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#19">ConfigSettingRepository</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#18">MenuGroupRepository</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#19">ConfigCategoryRepository</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="CityRepository.php.html#19">CityRepository</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="StateRepository.php.html#10">StateRepository</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="CountryRepository.php.html#15">CountryRepository</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#20">LocationsRepository</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#17">LoginLogsRepository</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="AuthRepository.php.html#17">AuthRepository</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="IpLoginFailRepository.php.html#15">IpLoginFailRepository</a></td><td class="text-right">34</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="PagesRepository.php.html#36"><abbr title="PagesRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#40"><abbr title="PagesRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#53"><abbr title="PagesRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#26"><abbr title="PagesRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#137"><abbr title="MenuGroupRepository::listMenuGroupData">listMenuGroupData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#141"><abbr title="MenuGroupRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#56"><abbr title="MenuGroupRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#98"><abbr title="MenuGroupRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#88"><abbr title="PagesRepository::groupAction">groupAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#134"><abbr title="PagesRepository::updateStatus">updateStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#48"><abbr title="StateRepository::listStateData">listStateData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#67"><abbr title="StateRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#105"><abbr title="StateRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#53"><abbr title="StateRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#32"><abbr title="StateRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PagesRepository.php.html#150"><abbr title="PagesRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StateRepository.php.html#22"><abbr title="StateRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#37"><abbr title="MenuGroupRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#27"><abbr title="MenuGroupRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#29"><abbr title="LocationsRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#39"><abbr title="LocationsRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#43"><abbr title="LocationsRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#266"><abbr title="LinksRepository::listLinksData">listLinksData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#256"><abbr title="LinksRepository::getPaginationList">getPaginationList</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#208"><abbr title="LinksRepository::listTypewiseLinksData">listTypewiseLinksData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#223"><abbr title="LinksRepository::getUserTypeIdsbyLink">getUserTypeIdsbyLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#238"><abbr title="LinksRepository::getLinksDataByRoute">getLinksDataByRoute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#56"><abbr title="LocationsRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#107"><abbr title="LocationsRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#69"><abbr title="LoginLogsRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#82"><abbr title="LoginLogsRepository::groupAction">groupAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#107"><abbr title="LoginLogsRepository::getGroupActionData">getGroupActionData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#59"><abbr title="LoginLogsRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#43"><abbr title="LoginLogsRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#33"><abbr title="LoginLogsRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#38"><abbr title="LoginLogsRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#30"><abbr title="SystemEmailRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#40"><abbr title="SystemEmailRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#518"><abbr title="UserRepository::getModifiedUserLinks">getModifiedUserLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#546"><abbr title="UserRepository::updateProfile">updateProfile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#30"><abbr title="UserTypeRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#476"><abbr title="UserRepository::getUserSelectLinks">getUserSelectLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#452"><abbr title="UserRepository::listUserLinksWithColumns">listUserLinksWithColumns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#372"><abbr title="UserRepository::getUserIdByUsername">getUserIdByUsername</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#391"><abbr title="UserRepository::saveUserLinks">saveUserLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#436"><abbr title="UserRepository::listUserLinks">listUserLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#40"><abbr title="UserTypeRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#220"><abbr title="UserTypeRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#178"><abbr title="UserTypeRepository::saveLinks">saveLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#207"><abbr title="UserTypeRepository::getUserTypeById">getUserTypeById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#217"><abbr title="UserTypeRepository::getLinksByUserType">getLinksByUserType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#141"><abbr title="UserTypeRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#99"><abbr title="UserTypeRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#56"><abbr title="UserTypeRepository::listPriorityData">listPriorityData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#72"><abbr title="UserTypeRepository::listUserTypeData">listUserTypeData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#355"><abbr title="UserRepository::isIpaddressCheckRequire">isIpaddressCheckRequire</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#339"><abbr title="UserRepository::checkField">checkField</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#251"><abbr title="SystemEmailRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#28"><abbr title="UserRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#39"><abbr title="UserRepository::groupAction">groupAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#211"><abbr title="SystemEmailRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#69"><abbr title="SystemEmailRepository::sendEmail">sendEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#162"><abbr title="SystemEmailRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#57"><abbr title="SystemEmailRepository::emailTypesData">emailTypesData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#137"><abbr title="UserRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#480"><abbr title="UserRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#282"><abbr title="UserRepository::getAdminBulkActionSelect">getAdminBulkActionSelect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#304"><abbr title="UserRepository::getTrashBulkActionSelect">getTrashBulkActionSelect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#316"><abbr title="UserRepository::updateAvatar">updateAvatar</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#253"><abbr title="UserRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#202"><abbr title="UserRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#153"><abbr title="UserRepository::trashedData">trashedData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserRepository.php.html#170"><abbr title="UserRepository::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#193"><abbr title="LinksRepository::updateStatus">updateStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#158"><abbr title="LinksRepository::groupAction">groupAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#120"><abbr title="ConfigSettingRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#24"><abbr title="CountryRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#34"><abbr title="CountryRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#79"><abbr title="ConfigSettingRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#54"><abbr title="ConfigSettingRepository::getSettingsData">getSettingsData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#28"><abbr title="ConfigSettingRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#38"><abbr title="ConfigSettingRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#60"><abbr title="ConfigSettingRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#55"><abbr title="CountryRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#51"><abbr title="CountryRepository::listCountryData">listCountryData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#75"><abbr title="FaqCategoryRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#55"><abbr title="FaqCategoryRepository::listAllCategoriesData">listAllCategoriesData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#71"><abbr title="FaqCategoryRepository::listCategoryData">listCategoryData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#37"><abbr title="FaqCategoryRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#27"><abbr title="FaqCategoryRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#68"><abbr title="CountryRepository::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CountryRepository.php.html#106"><abbr title="CountryRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#115"><abbr title="ConfigCategoryRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#74"><abbr title="ConfigCategoryRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseRepository.php.html#35"><abbr title="BaseRepository::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseRepository.php.html#46"><abbr title="BaseRepository::getById">getById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#28"><abbr title="CityRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseRepository.php.html#20"><abbr title="BaseRepository::getNumber">getNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AuthRepository.php.html#56"><abbr title="AuthRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AuthRepository.php.html#41"><abbr title="AuthRepository::insertLoginLogs">insertLoginLogs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AuthRepository.php.html#52"><abbr title="AuthRepository::updateLoginLogs">updateLoginLogs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#38"><abbr title="CityRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#145"><abbr title="CityRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#39"><abbr title="ConfigCategoryRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#61"><abbr title="ConfigCategoryRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#57"><abbr title="ConfigCategoryRepository::listCategoryData">listCategoryData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#29"><abbr title="ConfigCategoryRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#140"><abbr title="CityRepository::listCityData">listCityData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#54"><abbr title="CityRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CityRepository.php.html#98"><abbr title="CityRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#88"><abbr title="FaqCategoryRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#130"><abbr title="FaqCategoryRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#136"><abbr title="LinkCategoryRepository::groupAction">groupAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#183"><abbr title="LinkCategoryRepository::updateStatus">updateStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#199"><abbr title="LinkCategoryRepository::listCategoryData">listCategoryData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#124"><abbr title="LinkCategoryRepository::getCategoryStatusSelect">getCategoryStatusSelect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#94"><abbr title="LinkCategoryRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#38"><abbr title="LinkCategoryRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#317"><abbr title="LinkCategoryRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#59"><abbr title="LinkCategoryRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#210"><abbr title="LinkCategoryRepository::getLinkById">getLinkById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#225"><abbr title="LinkCategoryRepository::getLinks">getLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#271"><abbr title="LinksRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#62"><abbr title="LinksRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#104"><abbr title="LinksRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#40"><abbr title="LinksRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinksRepository.php.html#30"><abbr title="LinksRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#271"><abbr title="LinkCategoryRepository::getSidebarLinks">getSidebarLinks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#313"><abbr title="LinkCategoryRepository::getAllLinksByCategory">getAllLinksByCategory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#33"><abbr title="LinkCategoryRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpLoginFailRepository.php.html#66"><abbr title="IpLoginFailRepository::deleteAction">deleteAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#55"><abbr title="FaqRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#96"><abbr title="FaqRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#137"><abbr title="FaqRepository::deleteAction">deleteAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#42"><abbr title="FaqRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#38"><abbr title="FaqRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#168"><abbr title="FaqCategoryRepository::deleteAction">deleteAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FaqRepository.php.html#28"><abbr title="FaqRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#40"><abbr title="IpAddressRepository::data">data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#195"><abbr title="IpAddressRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#186"><abbr title="IpAddressRepository::invalidIpAddressAttempt">invalidIpAddressAttempt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpLoginFailRepository.php.html#42"><abbr title="IpLoginFailRepository::invalidIpAddressAttempt">invalidIpAddressAttempt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpLoginFailRepository.php.html#52"><abbr title="IpLoginFailRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#153"><abbr title="IpAddressRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#134"><abbr title="IpAddressRepository::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#56"><abbr title="IpAddressRepository::groupAction">groupAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#98"><abbr title="IpAddressRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AuthRepository.php.html#35"><abbr title="AuthRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="UserRepository.php.html#39"><abbr title="UserRepository::groupAction">groupAction</abbr></a></td><td class="text-right">600</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#69"><abbr title="SystemEmailRepository::sendEmail">sendEmail</abbr></a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#136"><abbr title="LinkCategoryRepository::groupAction">groupAction</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="PagesRepository.php.html#88"><abbr title="PagesRepository::groupAction">groupAction</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="UserRepository.php.html#391"><abbr title="UserRepository::saveUserLinks">saveUserLinks</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="UserRepository.php.html#282"><abbr title="UserRepository::getAdminBulkActionSelect">getAdminBulkActionSelect</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="LinksRepository.php.html#104"><abbr title="LinksRepository::update">update</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="UserRepository.php.html#546"><abbr title="UserRepository::updateProfile">updateProfile</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#56"><abbr title="IpAddressRepository::groupAction">groupAction</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#130"><abbr title="FaqCategoryRepository::update">update</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="LinksRepository.php.html#158"><abbr title="LinksRepository::groupAction">groupAction</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#162"><abbr title="SystemEmailRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="UserRepository.php.html#170"><abbr title="UserRepository::save">save</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#88"><abbr title="FaqCategoryRepository::create">create</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#56"><abbr title="MenuGroupRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#82"><abbr title="LoginLogsRepository::groupAction">groupAction</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#141"><abbr title="UserTypeRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="UserRepository.php.html#518"><abbr title="UserRepository::getModifiedUserLinks">getModifiedUserLinks</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="MenuGroupRepository.php.html#98"><abbr title="MenuGroupRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#107"><abbr title="LocationsRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#251"><abbr title="SystemEmailRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#99"><abbr title="UserTypeRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LinksRepository.php.html#62"><abbr title="LinksRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="StateRepository.php.html#105"><abbr title="StateRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="StateRepository.php.html#67"><abbr title="StateRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PagesRepository.php.html#150"><abbr title="PagesRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="SystemEmailRepository.php.html#211"><abbr title="SystemEmailRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PagesRepository.php.html#53"><abbr title="PagesRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LocationsRepository.php.html#56"><abbr title="LocationsRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#120"><abbr title="ConfigSettingRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="CountryRepository.php.html#68"><abbr title="CountryRepository::store">store</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="FaqRepository.php.html#55"><abbr title="FaqRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#79"><abbr title="ConfigSettingRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#115"><abbr title="ConfigCategoryRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="CityRepository.php.html#54"><abbr title="CityRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="CityRepository.php.html#98"><abbr title="CityRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="ConfigCategoryRepository.php.html#74"><abbr title="ConfigCategoryRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="FaqRepository.php.html#96"><abbr title="FaqRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="CountryRepository.php.html#106"><abbr title="CountryRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#94"><abbr title="LinkCategoryRepository::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#59"><abbr title="LinkCategoryRepository::create">create</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="UserRepository.php.html#480"><abbr title="UserRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="UserRepository.php.html#316"><abbr title="UserRepository::updateAvatar">updateAvatar</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="UserRepository.php.html#476"><abbr title="UserRepository::getUserSelectLinks">getUserSelectLinks</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="UserRepository.php.html#202"><abbr title="UserRepository::create">create</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="IpLoginFailRepository.php.html#66"><abbr title="IpLoginFailRepository::deleteAction">deleteAction</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="UserRepository.php.html#253"><abbr title="UserRepository::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="UserRepository.php.html#339"><abbr title="UserRepository::checkField">checkField</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="UserRepository.php.html#355"><abbr title="UserRepository::isIpaddressCheckRequire">isIpaddressCheckRequire</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="UserRepository.php.html#452"><abbr title="UserRepository::listUserLinksWithColumns">listUserLinksWithColumns</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#134"><abbr title="IpAddressRepository::store">store</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#153"><abbr title="IpAddressRepository::create">create</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="UserTypeRepository.php.html#178"><abbr title="UserTypeRepository::saveLinks">saveLinks</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="FaqCategoryRepository.php.html#168"><abbr title="FaqCategoryRepository::deleteAction">deleteAction</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#98"><abbr title="IpAddressRepository::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="LoginLogsRepository.php.html#107"><abbr title="LoginLogsRepository::getGroupActionData">getGroupActionData</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="FaqRepository.php.html#137"><abbr title="FaqRepository::deleteAction">deleteAction</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="LinksRepository.php.html#238"><abbr title="LinksRepository::getLinksDataByRoute">getLinksDataByRoute</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LinksRepository.php.html#193"><abbr title="LinksRepository::updateStatus">updateStatus</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#183"><abbr title="LinkCategoryRepository::updateStatus">updateStatus</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="AuthRepository.php.html#56"><abbr title="AuthRepository::anonymous function">anonymous function</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PagesRepository.php.html#134"><abbr title="PagesRepository::updateStatus">updateStatus</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LinkCategoryRepository.php.html#271"><abbr title="LinkCategoryRepository::getSidebarLinks">getSidebarLinks</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="IpAddressRepository.php.html#186"><abbr title="IpAddressRepository::invalidIpAddressAttempt">invalidIpAddressAttempt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ConfigSettingRepository.php.html#54"><abbr title="ConfigSettingRepository::getSettingsData">getSettingsData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="UserRepository.php.html#372"><abbr title="UserRepository::getUserIdByUsername">getUserIdByUsername</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="AuthRepository.php.html#52"><abbr title="AuthRepository::updateLoginLogs">updateLoginLogs</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.2.4</a> using <a href="https://secure.php.net/" target="_top">PHP 5.6.23</a> and <a href="https://phpunit.de/">PHPUnit 4.8.27</a> at Wed Oct 19 13:38:44 UTC 2016.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../../js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../../js/holder.min.js" type="text/javascript"></script>
+  <script src="../../../js/d3.min.js" type="text/javascript"></script>
+  <script src="../../../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([18,2,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([148,0,0,0,0,0,0,0,0,0,0,2], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,6,"<a href=\"AuthRepository.php.html#17\">AuthRepository<\/a>"],[0,3,"<a href=\"BaseRepository.php.html#3\">BaseRepository<\/a>"],[0,14,"<a href=\"CityRepository.php.html#19\">CityRepository<\/a>"],[0,14,"<a href=\"ConfigCategoryRepository.php.html#19\">ConfigCategoryRepository<\/a>"],[0,15,"<a href=\"ConfigSettingRepository.php.html#19\">ConfigSettingRepository<\/a>"],[0,14,"<a href=\"CountryRepository.php.html#15\">CountryRepository<\/a>"],[0,20,"<a href=\"FaqCategoryRepository.php.html#18\">FaqCategoryRepository<\/a>"],[0,16,"<a href=\"FaqRepository.php.html#19\">FaqRepository<\/a>"],[2.4390243902439,20,"<a href=\"IpAddressRepository.php.html#13\">IpAddressRepository<\/a>"],[8,6,"<a href=\"IpLoginFailRepository.php.html#15\">IpLoginFailRepository<\/a>"],[0,31,"<a href=\"LinkCategoryRepository.php.html#21\">LinkCategoryRepository<\/a>"],[0,31,"<a href=\"LinksRepository.php.html#18\">LinksRepository<\/a>"],[0,13,"<a href=\"LocationsRepository.php.html#20\">LocationsRepository<\/a>"],[0,13,"<a href=\"LoginLogsRepository.php.html#17\">LoginLogsRepository<\/a>"],[0,14,"<a href=\"MenuGroupRepository.php.html#18\">MenuGroupRepository<\/a>"],[0,24,"<a href=\"PagesRepository.php.html#16\">PagesRepository<\/a>"],[0,14,"<a href=\"StateRepository.php.html#10\">StateRepository<\/a>"],[0,41,"<a href=\"SystemEmailRepository.php.html#20\">SystemEmailRepository<\/a>"],[0,96,"<a href=\"UserRepository.php.html#16\">UserRepository<\/a>"],[0,20,"<a href=\"UserTypeRepository.php.html#20\">UserTypeRepository<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"AuthRepository.php.html#35\">AuthRepository::__construct<\/a>"],[0,1,"<a href=\"AuthRepository.php.html#41\">AuthRepository::insertLoginLogs<\/a>"],[0,2,"<a href=\"AuthRepository.php.html#52\">AuthRepository::updateLoginLogs<\/a>"],[0,2,"<a href=\"AuthRepository.php.html#56\">AuthRepository::anonymous function<\/a>"],[0,1,"<a href=\"BaseRepository.php.html#20\">BaseRepository::getNumber<\/a>"],[0,1,"<a href=\"BaseRepository.php.html#35\">BaseRepository::destroy<\/a>"],[0,1,"<a href=\"BaseRepository.php.html#46\">BaseRepository::getById<\/a>"],[0,1,"<a href=\"CityRepository.php.html#28\">CityRepository::__construct<\/a>"],[0,1,"<a href=\"CityRepository.php.html#38\">CityRepository::data<\/a>"],[0,1,"<a href=\"CityRepository.php.html#145\">CityRepository::anonymous function<\/a>"],[0,5,"<a href=\"CityRepository.php.html#54\">CityRepository::create<\/a>"],[0,5,"<a href=\"CityRepository.php.html#98\">CityRepository::update<\/a>"],[0,1,"<a href=\"CityRepository.php.html#140\">CityRepository::listCityData<\/a>"],[0,1,"<a href=\"ConfigCategoryRepository.php.html#29\">ConfigCategoryRepository::__construct<\/a>"],[0,1,"<a href=\"ConfigCategoryRepository.php.html#39\">ConfigCategoryRepository::data<\/a>"],[0,1,"<a href=\"ConfigCategoryRepository.php.html#61\">ConfigCategoryRepository::anonymous function<\/a>"],[0,1,"<a href=\"ConfigCategoryRepository.php.html#57\">ConfigCategoryRepository::listCategoryData<\/a>"],[0,5,"<a href=\"ConfigCategoryRepository.php.html#74\">ConfigCategoryRepository::create<\/a>"],[0,5,"<a href=\"ConfigCategoryRepository.php.html#115\">ConfigCategoryRepository::update<\/a>"],[0,1,"<a href=\"ConfigSettingRepository.php.html#28\">ConfigSettingRepository::__construct<\/a>"],[0,1,"<a href=\"ConfigSettingRepository.php.html#38\">ConfigSettingRepository::data<\/a>"],[0,1,"<a href=\"ConfigSettingRepository.php.html#60\">ConfigSettingRepository::anonymous function<\/a>"],[0,2,"<a href=\"ConfigSettingRepository.php.html#54\">ConfigSettingRepository::getSettingsData<\/a>"],[0,5,"<a href=\"ConfigSettingRepository.php.html#79\">ConfigSettingRepository::create<\/a>"],[0,5,"<a href=\"ConfigSettingRepository.php.html#120\">ConfigSettingRepository::update<\/a>"],[0,1,"<a href=\"CountryRepository.php.html#24\">CountryRepository::__construct<\/a>"],[0,1,"<a href=\"CountryRepository.php.html#34\">CountryRepository::data<\/a>"],[0,1,"<a href=\"CountryRepository.php.html#55\">CountryRepository::anonymous function<\/a>"],[0,1,"<a href=\"CountryRepository.php.html#51\">CountryRepository::listCountryData<\/a>"],[0,5,"<a href=\"CountryRepository.php.html#68\">CountryRepository::store<\/a>"],[0,5,"<a href=\"CountryRepository.php.html#106\">CountryRepository::update<\/a>"],[0,1,"<a href=\"FaqCategoryRepository.php.html#27\">FaqCategoryRepository::__construct<\/a>"],[0,1,"<a href=\"FaqCategoryRepository.php.html#37\">FaqCategoryRepository::data<\/a>"],[0,1,"<a href=\"FaqCategoryRepository.php.html#75\">FaqCategoryRepository::anonymous function<\/a>"],[0,1,"<a href=\"FaqCategoryRepository.php.html#55\">FaqCategoryRepository::listAllCategoriesData<\/a>"],[0,1,"<a href=\"FaqCategoryRepository.php.html#71\">FaqCategoryRepository::listCategoryData<\/a>"],[0,6,"<a href=\"FaqCategoryRepository.php.html#88\">FaqCategoryRepository::create<\/a>"],[0,6,"<a href=\"FaqCategoryRepository.php.html#130\">FaqCategoryRepository::update<\/a>"],[0,3,"<a href=\"FaqCategoryRepository.php.html#168\">FaqCategoryRepository::deleteAction<\/a>"],[0,1,"<a href=\"FaqRepository.php.html#28\">FaqRepository::__construct<\/a>"],[0,1,"<a href=\"FaqRepository.php.html#38\">FaqRepository::data<\/a>"],[0,1,"<a href=\"FaqRepository.php.html#42\">FaqRepository::anonymous function<\/a>"],[0,5,"<a href=\"FaqRepository.php.html#55\">FaqRepository::create<\/a>"],[0,5,"<a href=\"FaqRepository.php.html#96\">FaqRepository::update<\/a>"],[0,3,"<a href=\"FaqRepository.php.html#137\">FaqRepository::deleteAction<\/a>"],[100,1,"<a href=\"IpAddressRepository.php.html#30\">IpAddressRepository::__construct<\/a>"],[0,1,"<a href=\"IpAddressRepository.php.html#40\">IpAddressRepository::data<\/a>"],[0,1,"<a href=\"IpAddressRepository.php.html#195\">IpAddressRepository::anonymous function<\/a>"],[0,6,"<a href=\"IpAddressRepository.php.html#56\">IpAddressRepository::groupAction<\/a>"],[0,3,"<a href=\"IpAddressRepository.php.html#98\">IpAddressRepository::update<\/a>"],[0,3,"<a href=\"IpAddressRepository.php.html#134\">IpAddressRepository::store<\/a>"],[0,3,"<a href=\"IpAddressRepository.php.html#153\">IpAddressRepository::create<\/a>"],[0,2,"<a href=\"IpAddressRepository.php.html#186\">IpAddressRepository::invalidIpAddressAttempt<\/a>"],[100,1,"<a href=\"IpLoginFailRepository.php.html#33\">IpLoginFailRepository::__construct<\/a>"],[0,1,"<a href=\"IpLoginFailRepository.php.html#42\">IpLoginFailRepository::invalidIpAddressAttempt<\/a>"],[0,1,"<a href=\"IpLoginFailRepository.php.html#52\">IpLoginFailRepository::anonymous function<\/a>"],[0,3,"<a href=\"IpLoginFailRepository.php.html#66\">IpLoginFailRepository::deleteAction<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#33\">LinkCategoryRepository::__construct<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#38\">LinkCategoryRepository::data<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#317\">LinkCategoryRepository::anonymous function<\/a>"],[0,5,"<a href=\"LinkCategoryRepository.php.html#59\">LinkCategoryRepository::create<\/a>"],[0,5,"<a href=\"LinkCategoryRepository.php.html#94\">LinkCategoryRepository::update<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#124\">LinkCategoryRepository::getCategoryStatusSelect<\/a>"],[0,9,"<a href=\"LinkCategoryRepository.php.html#136\">LinkCategoryRepository::groupAction<\/a>"],[0,2,"<a href=\"LinkCategoryRepository.php.html#183\">LinkCategoryRepository::updateStatus<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#199\">LinkCategoryRepository::listCategoryData<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#210\">LinkCategoryRepository::getLinkById<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#225\">LinkCategoryRepository::getLinks<\/a>"],[0,2,"<a href=\"LinkCategoryRepository.php.html#271\">LinkCategoryRepository::getSidebarLinks<\/a>"],[0,1,"<a href=\"LinkCategoryRepository.php.html#313\">LinkCategoryRepository::getAllLinksByCategory<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#30\">LinksRepository::__construct<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#40\">LinksRepository::data<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#271\">LinksRepository::anonymous function<\/a>"],[0,5,"<a href=\"LinksRepository.php.html#62\">LinksRepository::create<\/a>"],[0,9,"<a href=\"LinksRepository.php.html#104\">LinksRepository::update<\/a>"],[0,6,"<a href=\"LinksRepository.php.html#158\">LinksRepository::groupAction<\/a>"],[0,2,"<a href=\"LinksRepository.php.html#193\">LinksRepository::updateStatus<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#208\">LinksRepository::listTypewiseLinksData<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#223\">LinksRepository::getUserTypeIdsbyLink<\/a>"],[0,2,"<a href=\"LinksRepository.php.html#238\">LinksRepository::getLinksDataByRoute<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#256\">LinksRepository::getPaginationList<\/a>"],[0,1,"<a href=\"LinksRepository.php.html#266\">LinksRepository::listLinksData<\/a>"],[0,1,"<a href=\"LocationsRepository.php.html#29\">LocationsRepository::__construct<\/a>"],[0,1,"<a href=\"LocationsRepository.php.html#39\">LocationsRepository::data<\/a>"],[0,1,"<a href=\"LocationsRepository.php.html#43\">LocationsRepository::anonymous function<\/a>"],[0,5,"<a href=\"LocationsRepository.php.html#56\">LocationsRepository::create<\/a>"],[0,5,"<a href=\"LocationsRepository.php.html#107\">LocationsRepository::update<\/a>"],[0,1,"<a href=\"LoginLogsRepository.php.html#33\">LoginLogsRepository::__construct<\/a>"],[0,1,"<a href=\"LoginLogsRepository.php.html#38\">LoginLogsRepository::data<\/a>"],[0,1,"<a href=\"LoginLogsRepository.php.html#43\">LoginLogsRepository::anonymous function<\/a>"],[0,1,"<a href=\"LoginLogsRepository.php.html#59\">LoginLogsRepository::create<\/a>"],[0,1,"<a href=\"LoginLogsRepository.php.html#69\">LoginLogsRepository::update<\/a>"],[0,5,"<a href=\"LoginLogsRepository.php.html#82\">LoginLogsRepository::groupAction<\/a>"],[0,3,"<a href=\"LoginLogsRepository.php.html#107\">LoginLogsRepository::getGroupActionData<\/a>"],[0,1,"<a href=\"MenuGroupRepository.php.html#27\">MenuGroupRepository::__construct<\/a>"],[0,1,"<a href=\"MenuGroupRepository.php.html#37\">MenuGroupRepository::data<\/a>"],[0,1,"<a href=\"MenuGroupRepository.php.html#141\">MenuGroupRepository::anonymous function<\/a>"],[0,5,"<a href=\"MenuGroupRepository.php.html#56\">MenuGroupRepository::create<\/a>"],[0,5,"<a href=\"MenuGroupRepository.php.html#98\">MenuGroupRepository::update<\/a>"],[0,1,"<a href=\"MenuGroupRepository.php.html#137\">MenuGroupRepository::listMenuGroupData<\/a>"],[0,1,"<a href=\"PagesRepository.php.html#26\">PagesRepository::__construct<\/a>"],[0,1,"<a href=\"PagesRepository.php.html#36\">PagesRepository::data<\/a>"],[0,1,"<a href=\"PagesRepository.php.html#40\">PagesRepository::anonymous function<\/a>"],[0,5,"<a href=\"PagesRepository.php.html#53\">PagesRepository::create<\/a>"],[0,9,"<a href=\"PagesRepository.php.html#88\">PagesRepository::groupAction<\/a>"],[0,2,"<a href=\"PagesRepository.php.html#134\">PagesRepository::updateStatus<\/a>"],[0,5,"<a href=\"PagesRepository.php.html#150\">PagesRepository::update<\/a>"],[0,1,"<a href=\"StateRepository.php.html#22\">StateRepository::__construct<\/a>"],[0,1,"<a href=\"StateRepository.php.html#32\">StateRepository::data<\/a>"],[0,1,"<a href=\"StateRepository.php.html#53\">StateRepository::anonymous function<\/a>"],[0,1,"<a href=\"StateRepository.php.html#48\">StateRepository::listStateData<\/a>"],[0,5,"<a href=\"StateRepository.php.html#67\">StateRepository::update<\/a>"],[0,5,"<a href=\"StateRepository.php.html#105\">StateRepository::create<\/a>"],[0,1,"<a href=\"SystemEmailRepository.php.html#30\">SystemEmailRepository::__construct<\/a>"],[0,1,"<a href=\"SystemEmailRepository.php.html#40\">SystemEmailRepository::data<\/a>"],[0,6,"<a href=\"SystemEmailRepository.php.html#162\">SystemEmailRepository::anonymous function<\/a>"],[0,1,"<a href=\"SystemEmailRepository.php.html#57\">SystemEmailRepository::emailTypesData<\/a>"],[0,22,"<a href=\"SystemEmailRepository.php.html#69\">SystemEmailRepository::sendEmail<\/a>"],[0,5,"<a href=\"SystemEmailRepository.php.html#211\">SystemEmailRepository::create<\/a>"],[0,5,"<a href=\"SystemEmailRepository.php.html#251\">SystemEmailRepository::update<\/a>"],[0,1,"<a href=\"UserRepository.php.html#28\">UserRepository::__construct<\/a>"],[0,24,"<a href=\"UserRepository.php.html#39\">UserRepository::groupAction<\/a>"],[0,1,"<a href=\"UserRepository.php.html#137\">UserRepository::data<\/a>"],[0,4,"<a href=\"UserRepository.php.html#480\">UserRepository::anonymous function<\/a>"],[0,1,"<a href=\"UserRepository.php.html#153\">UserRepository::trashedData<\/a>"],[0,6,"<a href=\"UserRepository.php.html#170\">UserRepository::save<\/a>"],[0,4,"<a href=\"UserRepository.php.html#202\">UserRepository::create<\/a>"],[0,3,"<a href=\"UserRepository.php.html#253\">UserRepository::update<\/a>"],[0,9,"<a href=\"UserRepository.php.html#282\">UserRepository::getAdminBulkActionSelect<\/a>"],[0,1,"<a href=\"UserRepository.php.html#304\">UserRepository::getTrashBulkActionSelect<\/a>"],[0,4,"<a href=\"UserRepository.php.html#316\">UserRepository::updateAvatar<\/a>"],[0,3,"<a href=\"UserRepository.php.html#339\">UserRepository::checkField<\/a>"],[0,3,"<a href=\"UserRepository.php.html#355\">UserRepository::isIpaddressCheckRequire<\/a>"],[0,2,"<a href=\"UserRepository.php.html#372\">UserRepository::getUserIdByUsername<\/a>"],[0,9,"<a href=\"UserRepository.php.html#391\">UserRepository::saveUserLinks<\/a>"],[0,1,"<a href=\"UserRepository.php.html#436\">UserRepository::listUserLinks<\/a>"],[0,3,"<a href=\"UserRepository.php.html#452\">UserRepository::listUserLinksWithColumns<\/a>"],[0,4,"<a href=\"UserRepository.php.html#476\">UserRepository::getUserSelectLinks<\/a>"],[0,5,"<a href=\"UserRepository.php.html#518\">UserRepository::getModifiedUserLinks<\/a>"],[0,8,"<a href=\"UserRepository.php.html#546\">UserRepository::updateProfile<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#30\">UserTypeRepository::__construct<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#40\">UserTypeRepository::data<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#220\">UserTypeRepository::anonymous function<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#56\">UserTypeRepository::listPriorityData<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#72\">UserTypeRepository::listUserTypeData<\/a>"],[0,5,"<a href=\"UserTypeRepository.php.html#99\">UserTypeRepository::create<\/a>"],[0,5,"<a href=\"UserTypeRepository.php.html#141\">UserTypeRepository::update<\/a>"],[0,3,"<a href=\"UserTypeRepository.php.html#178\">UserTypeRepository::saveLinks<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#207\">UserTypeRepository::getUserTypeById<\/a>"],[0,1,"<a href=\"UserTypeRepository.php.html#217\">UserTypeRepository::getLinksByUserType<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

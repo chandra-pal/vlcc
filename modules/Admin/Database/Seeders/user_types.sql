@@ -1,0 +1,15 @@
+INSERT INTO `user_types` (`id`, `name`, `description`, `priority`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'Webmaster', 'The site owner', 1, 1, 1, 1, '2017-06-13 06:19:52', '2017-06-13 06:19:52'),
+(2, 'Super Administrator', 'The second in command after the site owner', 2, 1, 1, 1, '2017-06-13 06:19:52', '2017-06-13 06:19:52'),
+(3, 'Admin', 'Other users of the site', 3, 1, 1, 1, '2017-06-13 06:19:52', '2017-06-13 06:19:52'),
+(4, 'Dietitian', 'Dietitians', 3, 1, 1, 1, '2017-06-13 08:00:52', '2017-06-14 09:29:34'),
+(5, 'Physiotherapist', 'Physiotherapists', '5', '1', '1', '1', '2017-10-04 11:20:00', '2017-10-04 11:20:00'),
+(6, 'Doctor', 'Doctors', '6', '1', '1', '1', '2017-10-04 11:20:00', '2017-10-04 11:20:00'),
+(7, 'Center Head', 'Center Heads', '7', '1', '1', '1', '2017-10-04 11:20:00', '2017-10-04 11:20:00'),
+(8, 'Slimming Head', 'Slimming Heads', '8', '1', '1', '1', '2017-10-04 11:20:00', '2017-10-04 11:20:00'),
+(9, 'ATH', 'Area Technical Head', '9', '1', '1', '1', '2017-10-04 11:20:00', '2017-10-04 11:20:00'),
+(10, 'Therapist', 'Therapist', '9', '1', '1', '1', '2017-10-04 11:20:00', '2017-11-02 00:36:00'),
+(11, 'Center Admin', 'Center Admin', '10', '1', '1', '0', '2018-02-20 13:22:39', '2018-02-20 13:22:39'),
+(12, 'Hair Stylist', 'Hair Stylist', '12', '1', '1', '1', '2018-03-28 11:20:00', '2018-03-28 11:20:00'),
+(13, 'Hair Dresser', 'Hair Dresser', '13', '1', '1', '1', '2018-03-28 11:20:00', '2018-03-28 11:20:00'),
+(14, 'Facial Therapist', 'Facial Therapist', '14', '1', '1', '1', '2018-03-28 11:20:00', '2018-03-28 11:20:00');

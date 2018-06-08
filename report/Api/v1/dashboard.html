@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/iplaravel/app/Api/v1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/nv.d3.min.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../../js/html5shiv.min.js"></script>
+  <script src="../../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../../index.html">/var/www/html/iplaravel/app</a></li>
+        <li><a href="../index.html">Api</a></li>
+        <li><a href="index.html">v1</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#24">ChecksumPasswordGrant</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BaseApiModel.php.html#14">BaseApiModel</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#23">MobileGrant</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthMobileVerifier.php.html#21">OauthMobileVerifier</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#13">BaseRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthVerifier.php.html#15">OauthVerifier</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/FlushUserActivityLogs.php.html#10">FlushUserActivityLogs</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Transformers/UserTransformer.php.html#14">UserTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/SmsGatewayApi.php.html#11">SmsGatewayApi</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#15">BaseApi</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#19">UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#22">AuthController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthenticateController.php.html#14">AuthenticateController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#19">CallsController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OauthController.php.html#16">OauthController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/ApiRouteServiceProvider.php.html#14">ApiRouteServiceProvider</a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="Providers/OauthServiceProvider.php.html#18">OauthServiceProvider</a></td><td class="text-right">77%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#22">AuthController</a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#15">BaseApi</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#24">ChecksumPasswordGrant</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#23">MobileGrant</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#19">CallsController</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Http/Controllers/AuthenticateController.php.html#14">AuthenticateController</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Http/Controllers/OauthController.php.html#16">OauthController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthVerifier.php.html#15">OauthVerifier</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Contracts/SmsGatewayApi.php.html#11">SmsGatewayApi</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#74"><abbr title="ChecksumPasswordGrant::getVerifyCredentialsCallback">getVerifyCredentialsCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#90"><abbr title="ChecksumPasswordGrant::completeFlow">completeFlow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#60"><abbr title="MobileGrant::setVerifyCredentialsCallback">setVerifyCredentialsCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#71"><abbr title="MobileGrant::getVerifyCredentialsCallback">getVerifyCredentialsCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#62"><abbr title="ChecksumPasswordGrant::setVerifyCredentialsCallback">setVerifyCredentialsCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BaseApiModel.php.html#33"><abbr title="BaseApiModel::getTableColumns">getTableColumns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#39"><abbr title="UserController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#49"><abbr title="UserController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Transformers/UserTransformer.php.html#22"><abbr title="UserTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BaseApiModel.php.html#22"><abbr title="BaseApiModel::table">table</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#86"><abbr title="MobileGrant::completeFlow">completeFlow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#178"><abbr title="MobileGrant::isValidMobileNumber">isValidMobileNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#47"><abbr title="BaseRepository::getNumber">getNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#61"><abbr title="BaseRepository::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#71"><abbr title="BaseRepository::getById">getById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#81"><abbr title="BaseRepository::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#38"><abbr title="BaseRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/BaseRepository.php.html#29"><abbr title="BaseRepository::all">all</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthMobileVerifier.php.html#24"><abbr title="OauthMobileVerifier::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthMobileVerifier.php.html#33"><abbr title="OauthMobileVerifier::verify">verify</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthVerifier.php.html#17"><abbr title="OauthVerifier::verify">verify</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/ApiRouteServiceProvider.php.html#31"><abbr title="ApiRouteServiceProvider::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/FlushUserActivityLogs.php.html#32"><abbr title="FlushUserActivityLogs::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#29"><abbr title="UserController::getCurrentLoggedInUser">getCurrentLoggedInUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#237"><abbr title="BaseApi::catchData">catchData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/SmsGatewayApi.php.html#29"><abbr title="SmsGatewayApi::send">send</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#25"><abbr title="AuthController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#51"><abbr title="AuthController::signup">signup</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#180"><abbr title="BaseApi::call">call</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#165"><abbr title="BaseApi::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/FlushUserActivityLogs.php.html#42"><abbr title="FlushUserActivityLogs::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#118"><abbr title="BaseApi::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#128"><abbr title="BaseApi::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#146"><abbr title="BaseApi::post">post</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#21"><abbr title="UserController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#79"><abbr title="AuthController::recovery">recovery</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthenticateController.php.html#36"><abbr title="AuthenticateController::getAuthenticatedUser">getAuthenticatedUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#22"><abbr title="CallsController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#30"><abbr title="CallsController::getData">getData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#55"><abbr title="CallsController::postData">postData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#117"><abbr title="AuthController::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OauthController.php.html#32"><abbr title="OauthController::refreshAccessToken">refreshAccessToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#101"><abbr title="AuthController::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#134"><abbr title="AuthController::getAuthenticatedUser">getAuthenticatedUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#156"><abbr title="AuthController::token">token</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthenticateController.php.html#17"><abbr title="AuthenticateController::authenticate">authenticate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OauthController.php.html#18"><abbr title="OauthController::getAccessToken">getAccessToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/OauthServiceProvider.php.html#32"><abbr title="OauthServiceProvider::anonymous function">anonymous function</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Providers/OauthServiceProvider.php.html#20"><abbr title="OauthServiceProvider::boot">boot</abbr></a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#90"><abbr title="ChecksumPasswordGrant::completeFlow">completeFlow</abbr></a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#86"><abbr title="MobileGrant::completeFlow">completeFlow</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#180"><abbr title="BaseApi::call">call</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#30"><abbr title="CallsController::getData">getData</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/AuthenticateController.php.html#36"><abbr title="AuthenticateController::getAuthenticatedUser">getAuthenticatedUser</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#237"><abbr title="BaseApi::catchData">catchData</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/CallsController.php.html#55"><abbr title="CallsController::postData">postData</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#134"><abbr title="AuthController::getAuthenticatedUser">getAuthenticatedUser</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#79"><abbr title="AuthController::recovery">recovery</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#101"><abbr title="AuthController::reset">reset</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#25"><abbr title="AuthController::login">login</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#51"><abbr title="AuthController::signup">signup</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Oauth2/Verifier/OauthVerifier.php.html#17"><abbr title="OauthVerifier::verify">verify</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Oauth2/Grant/ChecksumPasswordGrant.php.html#74"><abbr title="ChecksumPasswordGrant::getVerifyCredentialsCallback">getVerifyCredentialsCallback</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Oauth2/Grant/MobileGrant.php.html#71"><abbr title="MobileGrant::getVerifyCredentialsCallback">getVerifyCredentialsCallback</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#156"><abbr title="AuthController::token">token</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Contracts/SmsGatewayApi.php.html#29"><abbr title="SmsGatewayApi::send">send</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/AuthenticateController.php.html#17"><abbr title="AuthenticateController::authenticate">authenticate</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#146"><abbr title="BaseApi::post">post</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/OauthController.php.html#18"><abbr title="OauthController::getAccessToken">getAccessToken</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Contracts/BaseApi.php.html#128"><abbr title="BaseApi::get">get</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/OauthController.php.html#32"><abbr title="OauthController::refreshAccessToken">refreshAccessToken</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.2.4</a> using <a href="https://secure.php.net/" target="_top">PHP 5.6.23</a> and <a href="https://phpunit.de/">PHPUnit 4.8.27</a> at Wed Oct 19 13:36:55 UTC 2016.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../js/holder.min.js" type="text/javascript"></script>
+  <script src="../../js/d3.min.js" type="text/javascript"></script>
+  <script src="../../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([15,0,0,0,0,1,0,0,1,0,0,2], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([47,0,0,0,0,0,1,1,0,0,0,6], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,2,"<a href=\"Console\/Commands\/FlushUserActivityLogs.php.html#10\">FlushUserActivityLogs<\/a>"],[0,22,"<a href=\"Contracts\/BaseApi.php.html#15\">BaseApi<\/a>"],[0,3,"<a href=\"Contracts\/SmsGatewayApi.php.html#11\">SmsGatewayApi<\/a>"],[0,25,"<a href=\"Http\/Controllers\/AuthController.php.html#22\">AuthController<\/a>"],[0,8,"<a href=\"Http\/Controllers\/AuthenticateController.php.html#14\">AuthenticateController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/BaseApiController.php.html#14\">BaseApiController<\/a>"],[0,11,"<a href=\"Http\/Controllers\/CallsController.php.html#19\">CallsController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/OauthController.php.html#16\">OauthController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/UserController.php.html#19\">UserController<\/a>"],[0,1,"<a href=\"Http\/Transformers\/UserTransformer.php.html#14\">UserTransformer<\/a>"],[0,2,"<a href=\"Models\/BaseApiModel.php.html#14\">BaseApiModel<\/a>"],[0,16,"<a href=\"Oauth2\/Grant\/ChecksumPasswordGrant.php.html#24\">ChecksumPasswordGrant<\/a>"],[0,16,"<a href=\"Oauth2\/Grant\/MobileGrant.php.html#23\">MobileGrant<\/a>"],[0,2,"<a href=\"Oauth2\/Verifier\/OauthMobileVerifier.php.html#21\">OauthMobileVerifier<\/a>"],[0,3,"<a href=\"Oauth2\/Verifier\/OauthVerifier.php.html#15\">OauthVerifier<\/a>"],[40,3,"<a href=\"Providers\/ApiRouteServiceProvider.php.html#14\">ApiRouteServiceProvider<\/a>"],[100,3,"<a href=\"Providers\/JwtAuthServiceProvider.php.html#18\">JwtAuthServiceProvider<\/a>"],[77.777777777778,3,"<a href=\"Providers\/OauthServiceProvider.php.html#18\">OauthServiceProvider<\/a>"],[0,6,"<a href=\"Repositories\/BaseRepository.php.html#13\">BaseRepository<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Console\/Commands\/FlushUserActivityLogs.php.html#32\">FlushUserActivityLogs::__construct<\/a>"],[0,1,"<a href=\"Console\/Commands\/FlushUserActivityLogs.php.html#42\">FlushUserActivityLogs::handle<\/a>"],[0,1,"<a href=\"Contracts\/BaseApi.php.html#118\">BaseApi::__construct<\/a>"],[0,2,"<a href=\"Contracts\/BaseApi.php.html#128\">BaseApi::get<\/a>"],[0,2,"<a href=\"Contracts\/BaseApi.php.html#146\">BaseApi::post<\/a>"],[0,1,"<a href=\"Contracts\/BaseApi.php.html#165\">BaseApi::create<\/a>"],[0,11,"<a href=\"Contracts\/BaseApi.php.html#180\">BaseApi::call<\/a>"],[0,5,"<a href=\"Contracts\/BaseApi.php.html#237\">BaseApi::catchData<\/a>"],[0,3,"<a href=\"Contracts\/SmsGatewayApi.php.html#29\">SmsGatewayApi::send<\/a>"],[0,4,"<a href=\"Http\/Controllers\/AuthController.php.html#25\">AuthController::login<\/a>"],[0,4,"<a href=\"Http\/Controllers\/AuthController.php.html#51\">AuthController::signup<\/a>"],[0,4,"<a href=\"Http\/Controllers\/AuthController.php.html#79\">AuthController::recovery<\/a>"],[0,1,"<a href=\"Http\/Controllers\/AuthController.php.html#117\">AuthController::anonymous function<\/a>"],[0,4,"<a href=\"Http\/Controllers\/AuthController.php.html#101\">AuthController::reset<\/a>"],[0,5,"<a href=\"Http\/Controllers\/AuthController.php.html#134\">AuthController::getAuthenticatedUser<\/a>"],[0,3,"<a href=\"Http\/Controllers\/AuthController.php.html#156\">AuthController::token<\/a>"],[0,3,"<a href=\"Http\/Controllers\/AuthenticateController.php.html#17\">AuthenticateController::authenticate<\/a>"],[0,5,"<a href=\"Http\/Controllers\/AuthenticateController.php.html#36\">AuthenticateController::getAuthenticatedUser<\/a>"],[0,1,"<a href=\"Http\/Controllers\/CallsController.php.html#22\">CallsController::__construct<\/a>"],[0,5,"<a href=\"Http\/Controllers\/CallsController.php.html#30\">CallsController::getData<\/a>"],[0,5,"<a href=\"Http\/Controllers\/CallsController.php.html#55\">CallsController::postData<\/a>"],[0,2,"<a href=\"Http\/Controllers\/OauthController.php.html#18\">OauthController::getAccessToken<\/a>"],[0,2,"<a href=\"Http\/Controllers\/OauthController.php.html#32\">OauthController::refreshAccessToken<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#21\">UserController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#29\">UserController::getCurrentLoggedInUser<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#39\">UserController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#49\">UserController::show<\/a>"],[0,1,"<a href=\"Http\/Transformers\/UserTransformer.php.html#22\">UserTransformer::transform<\/a>"],[0,1,"<a href=\"Models\/BaseApiModel.php.html#22\">BaseApiModel::table<\/a>"],[0,1,"<a href=\"Models\/BaseApiModel.php.html#33\">BaseApiModel::getTableColumns<\/a>"],[0,1,"<a href=\"Oauth2\/Grant\/ChecksumPasswordGrant.php.html#62\">ChecksumPasswordGrant::setVerifyCredentialsCallback<\/a>"],[0,3,"<a href=\"Oauth2\/Grant\/ChecksumPasswordGrant.php.html#74\">ChecksumPasswordGrant::getVerifyCredentialsCallback<\/a>"],[0,12,"<a href=\"Oauth2\/Grant\/ChecksumPasswordGrant.php.html#90\">ChecksumPasswordGrant::completeFlow<\/a>"],[0,1,"<a href=\"Oauth2\/Grant\/MobileGrant.php.html#60\">MobileGrant::setVerifyCredentialsCallback<\/a>"],[0,3,"<a href=\"Oauth2\/Grant\/MobileGrant.php.html#71\">MobileGrant::getVerifyCredentialsCallback<\/a>"],[0,11,"<a href=\"Oauth2\/Grant\/MobileGrant.php.html#86\">MobileGrant::completeFlow<\/a>"],[0,1,"<a href=\"Oauth2\/Grant\/MobileGrant.php.html#178\">MobileGrant::isValidMobileNumber<\/a>"],[0,1,"<a href=\"Oauth2\/Verifier\/OauthMobileVerifier.php.html#24\">OauthMobileVerifier::__construct<\/a>"],[0,1,"<a href=\"Oauth2\/Verifier\/OauthMobileVerifier.php.html#33\">OauthMobileVerifier::verify<\/a>"],[0,3,"<a href=\"Oauth2\/Verifier\/OauthVerifier.php.html#17\">OauthVerifier::verify<\/a>"],[100,1,"<a href=\"Providers\/ApiRouteServiceProvider.php.html#23\">ApiRouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/ApiRouteServiceProvider.php.html#29\">ApiRouteServiceProvider::map<\/a>"],[0,1,"<a href=\"Providers\/ApiRouteServiceProvider.php.html#31\">ApiRouteServiceProvider::anonymous function<\/a>"],[100,1,"<a href=\"Providers\/JwtAuthServiceProvider.php.html#20\">JwtAuthServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/JwtAuthServiceProvider.php.html#22\">JwtAuthServiceProvider::anonymous function<\/a>"],[100,1,"<a href=\"Providers\/JwtAuthServiceProvider.php.html#27\">JwtAuthServiceProvider::register<\/a>"],[66.666666666667,1,"<a href=\"Providers\/OauthServiceProvider.php.html#20\">OauthServiceProvider::boot<\/a>"],[50,1,"<a href=\"Providers\/OauthServiceProvider.php.html#32\">OauthServiceProvider::anonymous function<\/a>"],[100,1,"<a href=\"Providers\/OauthServiceProvider.php.html#60\">OauthServiceProvider::register<\/a>"],[0,1,"<a href=\"Repositories\/BaseRepository.php.html#29\">BaseRepository::all<\/a>"],[0,1,"<a href=\"Repositories\/BaseRepository.php.html#38\">BaseRepository::create<\/a>"],[0,1,"<a href=\"Repositories\/BaseRepository.php.html#47\">BaseRepository::getNumber<\/a>"],[0,1,"<a href=\"Repositories\/BaseRepository.php.html#61\">BaseRepository::destroy<\/a>"],[0,1,"<a href=\"Repositories\/BaseRepository.php.html#71\">BaseRepository::getById<\/a>"],[0,1,"<a href=\"Repositories\/BaseRepository.php.html#81\">BaseRepository::find<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

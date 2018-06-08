@@ -1,0 +1,97 @@
+sudo yum remove httpd* php*
+
+1. Install Apache 2.4 and PHP 7.0 on Amazon Linux AMI
+
+# Remove current apache & php 
+sudo yum remove httpd* php*
+
+# Install Apache 2.4
+sudo yum install httpd24
+
+# Install PHP 7.0 
+# automatically includes php70-cli php70-common php70-json php70-process php70-xml
+sudo yum install php70
+
+# Install additional commonly used php packages
+sudo yum install php70-gd
+sudo yum install php70-imap
+sudo yum install php70-mbstring
+sudo yum install php70-mysqlnd
+sudo yum install php70-opcache
+sudo yum install php70-pdo
+sudo yum install php70-pecl-apcu
+
+2. Modify DirectoryIndex to include index.php
+
+sudo nano /etc/httpd/conf/httpd.conf
+find this:
+
+<IfModule dir_module>
+    DirectoryIndex index.html
+</IfModule>
+and modify it to look like this:
+
+<IfModule dir_module>
+    DirectoryIndex index.html index.php
+</IfModule>
+If a directory contains an index.html and an index.php, the server will serve the index.html with this setup. If you do not want that to happen, you have the following options:
+
+Reverse the order, so index.php is served when both files exist:
+
+ <IfModule dir_module>
+    DirectoryIndex index.php index.html
+ </IfModule>
+Only use index.php as the DirectoryIndex:
+
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>
+
+3. Start the Apache web server / nginx server
+
+sudo service httpd start
+
+OR
+
+sudo service nginx start
+sudo service nginx restart
+
+4. Configure the Apache web server to start at each system boot
+
+sudo chkconfig httpd on
+
+5. Test your installation
+
+Create phpinfo.php:
+
+echo '<?php print phpinfo();' | sudo tee --append /var/www/html/phpinfo.php
+Open your browser and enter your instance's public IP in the address bar followed by /phpinfo.php
+
+Example: http://xxx.xxx.xxx.xxx/phpinfo.php
+Note: Don't forget to allow incoming connections for HTTP (port 80) in the Security Groups of your instance, else your request will time out.
+
+==========================================================
+
+sudo yum install php70-fpm
+
+chkconfig php-fpm on
+
+sudo service php-fpm start
+sudo service php-fpm restart
+
+sudo yum install php70-memcached
+
+chkconfig memcached on
+
+sudo service php-fpm restart
+sudo service nginx restart
+
+==========================================================
+
+Ubuntu -
+
+https://anton.logvinenko.name/en/blog/how-to-install-redis-and-redis-php-client.html
+
+CentOS -
+
+https://www.hugeserver.com/kb/install-redis-centos/

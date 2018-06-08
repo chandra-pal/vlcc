@@ -1,0 +1,325 @@
+.config-settings .admin-portlet-title {
+    padding-bottom: 10px !important;
+}
+.config-settings .pagination-panel-input {
+    text-align:center;
+    margin: 0 5px;
+}
+.text-noresize {
+    resize: none;
+}
+.config-settings .width-auto, .user-type .width-auto {
+    width: auto !important;
+}
+.manage-pages .url-span {
+    line-height: 34px;
+    font-size: 14px;
+    padding: 0px;
+    width: auto;
+}
+.manage-pages .padding-zero {
+    padding: 0px;
+}
+.portlet-title .disp-block {
+    display: block;
+}
+.portlet-title  .btn-add-big {
+    white-space: normal;
+    float: right !important;
+    margin-top: 5px;
+}
+.page-header.navbar .page-logo .logo-default {
+    width:180px;
+    margin-top:15px;
+}
+
+/*.has-error .input-group-addon > i, .has-success .input-group-addon > i {
+    color: white;
+}*/
+/** Header bar css : START **/
+.head-text-main .head-text-1 {
+    font-size: 18px;
+    color: #E26A6A;
+    font-weight:bold;
+}
+.head-text-main .head-text-2 {
+    color: #9eacb4;
+    font-size: 13px;
+    font-weight:bold;
+}
+/** END : Header bar css **/
+
+.page-sidebar-menu .sub-menu i  {
+    float:left;
+}
+.page-sidebar-menu .sub-menu .menu-link {
+    margin-left:30px;
+}
+.togglelable, .toggleable{
+    cursor: pointer;
+}
+.ipaddress-login-details .row{
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 10px;
+    padding: 3px 0 10px;
+    line-height: 24px;
+}
+.ipaddress-login-details .row:last-child{
+    border-bottom: none;
+}
+.gmaps {
+    height: 200px;
+    width: 100%;
+}
+/** My Profile Page Portlet : STARTS **/
+.portlet.myprofile {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color #30d0c1 #30d0c1;
+    border-image: none;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+    padding:0px;
+}
+.portlet.myprofile .portlet-title {
+    background-color:#ffffff;
+    padding-left:20px;
+}
+.portlet.myprofile .form-body {
+    padding-left:20px;
+    padding-right:20px;
+}
+.portlet.myprofile > .portlet-title > .nav-tabs > li > a {
+    color:#666;
+}
+.portlet.myprofile .form-btns {
+    padding-left:27px;
+}
+/** END : My Profile Page Portlet **/
+
+.table .form_datetime .btn {
+    margin-right:0px;
+}
+.user-listing-img {
+    max-height: 120px;
+    overflow: hidden;
+    width: 120px;
+}
+.user-form-img {
+    width:200px;
+    max-height: 200px;
+    overflow: hidden;
+}
+.breadcrumb {
+    font-size: 13px;
+    padding: 8px 15px 8px 0px;
+}
+.breadcrumb li:last-child  > i.fa-circle{
+    display: none;
+}
+.portlet-body .user-link-box{
+    border-bottom: 1px solid #ddd;
+    line-height: 24px;
+    margin: 0 0 10px;
+    padding: 3px 0 10px;
+}
+.portlet-body .user-link-box:last-child{
+    border-bottom: none;
+}
+/** Upload link and category Icon using modal: START **/
+.link-category-form .modal-dialog {
+    width: 800px;
+}
+
+.link-management-form .modal-dialog {
+    width: 800px;
+}
+.modal-backdrop
+{
+    opacity: 0 !important;
+    position: inherit !important;
+}
+/** Header bar css : END **/
+
+/** header color changes new **/
+.page-title h4 {
+    margin: 0px 0px 15px 0px;
+}
+.page-header.navbar {
+    background: #3598dc none repeat scroll 0 0;
+    border-bottom: 1px solid #e9ecf3;
+}
+.head-text-main .head-text-1{
+    color:#FBE7E8;
+}
+.page-sidebar {
+    width: 238px;
+}
+.btn.btn-xs {
+    padding: 3px 5px;
+}
+.head-text-main .head-text-2{
+    color:#FBE7E8;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle > .username{
+    color:#FBE7E8;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown.open .dropdown-toggle{
+    background:  #5b6f7b;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle:hover{
+    color:#DC232B;
+}
+.page-footer .page-footer-inner {
+    display: inline-block;
+    float: none;
+    text-align: center;
+    width: 100%;
+}
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
+.page-sidebar .page-sidebar-menu > li:hover > a,
+.page-sidebar .page-sidebar-menu > li.open > a {
+    background: #f2f6f9;
+    color: #5b9bd1;
+}
+/** End header color changes new **/
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.help-block {
+    color: #737373 !important;
+}
+.help-block-error {
+    color: #F3565D !important;
+}
+
+.has-error .input-group-addon > i {
+    color: #f2f6f9;
+}
+
+#login-form .has-error .input-group-addon > i {
+    color: #F3565D;
+}
+
+.item-box :hover{
+    cursor: hand;cursor: pointer;
+}
+
+.simplelineicons-demo .item-box :hover {
+    background-color: #f2f6f9;
+}
+.showSelected {
+    background:#f2f6f9 !important;
+    color:#5b9bd1 !important;
+}
+.showBlock {
+    display: block !important;
+}
+
+.row-width{
+    padding: 0px !important;
+}
+
+.add_existing_food_item {
+    float: right;
+    color: #fff;
+    font-weight: bold;
+}
+
+.select-new-food, .custom-new-food {
+    width : 85%;
+}
+
+.checker {
+    float: left;
+    padding: 5px 25px 5px 0px;
+}
+a.add_existing_food_item:hover {
+    color:#fff;
+}
+
+/*a.sessionRequested {
+    background-color: #808080;
+}
+a.sessionBooked {
+    background-color: #00FFFF;
+}
+a.sessionRejected {
+    background-color: #A52A2A;
+}
+a.sessionCancelled {
+    background-color: #FF0000;
+}
+a.sessionCompleted {
+    background-color: #008000;
+}
+a.sessionNotAttended {
+    background-color: #E6E6FA;
+}*/
+
+div.session-color-codes {
+    margin-top : 35px;
+    float: right;
+}
+
+.colordvcon {
+    display: inline-block;
+    margin: 3px 1px;
+    text-align: center;
+    font-family: Courier,monospace;
+    padding: 6px;
+    width: 132px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.colordva {
+    height: 30px;
+    width: 30px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.colordvcon p { float : left; padding-top: 10px; }
+
+.session-color-codes .colordvcon{
+    width: 75px;
+    vertical-align: top;
+    text-align: center;
+}
+.session-color-codes .colordvcon .colordva{
+    margin: auto;
+}
+.session-color-codes .colordvcon p {
+    margin-top: 0;
+    float: none;
+    font-size: 14px;
+    font-family: "Open Sans",sans-serif;
+    color : #333;
+}
+span.fc-title {
+    color : #000;
+    font-weight: bold;
+}
+
+.fc-content {
+    color: #000;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.fc-row .fc-content-skeleton tbody td {
+    padding: 5px;
+}
+
+.fc-row .fc-content-skeleton tbody td a {
+    padding: 5px;
+}
+
+.table-group-actions > span {
+    font-weight: bold;
+}

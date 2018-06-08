@@ -1,0 +1,9 @@
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li a.read {
+    background-color: #8F9193 !important;
+    color:#EFEFEF !important;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li a.unread {
+    background-color: #536470;
+    color:#d4dadf;
+}

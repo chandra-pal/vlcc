@@ -1,0 +1,12 @@
+.user-type {
+    padding-left: 0px;
+}
+.checkbox-block {
+    padding-top: 7px;
+}
+
+.package_information .select2-chosen{ max-width:300px}
+.ui-timepicker-container{z-index: 1 !important;}
+
+.fc-time-grid.fc-unselectable table tr td.fc-widget-content.fc-past{}
+

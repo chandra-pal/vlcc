@@ -1,0 +1,3 @@
+
+<!--{!! Form::select('food_id[]',$foodList, null,['data-label-text'=>trans('admin::messages.select-name', ['name' => trans('admin::controller/diet-plan-detail.food-type')]),'class'=>'select2me form-control', 'id' => 'food_id', 'data-rule-required'=>'true', 'data-msg-required'=>trans('admin::messages.required-select', ['name' => trans('admin::controller/food_id')]) ]) !!}-->
+{!! Form::select('food_id[]', [''=> trans('admin::messages.select-name', [ 'name' => trans('admin::controller/diet-plan-detail.food-type') ])] + $foodList, null,['class'=>'select2me form-control', 'id' => 'food_id', 'data-rule-required'=>'true', 'data-msg-required'=>'Please select Food Name.']) !!}

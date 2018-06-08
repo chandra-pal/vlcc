@@ -1,0 +1,1 @@
+{!! Form::select('center_id', [''=> 'Select Center'] + $centersList, 0,['class'=>'select2me form-control form-filter center_id', 'id' => 'center_id', 'data-rule-required'=>'true', 'data-msg-required'=>'Please select Center.']) !!}
