@@ -28,11 +28,6 @@
             <a href="javascript:;" class="btn blue btn-add-big btn-expand-form"><i class="fa fa-plus"></i><span class="hidden-480">{!! trans('admin::messages.add-name',['name'=>trans('admin::controller/member-activity.member-activity')]) !!} </span></a>
         </div-->
         @endif
-		
-		<div class="actions" style="margin-right: 35px; ">
-			 <a href="{{route('admin.session-bookings.download-booking-history','from'.'='.$params['from'].'&'.'to'.'='.$params['to'] )}}" class = "btn blue btn-add-big" ><i class = "fa fa-download"></i><span class="hidden-480">Download Excel</span></a>
-		</div>
-		
     </div>
 	<div class="portlet-body">
         <div class="table-container">

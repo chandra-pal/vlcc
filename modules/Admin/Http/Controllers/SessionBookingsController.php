@@ -25,7 +25,6 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Validator;
 use Session;
-use Excel;
 
 class SessionBookingsController extends Controller
 {
@@ -173,9 +172,6 @@ class SessionBookingsController extends Controller
         $params['user_id'] = Auth::guard('admin')->user()->id;
         $params['user_type_id'] = Auth::guard('admin')->user()->user_type_id;
         $params['session_date'] = date('Y-m-d');
-		$params['session_date1'] = date('Y-m-d',strtotime($params['session_date'].' -1 day'));
-		$params['session_date2'] = date('Y-m-d',strtotime($params['session_date'].' -2 day'));
-        
         $sessionBookings = $this->repository->data($params);
         $sessionBookings = collect($sessionBookings);
 
@@ -710,96 +706,14 @@ class SessionBookingsController extends Controller
 
     public function bookingHistory(Request $request)
 	{
-	    $params['dietician_id'] = Auth::guard('admin')->user()->id;
-		$params['from'] = $request->all()["from"];
-		$params['from'] = date('Y-m-d', strtotime($params['from']));
-		$params['to'] = $request->all()["to"];
-		$params['to'] = date('Y-m-d', strtotime($params['to']));
-		$flag = 1;
-		$var = $this->repository->bookingHistoryStatus($params,$flag);
+	    $user_name = Auth::guard('admin')->user()->id;
+		$time_from = $request->input('from');
+		$time_from = date('Y-m-d', strtotime($time_from));
+		$time_to = $request->input('to');
+		$time_to = date('Y-m-d', strtotime($time_to));
+		$var = $this->repository->bookingHistoryStatus($user_name,$time_from,$time_to);
 
-	    return view('admin::session-bookings.booking-history',compact('var','params'));
-    }
-	
-	public function downloadBookingHistory(Request $request)
-    {
-        try {
-            $fileFormat = 'csv';
-            $validFormat = ['csv', 'xls', 'xlsx'];
+	    return view('admin::session-bookings.booking-history',compact('var'));
 
-            set_time_limit(0);
-            $response = [];
-			$flag = 0;
-            $params['dietician_id'] = Auth::guard('admin')->user()->id;
-			$params['from'] = $request->all()["from"];
-			$params['to'] = $request->all()["to"];
-			$data = $this->repository->bookingHistoryStatus($params,$flag);
-			
-			//print_r($data);
-			//exit;
-            $uniqueTimeStr = Carbon::today()->toDateString();
-            $fileName = "Previous-Booking-History-{$uniqueTimeStr}";
-
-            Excel::create($fileName, function($excel) use ($data) {
-                $excel->sheet('Previous Booking History', function($sheet) use($data) {
-
-                    $data->chunk(250, function($records) use($sheet) {
-
-                        $recordsData = array_map(function($item) {
-                            $tempItem = (array) $item;
-							if($tempItem['package_id']==0)
-							{
-								$tempItem['package_title']='Others';
-								$tempItem['service_name']=$tempItem['service_name1'];
-							}
-							if($tempItem['status']==1)
-								$tempItem['status']='Requested';
-							elseif($tempItem['status']==2)
-								$tempItem['status']='Booked';
-							elseif($tempItem['status']==3)
-								$tempItem['status']='Rejected(by dietician)';
-							elseif($tempItem['status']==4)
-								$tempItem['status']='Canceled(by dietitian)';
-							elseif($tempItem['status']==5)
-								$tempItem['status']='Canceled(by customer)';
-							elseif($tempItem['status']==6)
-								$tempItem['status']='Waiting List';
-							elseif($tempItem['status']==7)
-								$tempItem['status']='Confirmed';
-							else
-								$tempItem['status']='No Response';
-                            $requireExportData = [
-//                                'index' => '',
-                                'customer' => $tempItem['first_name'],
-                                'mobile Number' => $tempItem['mobile_number'],
-                                'Package' => $tempItem['package_title'],
-                                'Service' => $tempItem['service_name'],
-                                'Appointment Date' => $tempItem['session_date'],
-                                'Start Time' => $tempItem['start_time'],
-                                'End Time' => $tempItem['end_time'],
-                                'Status' => $tempItem['status'],
-								'Created By' => $tempItem['Created_BY'],
-								'Updated By' => $tempItem['Updated_BY']
-                            ];
-
-                            return $requireExportData;
-                            $i++;
-                        }, $records);
-
-                        $sheet->fromArray($recordsData, null, 'A1', false, false);
-                    });
-// Add before first row
-                    $sheet->prependRow(1, array('Customer', 'Mobile Number', 'Package', 'Service', 'Appointment Date', 'Start Time', 'End Time', 'Status', 'Created By', 'Updated By'));
-                });
-            })->export('xls');
-//            })->export($fileFormat);
-        } catch (Exception $e) {
-            $exceptionDetails = $e->getMessage();
-            $response['status'] = 'error';
-            $response['message'] = "<b> Error Details</b> - " . $exceptionDetails;
-            Log::error(trans('admin::messages.not-exported', ['name' => 'Detailed Sales Report']), ['Error Message' => $exceptionDetails, 'Current Action' => Route::getCurrentRoute()->getActionName()]);
-            redirect('session-bookings/booking-history')->with('msg-error', 'Error to export data.');
-        }
-        redirect('session-bookings/booking-history')->with('msg-success', 'Data Export successfuly!!');
     }
 }
