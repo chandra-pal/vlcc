@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 	});
 Route::resource('user','TaskController');
+Route::get('showMessage');
 ?>

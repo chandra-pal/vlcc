@@ -85,7 +85,7 @@
         <div class="actions" style="margin-right: 35px;">
             <input type="hidden" id="logged_in_user_type_id" name="logged_in_user_type_id" value="{{Auth::guard('admin')->user()->userType->id}}">
             <input type="hidden" id="logged_in_user_id" name="logged_in_user_id" value="{{Auth::guard('admin')->user()->id}}">
-            <a href="./view-todays-sessions" class="btn blue btn-add-big"><span class="hidden-480">View Appointments</span></a>
+            <a href="./view-todays-sessions" class="btn blue btn-add-big"><span class="hidden-480">View Todays Appointments</span></a>
         </div>
         <div class="actions" style="margin-right: 35px; ">
              <a href="javascript:;" class="btn blue btn-add-big btn-expand-history"><span class="hidden-480">Previous Booking History</span></a>

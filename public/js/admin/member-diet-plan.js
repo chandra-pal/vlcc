@@ -167,6 +167,11 @@ siteObjJs.admin.memberDietPlanJs = function () {
         $('body').on('click', '.close-food-row-btn', function (e) {
             $(this).closest("tr").remove();
         });
+
+        $('body').on('click','.edit-food-row-btn', function(e)
+        {
+            alert("click");
+        });
         $('body').on('click', '.btn-collapse-form', function (e) {
             $('html, body').animate({
                 scrollTop: $("#s2id_customer_select").offset().top
