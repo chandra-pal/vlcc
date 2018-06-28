@@ -190,7 +190,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controller
     Route::get('member-diet-plan/get-food-details/{fid}', ['as' => 'admin.member-diet-plan.get-food-details', 'uses' => 'MemberDietPlanController@getFoodDetails', 'permission' => 'index']);
     Route::post('member-diet-plan/foodListByFoodType', ['as' => 'admin.member-diet-plan.get-foodlist-byfoodtype', 'uses' => 'MemberDietPlanController@getFoodListByFoodType', 'permission' => 'index']);
     Route::post('member-diet-plan/get-calories', ['as' => 'admin.member-diet-plan.get-calories', 'uses' => 'MemberDietPlanController@getCalories', 'permission' => 'index']);
-    Route::get('edit',['as' => 'admin.member-diet-plan.edit', 'uses' => 'MemberDietPlanController@edit', 'permission' => 'index']);
+    Route::post('member-diet-plan/editDietPlan', ['as' => 'admin.member-diet-plan.editDietPlan', 'uses' => 'MemberDietPlanController@editDietPlan', 'permission' => 'index']);
 
     //Manage Member Activity Log
     Route::get('member-activity-log/get-deviation', ['as' => 'admin.member-activity-log.get-deviation', 'uses' => 'MemberActivityLogController@getDeviation', 'permission' => 'index']);

@@ -57,10 +57,10 @@ class MemberDietPlanRepository extends BaseRepository {
 //GROUP BY items.food_id, items.diet_schedule_type_id
 //ORDER BY items.diet_schedule_type_id, items.active DESC");
 
-        $member_diet_plan_details = DB::select("SELECT id, diet_plan_id, diet_schedule_type_id, schedule_name, food_type_id, food_type_name, food_id,  food_name, measure, calories, serving_size, serving_unit, servings_recommended, active FROM (
-(SELECT items.id, items.diet_plan_id, items.diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, 1 AS active FROM member_diet_plan_details items LEFT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id WHERE items.member_id = " . $member_id . " AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1)
+        $member_diet_plan_details = DB::select("SELECT id, diet_plan_id, diet_schedule_type_id, schedule_name, food_type_id, food_type_name, food_id,  food_name, measure, calories, serving_size, serving_unit, servings_recommended, active, created_at FROM (
+(SELECT items.id, items.diet_plan_id, items.diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, items.created_at, 1 AS active FROM member_diet_plan_details items LEFT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id WHERE items.member_id = " . $member_id . " AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1)
 UNION (
-SELECT items.id, items.diet_plan_id, diet_schedule_types.id as diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, 0 AS active FROM diet_plan_details items RIGHT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1 LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id
+SELECT items.id, items.diet_plan_id, diet_schedule_types.id as diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, items.created_at, 0 AS active FROM diet_plan_details items RIGHT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1 LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id
 )
 )
 AS items
@@ -175,4 +175,20 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
         return $result[0];
     }
 
+    public function getDietPlanDate($memberID) {
+        DB::setFetchMode(PDO::FETCH_ASSOC);
+        $result = DB::select("SELECT created_at FROM member_diet_plan_details WHERE member_id = " . $memberID . "");
+        DB::setFetchMode(PDO::FETCH_CLASS);
+        return $result[0];
+    }
+
+    public function getDietPlan($dietScheduleTypeId)
+    {
+        $result = DB::table('member_diet_plan_details')
+                    ->select('food_types.food_type_name','foods.food_name','member_diet_plan_details.servings_recommended','foods.measure','foods.calories')
+                    ->LEFTJOIN('foods','foods.id','=','member_diet_plan_details.food_id')
+                    ->LEFTJOIN('food_types','food_types.id','=','foods.food_type_id')
+                    ->where('member_diet_plan_details.id','=',$dietScheduleTypeId);
+         return $result;
+    }
 }

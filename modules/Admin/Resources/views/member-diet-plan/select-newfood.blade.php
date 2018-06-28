@@ -26,6 +26,5 @@
     <td> <span class='total_calories'></span> </td>
     <td  style="width:100px">
         <a href='javascript:;' class="btn default close-food-row-btn remove-row-{!! $myRowId !!}">Cancel</a>
-        <a href='./edit' class="btn default edit-food-row-btn edit-row-{!! $myRowId !!}"><i class ="fa fa-pencil">Edit</i></a>
     </td>
 </tr>

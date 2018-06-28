@@ -142,12 +142,15 @@ class MemberDietPlanController extends Controller {
         $params["member_id"] = $request->all()["customerId"];
         $params['diet_plan_id'] = $request->all()["dietPlanid"];
         $memberDietPlanDetails = $this->repository->data($params);
+
+
         //filter to display own records
         if (Auth::guard('admin')->user()->hasOwnView && (empty(Auth::guard('admin')->user()->hasEdit) || empty(Auth::guard('admin')->user()->hasDelete))) {
             $memberDietPlanDetails = $memberDietPlanDetails->filter(function ($row) {
                 return (Str::equals($row['created_by'], Auth::guard('admin')->user()->id)) ? true : false;
             });
         }
+
 
         return Datatables::of($memberDietPlanDetails)
                         ->addColumn('check_food', function ($memberDietPlanDetail) {
@@ -158,10 +161,10 @@ class MemberDietPlanController extends Controller {
                         ->addColumn('action', function ($memberDietPlanDetail) {
 //                    dd($memberDietPlanDetail);
                             $actionList = '';
-//                    if (!empty(Auth::guard('admin')->user()->hasEdit) || (!empty(Auth::guard('admin')->user()->hasOwnEdit) && ($configSetting->created_by == Auth::guard('admin')->user()->id))) {
-//                        $actionList = '<a href="javascript:;" data-action="edit" data-id="' . $configSetting->id . '" id="' . $configSetting->id . '" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link" title="Edit"><i class="fa fa-pencil"></i></a>';
-//                    }
-                            return $actionList;
+                        if (!empty(Auth::guard('admin')->user()->hasEdit) || (!empty(Auth::guard('admin')->user()->hasOwnEdit) && ($memberDietPlanDetail->created_by == Auth::guard('admin')->user()->id))) {
+                           $actionList = '<a href="javascript:;" data-action="edit" data-id="' . $memberDietPlanDetail->id . '" value="'.$memberDietPlanDetail->id.'" id="' . $memberDietPlanDetail->id . '" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link " title="Edit"><i class="fa fa-pencil"></i></a>';
+                    }
+                           return $actionList;
                         })
                         ->addColumn('food_name', function ($memberDietPlanDetail) {
                             $isChecked = $memberDietPlanDetail->active == 1 ? 'checked="checked"' : NULL;
@@ -239,9 +242,12 @@ class MemberDietPlanController extends Controller {
             $dietPlanCalories = $this->repository->getDietPlanCalories($dietPlanId);
             $dietPlanCalories = $dietPlanCalories["calories"];
         }
+
+        $created_At = $this->repository->getDietPlanDate($memberID);
         $response['list'] = View('admin::member-diet-plan.plandropdown', compact('dietPlanId', 'dietPlanTypeList', 'dietPlanCalories'))->render();
         $response['diet_plan_id'] = $dietPlanId;
         $response['diet_plan_calories'] = $dietPlanCalories;
+        $response['created_at'] = $created_At;
         return response()->json($response);
     }
 
@@ -410,5 +416,19 @@ class MemberDietPlanController extends Controller {
         $response['serving_unit'] = $foodDetails[0]['serving_unit'];
         return response()->json($response);
     }
+
+    public function editDietPlan(Request $request){
+        $dietScheduleTypeId = $request->all()["diet_schedule_type_id"];
+        $myRowId = $request->all()["myRowId"];
+        $maxDietPlanRowId = $request->all()["maxDietPlanRowId"];
+
+        $foodTypeList = $this->foodTyperepository->listFoodTypesData()->toArray();
+        $var = $this->repository->getDietPlan($dietScheduleTypeId);
+
+        $response['success'] = true;
+        $response['form'] = view('admin::member-diet-plan.editDietPlan',compact('var','dietScheduleTypeId', 'myRowId', 'maxDietPlanRowId', 'foodTypeList'))->render();
+        return response()->json($response);
+    }
+
 
 }

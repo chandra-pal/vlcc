@@ -167,11 +167,6 @@ siteObjJs.admin.memberDietPlanJs = function () {
         $('body').on('click', '.close-food-row-btn', function (e) {
             $(this).closest("tr").remove();
         });
-
-        $('body').on('click','.edit-food-row-btn', function(e)
-        {
-            alert("click");
-        });
         $('body').on('click', '.btn-collapse-form', function (e) {
             $('html, body').animate({
                 scrollTop: $("#s2id_customer_select").offset().top
@@ -340,6 +335,66 @@ siteObjJs.admin.memberDietPlanJs = function () {
             });
         });
 
+        $('body').on('click','.edit-form-link', function(){
+            var myId = $(this).attr("id");
+            //$(".child-row-" + myId +":last").after("<tr><td>here</td></tr>");
+            var diet_schedule_type_id = myId;
+            alert(diet_schedule_type_id);
+            var actionUrl = 'member-diet-plan/editDietPlan';
+            var diet_plan_row_id = [];
+
+            $(".unique_diet_plan_id").each(function (i, v) {
+                diet_plan_row_id.push($(this).val());
+            });
+
+            if (diet_plan_row_id.length == 0) {
+                maxDietPlanRowId = 1;
+            } else {
+                var maxDietPlanRowId = parseInt(Math.max.apply(Math, diet_plan_row_id)) + parseInt(1);
+            }
+            alert(actionUrl);
+            $.ajax({
+                url: actionUrl,
+                cache: false,
+                dataType: "json",
+                type: "POST",
+                "data": {diet_schedule_type_id: diet_schedule_type_id, myRowId: myId, maxDietPlanRowId: maxDietPlanRowId},
+                success: function (data)
+                {
+                    console.log("hii,in console");
+                    var $element = $(".child-row-" + myId);
+                    console.log($element);
+                    if ($element.length <= 0) {
+                        $element = '<tr role="row" class="child-row-' + myId + '"></tr>';
+                    }
+                    $("a#" + myId).parents().find('tr.group-' + myId).after($element);
+                    $(".child-row-" + myId + ":last").after(data.form);
+                    $(".child-row-" + myId + ":last").find("select.select2me").each(function () {
+                        $(this).select2({
+                            allowClear: true,
+                            placeholder: $(this).attr('data-label-text'),
+                            width: null
+                        });
+                    });
+                },
+                error: function (jqXhr, json, errorThrown)
+                {
+                    var errors = jqXhr.responseJSON;
+                    var errorsHtml = '';
+                    $.each(errors, function (key, value) {
+                        errorsHtml += value[0] + '<br />';
+                    });
+                    // alert(errorsHtml, "Error " + jqXhr.status + ': ' + errorThrown);
+                    Metronic.alert({
+                        type: 'danger',
+                        message: errorsHtml,
+                        container: $('#ajax-response-text'),
+                        place: 'prepend',
+                        closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
+                    });
+                }
+            });
+    });
         // Display Food List based on selected Food Type
         $('body').on('change', '.food_type_id', function (e) {
             if ($(this).val() != 0) {
@@ -416,6 +471,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
             contentType: false,
             success: function (data)
             {
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 $("#plan-drop-down").html(data.list);
                 $("#diet_plan_calories").val(data.diet_plan_calories);
                 if ('' == data.diet_plan_id) {

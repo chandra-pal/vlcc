@@ -39,6 +39,6 @@
     
     {!! Form::hidden('diet_plan_row_id['.$maxDietPlanRowId.']', $maxDietPlanRowId, array('class' => 'unique_diet_plan_id')) !!}
 <td style="width:100px">
-    <a class="add-new-food btn green" style="padding: 8px;"><i class="fa fa-check"></i></a>
+    <a class="add-new-food btn green" style="padding: 8px;"><i class="fa fa-check"></i></a> 
     <a href='javascript:;' class="btn red default close-food-row-btn" style='padding: 8px;'><i class="fa fa-times"></i></a>
 </td>
