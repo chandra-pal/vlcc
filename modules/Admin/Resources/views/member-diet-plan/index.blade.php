@@ -27,6 +27,9 @@
 <div id="ajax-response-text"></div>
 
 {{--*/ $linkIcon = \Modules\Admin\Services\Helper\MenuHelper::getSelectedPageLinkIcon() /*--}}
+<div id="edit_form" style="align: center; margin-bottom: 10px;">
+
+</div>
 
 <div class="portlet light col-lg-12">
     <div class="portlet-title">

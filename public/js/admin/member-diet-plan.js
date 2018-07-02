@@ -335,50 +335,33 @@ siteObjJs.admin.memberDietPlanJs = function () {
             });
         });
 
-        $('body').on('click','.edit-form-link', function(){
-            var myId = $(this).attr("id");
-            //$(".child-row-" + myId +":last").after("<tr><td>here</td></tr>");
-            var diet_schedule_type_id = myId;
-            alert(diet_schedule_type_id);
-            var actionUrl = 'member-diet-plan/editDietPlan';
-            var diet_plan_row_id = [];
 
-            $(".unique_diet_plan_id").each(function (i, v) {
-                diet_plan_row_id.push($(this).val());
-            });
 
-            if (diet_plan_row_id.length == 0) {
-                maxDietPlanRowId = 1;
-            } else {
-                var maxDietPlanRowId = parseInt(Math.max.apply(Math, diet_plan_row_id)) + parseInt(1);
+        // Display Food List based on selected Food Type
+        $('body').on('change', '.food_type_id', function (e) {
+            if ($(this).val() != 0) {
+                if ($(this).closest("tr").find("span.food_list_by_food_type").length > 0) {
+                    var unique_id = $(this).closest("tr").find("span.food_list_by_food_type").attr("id");
+                    fetchFoodList($(this).val(), unique_id);
+                }
             }
-            alert(actionUrl);
+        });
+    };
+    var fetchDataForEdit = function () {
+        $('.portlet-body').on('click', '.edit-form-link', function () {
+
+            var diet_plan_id = $(this).attr("id");
+            var actionUrl = 'member-diet-plan/' + diet_plan_id + '/edit';
             $.ajax({
                 url: actionUrl,
                 cache: false,
                 dataType: "json",
-                type: "POST",
-                "data": {diet_schedule_type_id: diet_schedule_type_id, myRowId: myId, maxDietPlanRowId: maxDietPlanRowId},
-                success: function (data)
-                {
-                    console.log("hii,in console");
-                    var $element = $(".child-row-" + myId);
-                    console.log($element);
-                    if ($element.length <= 0) {
-                        $element = '<tr role="row" class="child-row-' + myId + '"></tr>';
-                    }
-                    $("a#" + myId).parents().find('tr.group-' + myId).after($element);
-                    $(".child-row-" + myId + ":last").after(data.form);
-                    $(".child-row-" + myId + ":last").find("select.select2me").each(function () {
-                        $(this).select2({
-                            allowClear: true,
-                            placeholder: $(this).attr('data-label-text'),
-                            width: null
-                        });
-                    });
+                type: "GET",
+                success: function (data) {
+                    $("#edit_form").html(data.form);
+                    siteObjJs.validation.formValidateInit('#edit-diet-plan', handleAjaxRequest);
                 },
-                error: function (jqXhr, json, errorThrown)
-                {
+                error: function (jqXhr, json, errorThrown) {
                     var errors = jqXhr.responseJSON;
                     var errorsHtml = '';
                     $.each(errors, function (key, value) {
@@ -394,19 +377,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
                     });
                 }
             });
-    });
-        // Display Food List based on selected Food Type
-        $('body').on('change', '.food_type_id', function (e) {
-            if ($(this).val() != 0) {
-                if ($(this).closest("tr").find("span.food_list_by_food_type").length > 0) {
-                    var unique_id = $(this).closest("tr").find("span.food_list_by_food_type").attr("id");
-                    fetchFoodList($(this).val(), unique_id);
-                }
-            }
         });
     };
-
-
     // Function To List Packages Data of selected member
     var fetchFoodList = function (foodTypeId, unique_id) {
         var actionUrl = 'member-diet-plan/foodListByFoodType';
@@ -666,56 +638,56 @@ siteObjJs.admin.memberDietPlanJs = function () {
 
         form.append('member_diet_plan', member_diet_plan);
         $.ajax(
+            {
+                url: actionUrl,
+                type: actionType,
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (data)
                 {
-                    url: actionUrl,
-                    type: actionType,
-                    data: form,
-                    processData: false,
-                    contentType: false,
-                    success: function (data)
+                    if (data.status === "error")
                     {
-                        if (data.status === "error")
-                        {
-                            icon = "times";
-                            messageType = "danger";
-                        }
-
-                        //Empty the form fields
-
-                        //trigger cancel button click event to collapse form and show title of add page
-                        //$('.btn-collapse').trigger('click');
-                        //reload the data in the datatable
-                        if (data.status === "success")
-                        {
-                            formElement.find("input[type=text], textarea").val("");
-                            grid.getDataTable().ajax.reload();
-                        }
-                        Metronic.alert({
-                            type: messageType,
-                            icon: icon,
-                            message: data.message,
-                            container: $('#ajax-response-text'),
-                            place: 'prepend',
-                            closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
-                        });
-                    },
-                    error: function (jqXhr, json, errorThrown)
-                    {
-                        var errors = jqXhr.responseJSON;
-                        var errorsHtml = '';
-                        $.each(errors, function (key, value) {
-                            errorsHtml += value[0] + '<br />';
-                        });
-                        //alert(errorsHtml, "Error " + jqXhr.status + ': ' + errorThrown);
-                        Metronic.alert({
-                            type: 'danger',
-                            message: errorsHtml,
-                            container: $('#ajax-response-text'),
-                            place: 'prepend',
-                            closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
-                        });
+                        icon = "times";
+                        messageType = "danger";
                     }
+
+                    //Empty the form fields
+
+                    //trigger cancel button click event to collapse form and show title of add page
+                    //$('.btn-collapse').trigger('click');
+                    //reload the data in the datatable
+                    if (data.status === "success")
+                    {
+                        formElement.find("input[type=text], textarea").val("");
+                        grid.getDataTable().ajax.reload();
+                    }
+                    Metronic.alert({
+                        type: messageType,
+                        icon: icon,
+                        message: data.message,
+                        container: $('#ajax-response-text'),
+                        place: 'prepend',
+                        closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
+                    });
+                },
+                error: function (jqXhr, json, errorThrown)
+                {
+                    var errors = jqXhr.responseJSON;
+                    var errorsHtml = '';
+                    $.each(errors, function (key, value) {
+                        errorsHtml += value[0] + '<br />';
+                    });
+                    //alert(errorsHtml, "Error " + jqXhr.status + ': ' + errorThrown);
+                    Metronic.alert({
+                        type: 'danger',
+                        message: errorsHtml,
+                        container: $('#ajax-response-text'),
+                        place: 'prepend',
+                        closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
+                    });
                 }
+            }
         );
     }
 
@@ -822,6 +794,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
         //main function to initiate the module
         init: function () {
             initializeListener();
+            fetchDataForEdit();
+
             //handleTable();
             //initalizeTable();
             //bind the validation method to 'add' form on load

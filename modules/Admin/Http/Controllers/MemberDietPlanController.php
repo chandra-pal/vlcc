@@ -162,7 +162,7 @@ class MemberDietPlanController extends Controller {
 //                    dd($memberDietPlanDetail);
                             $actionList = '';
                         if (!empty(Auth::guard('admin')->user()->hasEdit) || (!empty(Auth::guard('admin')->user()->hasOwnEdit) && ($memberDietPlanDetail->created_by == Auth::guard('admin')->user()->id))) {
-                           $actionList = '<a href="javascript:;" data-action="edit" data-id="' . $memberDietPlanDetail->id . '" value="'.$memberDietPlanDetail->id.'" id="' . $memberDietPlanDetail->id . '" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link " title="Edit"><i class="fa fa-pencil"></i></a>';
+                           $actionList = '<a href="javascript:;" data-action="edit" data-id="' . $memberDietPlanDetail->id . '" id="' . $memberDietPlanDetail->id . '" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link " title="Edit"><i class="fa fa-pencil"></i></a>';
                     }
                            return $actionList;
                         })
@@ -351,6 +351,8 @@ class MemberDietPlanController extends Controller {
 
         $response['success'] = true;
         $dietPlanType = $this->dietPlanRepository->listPlanType()->toArray();
+        $foodTypeList = $this->foodTyperepository->listFoodTypesData()->toArray();
+
         $planType = array("1" => "Veg", "2" => "Non Veg");
         if (!empty($dietPlanType)) {
             foreach ($dietPlanType as $key => $diet) {
@@ -358,12 +360,13 @@ class MemberDietPlanController extends Controller {
             }
         }
         $dietPlanId = $memberDietPlan->diet_plan_id;
+        $Id = $memberDietPlan->id;
         $listMemberData = $this->repository->listMemberDietPlanDetails()->toArray();
         foreach ($listMemberData as $key => $member) {
             $memberList[$member['id']] = $member['first_name'] . " " . $member['last_name'];
         }
 
-        $response['form'] = view('admin::member-diet-plan.edit', compact('memberDietPlan', 'dietPlanTypeList', 'memberList', 'dietPlanId'))->render();
+        $response['form'] = view('admin::member-diet-plan.edit', compact('memberDietPlan', 'dietPlanTypeList', 'memberList', 'dietPlanId', 'Id', 'foodTypeList'))->render();
 
         return response()->json($response);
     }
@@ -417,18 +420,6 @@ class MemberDietPlanController extends Controller {
         return response()->json($response);
     }
 
-    public function editDietPlan(Request $request){
-        $dietScheduleTypeId = $request->all()["diet_schedule_type_id"];
-        $myRowId = $request->all()["myRowId"];
-        $maxDietPlanRowId = $request->all()["maxDietPlanRowId"];
-
-        $foodTypeList = $this->foodTyperepository->listFoodTypesData()->toArray();
-        $var = $this->repository->getDietPlan($dietScheduleTypeId);
-
-        $response['success'] = true;
-        $response['form'] = view('admin::member-diet-plan.editDietPlan',compact('var','dietScheduleTypeId', 'myRowId', 'maxDietPlanRowId', 'foodTypeList'))->render();
-        return response()->json($response);
-    }
 
 
 }
