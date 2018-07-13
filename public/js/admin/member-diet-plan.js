@@ -350,8 +350,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
     var fetchDataForEdit = function () {
         $('.portlet-body').on('click', '.edit-form-link', function () {
 
-            var diet_plan_id = $(this).attr("id");
-            var actionUrl = 'member-diet-plan/' + diet_plan_id + '/edit';
+            var member_diet_plan_id = $(this).attr("id");
+            var actionUrl = 'member-diet-plan/' + member_diet_plan_id + '/edit';
             $.ajax({
                 url: actionUrl,
                 cache: false,
@@ -359,6 +359,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
                 type: "GET",
                 success: function (data) {
                     $("#edit_form").html(data.form);
+                    var unique_id = $("span.food_list_by_food_type").attr("id");
+                    fetchFoodList($(".food_type_id").val(),unique_id);
                     siteObjJs.validation.formValidateInit('#edit-diet-plan', handleAjaxRequest);
                 },
                 error: function (jqXhr, json, errorThrown) {
@@ -397,6 +399,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
             {
                 $("#" + unique_id).html("");
                 $("#" + unique_id).html(data.food_list);
+                $(".food_id").val(data.food_list);
+
                 $("select.select-new-food").select2({
                     allowClear: true,
                     placeholder: $(this).attr('data-label-text'),
@@ -513,7 +517,9 @@ siteObjJs.admin.memberDietPlanJs = function () {
             return false;
         }
         //validateMemberDietPlan();
-        $('#create-member-diet-plan').validate({// initialize the plugin
+        var formId = $(this).closest("form").attr('id');
+        alert(formId);
+        $('#'+formId).validate({// initialize the plugin
             //focusCleanup: true,
             errorPlacement: function (error, element) {
                 error.insertAfter(element);
@@ -558,8 +564,11 @@ siteObjJs.admin.memberDietPlanJs = function () {
             });
             return false;
         }
+        var formId = $(".save-member-diet-plan").closest("form").attr('id');
+        alert("#"+formId);
         var formElement = $(this.currentForm); // Retrive form from DOM and convert it to jquery object
-        var formElement = $("#create-member-diet-plan");
+        var formElement = $("#"+formId);
+        alert(formElement)
         var formID = formElement.attr("id");
         var serializedForm = formElement.serializeArray();
         //var serializedForm = $('#create-member-diet-plan').serializeArray();
@@ -575,7 +584,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
             form.append(item.name, item.value);
         });
 
-        if (formID === 'create-member-diet-plan') {
+        if (formID === formId) {
+            alert("hi");
             var member_id = $('#customer_select').val();
             var diet_plan_id = $('#diet_plan_id').val();
             if ('' != member_id) {
@@ -588,6 +598,10 @@ siteObjJs.admin.memberDietPlanJs = function () {
                 $("#help-block-error").html("Please select diet plan.");
                 return false;
             }
+        }
+
+        if (formID === 'edit-diet-plan'){
+            form.append('_method', 'PUT');
         }
 
         var checkedFood = 0;
@@ -689,6 +703,7 @@ siteObjJs.admin.memberDietPlanJs = function () {
                 }
             }
         );
+        location.reload();
     }
 
     var handleTable = function (tableId, customerId, dietPlanid) {

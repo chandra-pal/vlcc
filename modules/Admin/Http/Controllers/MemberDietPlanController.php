@@ -277,8 +277,10 @@ class MemberDietPlanController extends Controller {
      * @return json encoded Response
      */
     public function store(Request $request, MemberDietPlan $memberDietPlan) {
+
         $requestParamas = $request->all();
         $serving = config('settings.APP_SERVING_SIZE_LIMIT');
+        print_r($requestParamas['member_diet_plan']);
         $checked_diet_food_items = explode(",", $requestParamas['member_diet_plan']);
 
         $requestParamas['diet_schedule_type_id'] = array_values($requestParamas['diet_schedule_type_id']);
@@ -359,15 +361,87 @@ class MemberDietPlanController extends Controller {
                 $dietPlanTypeList[$diet['id']] = $diet['plan_name'] . " - " . $planType[$diet['plan_type']] . " - " . $diet['calories'];
             }
         }
-        $dietPlanId = $memberDietPlan->diet_plan_id;
-        $Id = $memberDietPlan->id;
+        $RowId = $memberDietPlan->id;
+        $dietPlan = $this->repository->getDietPlan($RowId);
+        $dietPlanId = $dietPlan->diet_plan_id;
+        $dietScheduleTypeId = $dietPlan->diet_schedule_type_id;
+        $foodTypeId = $dietPlan->foodtypeid;
+        $foodId = $dietPlan->food_id;
+        $servingsRecommended = $dietPlan->servings_recommended;
         $listMemberData = $this->repository->listMemberDietPlanDetails()->toArray();
         foreach ($listMemberData as $key => $member) {
             $memberList[$member['id']] = $member['first_name'] . " " . $member['last_name'];
         }
+        $response['form'] = view('admin::member-diet-plan.edit', compact('memberDietPlan', 'dietPlanTypeList', 'memberList','dietScheduleTypeId', 'dietPlanId', 'RowId', 'foodTypeList','foodTypeId','foodId', 'servingsRecommended'))->render();
 
-        $response['form'] = view('admin::member-diet-plan.edit', compact('memberDietPlan', 'dietPlanTypeList', 'memberList', 'dietPlanId', 'Id', 'foodTypeList'))->render();
+        return response()->json($response);
+    }
 
+    public function update(Request $request, MemberDietPlan $memberDietPlan)
+    {
+        $requestParamas = $request->all();
+
+        $serving = config('settings.APP_SERVING_SIZE_LIMIT');
+
+        $rules['id'] = 'required';
+        $rules['diet_plan_id'] = 'required';
+        $rules['food_id'] = 'required';
+        $rules['servings_recommended'] = 'required|numeric';
+        $rules['servings_recommended'] = 'required|integer|between:1,'.$serving;
+
+//        // Create Rules for food_id
+//        foreach ($requestParamas['food_id'] as $key => $val) {
+//            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+//                $rules['food_id.' . $key] = 'required';
+//            }
+//        }
+//
+//        // Create Rules for servings_recommended
+//        foreach ($requestParamas['servings_recommended'] as $key => $val) {
+//            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+//                $rules['servings_recommended.' . $key] = 'required|numeric';
+//                $rules['servings_recommended.' . $key] = 'required|integer|between:1,' . $serving;
+//            }
+//        }
+
+        $messages = [];
+        $messages['id.required'] = 'Please Select Customer.';
+        $messages['diet_plan_id.required'] = 'Please Select Diet Plan.';
+        $messages['food_id.required'] = 'Please Select Food.';
+        $messages['servings_recommended.required'] = 'Please Enter Servings Recommended.';
+        $messages['servings_recommended.integer'] = 'Servings Recommended should be integer.';
+        $messages['servings_recommended.between'] = 'Servings Recommended should not be greater than ' . $serving;
+
+//        foreach ($requestParamas['food_id'] as $key => $val) {
+//            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+//                $messages['food_id.' . $key . '.required'] = 'Please Select Food.';
+//            }
+//        }
+//
+//        foreach ($requestParamas['servings_recommended'] as $key => $val) {
+//            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+//                $messages['servings_recommended.' . $key . '.required'] = 'Please Enter Servings Recommended.';
+//                $messages['servings_recommended.' . $key . '.integer'] = 'Servings Recommended should be integer.';
+//                $messages['servings_recommended.' . $key . '.between'] = 'Servings Recommended should not be greater than ' . $serving;
+//            }
+//        }
+
+        $validationArray['id'] = $requestParamas['id'];
+        $validationArray['diet_plan_id'] = $requestParamas['diet_plan_id'];
+        $validationArray['servings_recommended'] = $requestParamas['servings_recommended'];
+        $validationArray['food_id'] = $requestParamas['food_id'];
+
+
+        //$validator=Validator::make($request->only('id', 'diet_plan_id', 'servings_recommended', 'food_id'), $rules, $messages);
+        $validator = Validator::make($validationArray, $rules, $messages);
+
+        if ($validator->fails()) {
+            $validation_message = $validator->errors()->first();
+            $response['status'] = 'error';
+            $response['message'] = $validation_message;
+        } else {
+            $response = $this->repository->updateDietPlan($requestParamas, $memberDietPlan);
+        }
         return response()->json($response);
     }
 

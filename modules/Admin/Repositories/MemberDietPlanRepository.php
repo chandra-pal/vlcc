@@ -141,7 +141,7 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
             $response['message'] = trans('admin::messages.updated', ['name' => trans('admin::controller/member-diet-plan.member-diet-plan')]);
             return $response;
         } catch (Exception $ex) {
-            $exceptionDetails = $e->getMessage();
+            $exceptionDetails = $ex->getMessage();
             $response['status'] = 'error';
             $response['message'] = trans('admin::messages.not-updated', ['name' => trans('admin::controller/member-diet-plan.member-diet-plan')]) . "<br /><b> Error Details</b> - " . $exceptionDetails;
             Log::error(trans('admin::messages.not-updated', ['name' => trans('admin::controller/member-diet-plan.member-diet-plan')]), ['Error Message' => $exceptionDetails, 'Current Action' => Route::getCurrentRoute()->getActionName()]);
@@ -149,7 +149,64 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
             return $response;
         }
     }
+public function updateDietPlan($inputs, $memberDietPlan){
+    try {
+        // Delete Data from Database for that member_id & diet_plan_id
+        //$delete_success = DB::table('member_diet_plan_details')
+        //    ->where('member_id', '=', $inputs["id"])
+        //    ->delete()
 
+//        $final_selected_member_diet_plan = explode(",", $inputs["member_diet_plan"]);
+//        $final_member_diet_plan_details = array();
+
+//        foreach ($final_member_diet_plan_details as $key => $checked_food) {
+//            // Insert Only Checked Food Items
+//            if ($checked_food) {
+//                if ((isset($inputs["diet_schedule_type_id"][$key]) && isset($inputs["food_id"][$key]) && isset($inputs["servings_recommended"][$key])) && (!empty($inputs["diet_schedule_type_id"][$key]) && !empty($inputs["food_id"][$key]) && !empty($inputs["servings_recommended"][$key]) && $inputs["servings_recommended"][$key] != 0)) {
+//                    // Insert Data into table member_diet_plan_details
+//                    $update_array = array("member_id" => $inputs["id"], "diet_plan_id" => $inputs["diet_plan_id"], "diet_schedule_type_id" => $inputs["diet_schedule_type_id"][$key], "food_id" => $inputs["food_id"][$key], "servings_recommended" => $inputs["servings_recommended"][$key], "status" => "1", "created_by" => "1", "created_at" => date("Y-m-d H:i:s"));
+//                    $final_member_diet_plan_details[] = $update_array;
+//                }
+//            }
+//       }
+
+//        foreach ($inputs as $key => $value){
+//            if(isset($memberDietPlan->$key)){
+//                $memberDietPlan->$key=$value;
+//            }
+//        }
+        print_r($inputs);
+        $final_member_diet_plan_details["member_id"] = $inputs["id"];
+        $final_member_diet_plan_details["diet_plan_id"] = $inputs["diet_plan_id"];
+        $final_member_diet_plan_details["diet_schedule_type_id"] = $inputs["diet_schedule_type_id"];
+        foreach ($inputs["food_id"] as $key => $value){
+            $final_member_diet_plan_details["food_id"] = $inputs["food_id"][$key];
+        }
+        $final_member_diet_plan_details["servings_recommended"] = $inputs["servings_recommended"];
+        $final_member_diet_plan_details["status"] = "1";
+        $final_member_diet_plan_details["updated_by"] = "1";
+        $final_member_diet_plan_details["updated_at"] = date("Y-m-d H:i:s");
+        $save = DB::table("member_diet_plan_details")->where('id',$inputs["diet_plan_row_id"])->update($final_member_diet_plan_details);
+
+        // Update diet Plan id in database
+       // DB::table('members')->where('id', $inputs["id"])->update(['diet_plan_id' => $inputs["diet_plan_id"]]);
+        if($save) {
+            $response['status'] = 'success';
+            $response['message'] = trans('admin::messages.updated', ['name' => trans('admin::controller/member-diet-plan.member-diet-plan')]);
+        }else {
+            $response['status'] = 'error';
+            $response['message'] = trans('admin::messages.not-updated', ['name' => trans('admin::controller/session-bookings.session-bookings')]);
+        }
+        return $response;
+    } catch (Exception $ex) {
+        $exceptionDetails = $ex->getMessage();
+        $response['status'] = 'error';
+        $response['message'] = trans('admin::messages.not-updated', ['name' => trans('admin::controller/member-diet-plan.member-diet-plan')]) . "<br /><b> Error Details</b> - " . $exceptionDetails;
+        Log::error(trans('admin::messages.not-updated', ['name' => trans('admin::controller/member-diet-plan.member-diet-plan')]), ['Error Message' => $exceptionDetails, 'Current Action' => Route::getCurrentRoute()->getActionName()]);
+
+        return $response;
+    }
+}
     public function getDieticianFoods($params) {
         $dietician_id = Auth::guard('admin')->user()->id;
         $food_type_id = $params["food_type_id"];
@@ -182,13 +239,13 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
         return $result[0];
     }
 
-    public function getDietPlan($dietScheduleTypeId)
+    public function getDietPlan($RowId)
     {
-        $result = DB::table('member_diet_plan_details')
-                    ->select('food_types.food_type_name','foods.food_name','member_diet_plan_details.servings_recommended','foods.measure','foods.calories')
-                    ->LEFTJOIN('foods','foods.id','=','member_diet_plan_details.food_id')
-                    ->LEFTJOIN('food_types','food_types.id','=','foods.food_type_id')
-                    ->where('member_diet_plan_details.id','=',$dietScheduleTypeId);
-         return $result;
+        $result = DB::select("SELECT diet_plan_id, diet_schedule_type_id, food_id, servings_recommended, food_types.id as foodtypeid
+                              FROM member_diet_plan_details
+                              LEFT JOIN foods on foods.id = member_diet_plan_details.food_id
+                              LEFT JOIN food_types ON food_types.id = foods.food_type_id 
+                              WHERE member_diet_plan_details.id = ".$RowId." ");
+         return $result[0];
     }
 }

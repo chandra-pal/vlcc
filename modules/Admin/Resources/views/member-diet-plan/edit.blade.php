@@ -8,15 +8,26 @@
         </div>
     </div>
     <div class="portlet-body form">
-        {!! Form::model($memberDietPlan, ['route' => ['admin.member-diet-plan.store', $memberDietPlan->id], 'method' => 'put', 'class' => 'form-horizontal panel post-form','id'=>'edit-diet-plan', 'msg' => 'Diet Plan updated successfully.']) !!}
+        {!! Form::model($memberDietPlan, ['route' => ['admin.member-diet-plan.update', $memberDietPlan->id], 'method' => 'put', 'class' => 'form-horizontal panel post-form','id'=>'edit-diet-plan', 'msg' => 'Diet Plan updated successfully.']) !!}
         <table class="table table-striped table-bordered table-hover">
-            <thead></thead>
+            <thead>
+            <tr>
+
+                <th><label class="col-md-3 control-label">Food Type<span class="required" aria-required="true">*</span></label></th>
+                <th><label class="col-md-3 control-label">Food Name<span class="required" aria-required="true">*</span></label></th>
+            <th><label class="col-md-3 control-label">Servings Recommended<span class="required" aria-required="true">*</span></label></th>
+            <th><label class="col-md-3 control-label">Measure<span class="required" aria-required="true">*</span></label></th>
+            <th><label class="col-md-3 control-label">Calories<span class="required" aria-required="true">*</span></label></th>
+            <th><label class="col-md-3 control-label">Total Calories<span class="required" aria-required="true">*</span></label></th>
+            </tr></thead>
             <tbody>
             @include('admin::member-diet-plan.form')
 
             <tr class="col-md-6">
                 <td class="col-md-offset-6 col-md-9">
                     <button type="submit" class="btn green save-member-diet-plan">Save</button>
+                </td>
+                <td>
                     <button type="button" class="btn default btn-collapse btn-collapse-form-edit">Cancel</button>
                 </td>
             </tr>
