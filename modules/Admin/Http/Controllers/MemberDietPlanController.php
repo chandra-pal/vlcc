@@ -368,12 +368,16 @@ class MemberDietPlanController extends Controller {
         $foodTypeId = $dietPlan->foodtypeid;
         $foodId = $dietPlan->food_id;
         $servingsRecommended = $dietPlan->servings_recommended;
+        $foodDetails = $this->repository->getFoodDetails($foodId);
+        $measure= $foodDetails->measure;
+        $calories = $foodDetails->calories;
+        $total_calories = $servingsRecommended * $calories;
         $listMemberData = $this->repository->listMemberDietPlanDetails()->toArray();
         foreach ($listMemberData as $key => $member) {
             $memberList[$member['id']] = $member['first_name'] . " " . $member['last_name'];
         }
-        $response['form'] = view('admin::member-diet-plan.edit', compact('memberDietPlan', 'dietPlanTypeList', 'memberList','dietScheduleTypeId', 'dietPlanId', 'RowId', 'foodTypeList','foodTypeId','foodId', 'servingsRecommended'))->render();
-
+        $response['form'] = view('admin::member-diet-plan.edit', compact('memberDietPlan', 'dietPlanTypeList', 'memberList','dietScheduleTypeId', 'dietPlanId', 'RowId', 'foodTypeList','foodTypeId','foodId', 'servingsRecommended','measure','calories','total_calories'))->render();
+        $response['foodId'] = $foodId;
         return response()->json($response);
     }
 
@@ -465,10 +469,17 @@ class MemberDietPlanController extends Controller {
     public function getFoodListByFoodType(Request $request) {
         $params['food_type_id'] = $request->all()["food_type_id"];
         $uniqueId = $request->all()["unique_id"];
+        $foodId = $request->all()["type"];
         $foodList = $this->repository->getDieticianFoods($params)->toArray();
+        if($foodId == ''){
+            $foodListId = "";
+        }else{
+            $foodListId = $foodId;
+        }
+
         //$foodList = json_decode(json_encode($foodList), true);
         $foodList[0] = "Other";
-        $response['food_list'] = View('admin::member-diet-plan.foodlist', compact('foodList', 'uniqueId'))->render();
+        $response['food_list'] = View('admin::member-diet-plan.foodlist', compact('foodList', 'uniqueId','foodListId'))->render();
         return response()->json($response);
     }
 

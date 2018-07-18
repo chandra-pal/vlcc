@@ -248,4 +248,8 @@ public function updateDietPlan($inputs, $memberDietPlan){
                               WHERE member_diet_plan_details.id = ".$RowId." ");
          return $result[0];
     }
+    public function getFoodDetails($foodId){
+        $result = DB::select("SELECT measure, calories from foods where id = ".$foodId." ");
+        return $result[0];
+    }
 }

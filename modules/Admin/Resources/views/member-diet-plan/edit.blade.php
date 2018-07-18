@@ -9,7 +9,7 @@
     </div>
     <div class="portlet-body form">
         {!! Form::model($memberDietPlan, ['route' => ['admin.member-diet-plan.update', $memberDietPlan->id], 'method' => 'put', 'class' => 'form-horizontal panel post-form','id'=>'edit-diet-plan', 'msg' => 'Diet Plan updated successfully.']) !!}
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover" id = "edit-table">
             <thead>
             <tr>
 

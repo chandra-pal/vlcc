@@ -10,7 +10,7 @@
             <td>
                <div>
             <span class='food_list_by_food_type' id="new_food_list_{{ $RowId }}">
-            {!! Form::select('food_id', [''=>'Select Food'],  null,['class'=>'select2me form-control select-new-food food_id',  'data-rule-required'=>'true', 'data-msg-required'=>'Please Select Food']) !!}
+            {!! Form::select('food_id', [''=>'Select Food'],  $foodId,['class'=>'select2me form-control select-new-food food_id',  'data-rule-required'=>'true', 'data-msg-required'=>'Please Select Food']) !!}
             </span>
                 </div>
             <span class="help-block">Search here or select from list</span>
@@ -25,19 +25,19 @@
             <td>
              <div>
                 {!! Form::text('servings_recommended', $servingsRecommended, ['class'=>'form-control servings_recommended unit_servings_'.$RowId.'', 'maxlength' =>5, 'minlength'=>1, 'data-rule-required'=>'true', 'data-msg-required'=>trans('admin::messages.required-enter', ['name' => 'Servings Recommended']) , 'data-msg-minlength'=>trans('admin::messages.error-minlength', ['name' => 'Servings Recommended'])])!!}
-                {!! Form::hidden('calories', null, array('class' => 'unit_calories unit_calories_'.$RowId.'')) !!}
+                {!! Form::hidden('calories', $calories, array('class' => 'unit_calories unit_calories_'.$RowId.'')) !!}
                 </div>
             </td>
 
 
-           <td  class="measure">
+           <td  class="measure">{{$measure}}
             </td>
 
-            <td  class="calories">
+            <td  class="calories">{{$calories}}
             </td>
 
             <td>
-               <span class='total_calories'></span>
+               <span class='total_calories'>{{$total_calories}}</span>
             </td>
         </tr>
 
