@@ -182,7 +182,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controller
     Route::resource('activity-type', 'ActivityTypeController');
 
     //Manage Member Diet Plan
-    Route::get('member-diet-plan/get-member-diet-plan/{mid}', ['as' => 'admin.member-diet-plan.get-member-diet-plan', 'uses' => 'MemberDietPlanController@getPlan', 'permission' => 'index']);
+    Route::get('member-diet-plan/get-member-diet-plan', ['as' => 'admin.member-diet-plan.get-member-diet-plan', 'uses' => 'MemberDietPlanController@getPlan', 'permission' => 'index']);
     Route::post('member-diet-plan/data', ['as' => 'admin.member-diet-plan.list', 'uses' => 'MemberDietPlanController@getData', 'permission' => 'index']);
     Route::post('member-diet-plan/select-new-food', ['as' => 'admin.member-diet-plan.select_food', 'uses' => 'MemberDietPlanController@getFoodList', 'permission' => 'index']);
     Route::post('member-diet-plan/add-new-food', ['as' => 'admin.member-diet-plan.add_food', 'uses' => 'MemberDietPlanController@addDieticianFood', 'permission' => 'index']);
@@ -190,6 +190,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controller
     Route::get('member-diet-plan/get-food-details/{fid}', ['as' => 'admin.member-diet-plan.get-food-details', 'uses' => 'MemberDietPlanController@getFoodDetails', 'permission' => 'index']);
     Route::post('member-diet-plan/foodListByFoodType', ['as' => 'admin.member-diet-plan.get-foodlist-byfoodtype', 'uses' => 'MemberDietPlanController@getFoodListByFoodType', 'permission' => 'index']);
     Route::post('member-diet-plan/get-calories', ['as' => 'admin.member-diet-plan.get-calories', 'uses' => 'MemberDietPlanController@getCalories', 'permission' => 'index']);
+    Route::get('download-diet-history', ['as' => 'admin.member-diet-plan.download-diet-history', 'uses' => 'MemberDietPlanController@downloadDietHistory', 'permission' => 'index']);
 
     //Manage Member Activity Log
     Route::get('member-activity-log/get-deviation', ['as' => 'admin.member-activity-log.get-deviation', 'uses' => 'MemberActivityLogController@getDeviation', 'permission' => 'index']);
@@ -240,14 +241,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controller
     Route::post('session-bookings/fetch-availability', ['as' => 'admin.session-bookings.fetch-availability', 'uses' => 'SessionBookingsController@fetchAvailability', 'permission' => 'index']);
 
     Route::post('session-bookings/get-availability-list', ['as' => 'admin.session-bookings.get-availability-list', 'uses' => 'SessionBookingsController@getAvailabilityList', 'permission' => 'index']);
+    Route::post('session-bookings/get-center-availability-list', ['as' => 'admin.session-bookings.get-center-availability-list', 'uses' => 'SessionBookingsController@getCenterAvailabilityList', 'permission' => 'index']);
 
     Route::post('session-bookings/data', ['as' => 'admin.session-bookings.list', 'uses' => 'SessionBookingsController@getData', 'permission' => 'index']);
     Route::resource('session-bookings', 'SessionBookingsController');
 
-
     Route::get('booking-history', ['as' => 'admin.session-bookings.booking-history', 'uses' => 'SessionBookingsController@bookingHistory']);
+	Route::get('download-booking-history', ['as' => 'admin.session-bookings.download-booking-history', 'uses' => 'SessionBookingsController@downloadBookingHistory', 'permissions' => 'index']);
+
     Route::get('view-todays-sessions', ['as' => 'admin.view-todays-sessions.list', 'uses' => 'SessionBookingsController@viewTodaysSessions', 'permission' => 'index']);
-    Route::get('view-todays-sessions/data', ['as' => 'admin.view-todays-sessions.data', 'uses' => 'SessionBookingsController@getTodaysSessions', 'permission' => 'index']);
+    Route::post('view-todays-sessions/data', ['as' => 'admin.view-todays-sessions.data', 'uses' => 'SessionBookingsController@getTodaysSessions', 'permission' => 'index']);
     Route::post('check-session-booking', ['as' => 'admin.session-bookings.check_session_booking', 'uses' => 'SessionBookingsController@checkSessionBooking', 'permission' => 'index']);
     Route::post('members/packages', ['as' => 'admin.session-bookings.packageList', 'uses' => 'SessionBookingsController@getPackagesList', 'permission' => 'index']);
     Route::post('members/services', ['as' => 'admin.session-bookings.serviceList', 'uses' => 'SessionBookingsController@getServicesList', 'permission' => 'index']);

@@ -25,6 +25,9 @@ class MemberSessionRecord extends BaseModel {
      *
      * @var array
      */
-    protected $fillable = ['package_id', 'member_id', 'session_id', 'recorded_date', 'bp', 'before_weight', 'after_weight', 'a_code', 'diet_and_activity_deviation', 'therapist_id', 'otp_verified', 'created_by', 'updated_by'];
-
+    protected $fillable = ['package_id', 'crm_center_id', 'member_id', 'session_id', 'recorded_date', 'bp', 'before_weight', 'after_weight', 'a_code', 'diet_and_activity_deviation', 'therapist_id', 'otp_verified', 'created_by', 'updated_by'];
+    
+    public function memberSessionRecordCenter() {
+        return $this->belongsTo('Modules\Admin\Models\Center', 'crm_center_id', 'crm_center_id');
+    }
 }

@@ -82,7 +82,7 @@ siteObjJs.admin.cprJs = function () {
             var id = $(this).attr("id");
             var session_record_id = id.substring(id.lastIndexOf("-") + 1, id.length);
             updateServiceExecutionStatus(session_record_id, 'refresh');
-            handleSessionTable();
+            handleSessionTable(0);
         });
 
         $(".retry-clm-execution-call").live("click", function (e) {
@@ -105,7 +105,7 @@ siteObjJs.admin.cprJs = function () {
                 "data": {member_id: member_id, session_id: session_id, before_weight: before_weight, after_weight: after_weight, therapist: therapist, member_session_record_id: id},
                 success: function (data) {
                     updateServiceExecutionStatus(id, 'retry');
-                    handleSessionTable();
+                    handleSessionTable(0);
                 },
                 error: function (jqXhr, json, errorThrown)
                 {
@@ -382,7 +382,10 @@ siteObjJs.admin.cprJs = function () {
             } else {
                 actionUrl = "cpr-ajax";
             }
-
+            var center_id = 0;
+            if ($("#center_select").length > 0) {
+                var center_id = $("#center_select").val();
+            }
             if ($(this).val() != 0) {
                 // Call Ajax function to display CPR Form
                 var member_id = $(this).val();
@@ -394,7 +397,7 @@ siteObjJs.admin.cprJs = function () {
                     cache: false,
                     dataType: "json",
                     type: "POST",
-                    "data": {member_id: member_id},
+                    "data": {member_id: member_id, center_id:center_id},
                     beforeSend: function ()
                     {
                         $(".cpr-ajax-response").html("");
@@ -428,9 +431,9 @@ siteObjJs.admin.cprJs = function () {
                             setTimeout(checkBcaDate(), 200);
                             setTimeout(handleBcaRecordTable(), 400);
                             setTimeout(handleMeasurementTable(), 600);
-                            if (siteObjJs.admin.cprJs.sessionId != 0) {
-                                setTimeout(handleSessionTable(), 800);
-                            }
+                            //if (siteObjJs.admin.cprJs.sessionId != 0) {
+                            setTimeout(handleSessionTable(0), 800);
+                            //}
                             setTimeout(handleDietaryAssessmentTable(), 1000);
                             setTimeout(handleFitnessAssessmentTable(), 1200);
                             setTimeout(handleMedicalAssessmentTable(), 1400);
@@ -452,6 +455,9 @@ siteObjJs.admin.cprJs = function () {
                                 $("fieldset").attr("disabled", "disabled");
                             }
                             siteObjJs.validation.formValidateInit('#create-cpr', handleCPRRecords);
+
+                            // Fetch packages list of selected member
+                            setTimeout(fetchPackageList($(this).val()), 200);
                         } else {
                             var url = adminUrl + "/cpr/" + data.latest_session_id;
                             window.location.href = url;
@@ -922,11 +928,15 @@ siteObjJs.admin.cprJs = function () {
         if (typeof $("#session_id").val() !== "undefined") {
             var session_id = $("#session_id").val();
         }
+        var center_id = 0;
+        if ($("#center_select").length > 0) {
+            var center_id = $("#center_select").val();
+        }
         $.ajax({
             url: actionUrl,
             cache: false,
             type: 'POST',
-            data: {"session_id": session_id, "member_id": $("#member_id").val()},
+            data: {"session_id": session_id, "member_id": $("#member_id").val(), "center_id": center_id},
             success: function (response)
             {
                 var todaySessionRecord = [];
@@ -1019,6 +1029,7 @@ siteObjJs.admin.cprJs = function () {
                     $('#after_weight').val(todaySessionRecord.after_weight).prop('disabled', true);
                     $('#a_code').val(todaySessionRecord.a_code).prop('disabled', true);
                     $('#diet_and_activity_deviation').val(todaySessionRecord.diet_and_activity_deviation).prop('disabled', true);
+                    $('#session_comment').val(todaySessionRecord.session_comment).prop('disabled', true);
                     $('#create-session-records button[type="submit"]').prop('disabled', true);
                     $('#ajax-response-text-session').removeClass('hidden');
                 } else {
@@ -1249,10 +1260,15 @@ siteObjJs.admin.cprJs = function () {
         input_package.type = 'hidden';
         input_package.value = $("#package_id").val();
         input_package.name = 'package_id';
+        var input_session_center = document.createElement('input');
+        input_session_center.type = 'hidden';
+        input_session_center.value = $("#session_center_id").val();
+        input_session_center.name = 'session_center_id';
 
         formElement.append(input_member);
         formElement.append(input_session);
         formElement.append(input_package);
+        formElement.append(input_session_center);
         var actionUrl = formElement.attr("action");
         var actionType = formElement.attr("method");
         var formData = formElement.serializeArray();
@@ -1998,7 +2014,14 @@ siteObjJs.admin.cprJs = function () {
         });
     };
 
-    var handleSessionTable = function () {
+    var handleSessionTable = function (package_id) {
+        if ($("#member_package_id").length > 0) {
+            package_id = $("#member_package_id").val();
+        }
+        var center_id = 0;
+        if ($("#center_select").length > 0) {
+            var center_id = $("#center_select").val();
+        }
         var currentUrl = document.location.href;
         var lastId = currentUrl.substring(currentUrl.lastIndexOf("/") + 1, currentUrl.length);
         if ((siteObjJs.admin.cprJs.sessionId == 0 || typeof siteObjJs.admin.cprJs.sessionId === "undefined") && lastId == "cpr")
@@ -2024,11 +2047,13 @@ siteObjJs.admin.cprJs = function () {
                     {data: null, name: 'rownum', searchable: false},
                     {data: 'bp', name: 'bp'},
                     {data: 'recorded_date', name: 'recorded_date'},
+                    {data: 'member_session_record_center.area', name: 'member_session_record_center.area'},
                     {data: 'before_weight', name: 'before_weight'},
                     {data: 'after_weight', name: 'after_weight'},
                     {data: 'a_code', name: 'a_code'},
                     {data: 'diet_and_activity_deviation', name: 'diet_and_activity_deviation'},
                     {data: 'therapist_id', name: 'therapist_id'},
+                    {data: 'session_comment', name: 'session_comment'},
                     {data: 'otp_verified', name: 'otp_verified'},
                     {data: 'service_executed', name: 'service_executed'},
                     {data: 'net_weight_loss', name: 'net_weight_loss', visible: false},
@@ -2057,28 +2082,28 @@ siteObjJs.admin.cprJs = function () {
                     api.column(11, {page: 'current'}).data().each(function (group, i) {
                         if (group != '') {
                             var balance_programme_kg = group;
-                            var net_weight_gain = api.column(11, {page: 'current'}).data()[i];
-                            var net_weight_loss = api.column(10, {page: 'current'}).data()[i];
-                            var ath_comment = api.column(13, {page: 'current'}).data()[i];
-                            var session_id = api.column(14, {page: 'current'}).data()[i];
-                            var id = api.column(15, {page: 'current'}).data()[i];
+                            var net_weight_gain = api.column(12, {page: 'current'}).data()[i];
+                            var net_weight_loss = api.column(11, {page: 'current'}).data()[i];
+                            var ath_comment = api.column(14, {page: 'current'}).data()[i];
+                            var session_id = api.column(15, {page: 'current'}).data()[i];
+                            var id = api.column(16, {page: 'current'}).data()[i];
                             var html = '<tr role="row" class="weight-row session_program_record_summary" id="session_program_record_summary' + session_id + '"><td colspan="2"><b>Net Weight Loss : ' + net_weight_loss + '</b></td><td colspan="2"><b>Net Weight gain : ' + net_weight_gain + '</b></td><td colspan="2"><b>Balance (Kg) Programme : ' + balance_programme_kg + '</b></td>';
 
                             var logged_in_user_type = $("#logged_in_user_type").val();
                             if (logged_in_user_type == 9 && net_weight_loss < 1) {
                                 if (ath_comment == null || ath_comment == "") {
-                                    html = html + '<td colspan="4"><button type="button" id="athcomment_' + session_id + '" class="btn btn-info yellow-gold enter_comment" data-toggle="modal" data-target="#myModal" style="float:right;padding:10px 15px;">Comment</button></td></tr>';
+                                    html = html + '<td colspan="5"><button type="button" id="athcomment_' + session_id + '" class="btn btn-info yellow-gold enter_comment" data-toggle="modal" data-target="#myModal" style="float:right;padding:10px 15px;">Comment</button></td></tr>';
                                 } else {
-                                    html = html + '<td colspan="4"><p style="float:left;width:50%;word-wrap:break-word;text-align:justify;"><b>ATH Comment : </b>' + ath_comment + '</p><button type="button" id="athcomment_' + session_id + '" class="btn btn-info yellow-gold enter_comment" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="fa fa-pencil"></i></button></td></tr>';
+                                    html = html + '<td colspan="5"><p style="float:left;width:50%;word-wrap:break-word;text-align:justify;"><b>ATH Comment : </b>' + ath_comment + '</p><button type="button" id="athcomment_' + session_id + '" class="btn btn-info yellow-gold enter_comment" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="fa fa-pencil"></i></button></td></tr>';
                                 }
                             } else if (logged_in_user_type == 4 || logged_in_user_type == 8) {
                                 if (ath_comment == null) {
-                                    html = html + '<td colspan="4"><b>ATH Comment : </b>NA</td></tr>';
+                                    html = html + '<td colspan="5"><b>ATH Comment : </b>NA</td></tr>';
                                 } else {
-                                    html = html + '<td colspan="4"><b>ATH Comment : </b> ' + ath_comment + '</td></tr>';
+                                    html = html + '<td colspan="5"><b>ATH Comment : </b> ' + ath_comment + '</td></tr>';
                                 }
                             } else {
-                                html = html + '<td colspan="4"></td>';
+                                html = html + '<td colspan="5"></td>';
                             }
                             $(rows).eq(i).after(html);
                         }
@@ -2089,7 +2114,7 @@ siteObjJs.admin.cprJs = function () {
                 "ajax": {
                     "url": actionUrl,
                     "type": "GET",
-                    data: {"member_id": $("#member_id").val(), "package_id": $("#package_id").val(), "session_id": $("#session_id").val()},
+                    data: {"member_id": $("#member_id").val(), "package_id": package_id, "center_id": center_id},
                 }
             }
         });
@@ -2159,6 +2184,45 @@ siteObjJs.admin.cprJs = function () {
             return age;
         }
     }
+
+    // Function To List Packages Data of selected member
+    var fetchPackageList = function (memberId) {
+        var actionUrl = adminUrl + '/members/packages';
+        $.ajax({
+            url: actionUrl,
+            cache: false,
+            dataType: "json",
+            type: "POST",
+            "data": {member_id: memberId},
+            success: function (data)
+            {
+                /*$(".package_information").html("");
+                 $(".package_information").html(data.package_list);
+                 $(".select-package").select2({
+                 allowClear: true,
+                 placeholder: $(this).attr('data-label-text'),
+                 width: null
+                 });*/
+                //checkSessionAvailable();
+            },
+            error: function (jqXhr, json, errorThrown)
+            {
+                var errors = jqXhr.responseJSON;
+                var errorsHtml = '';
+                $.each(errors, function (key, value) {
+                    errorsHtml += value[0] + '<br />';
+                });
+                // alert(errorsHtml, "Error " + jqXhr.status + ': ' + errorThrown);
+                Metronic.alert({
+                    type: 'danger',
+                    message: errorsHtml,
+                    container: $('#ajax-response-text'),
+                    place: 'prepend',
+                    closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
+                });
+            }
+        });
+    };
 
     var checkBcaDate = function () {
         var stepNoVar = 0;
@@ -2839,6 +2903,11 @@ siteObjJs.admin.cprJs = function () {
         $('.measurement-record-date').datepicker('update');
     };
 
+    //on change of package, display session programme record
+    $('body').on('change', '#member_package_id', function (e) {
+        handleSessionTable($(this).val());
+    });
+
     return {
         //main function to initiate the module
         init: function () {
@@ -2862,9 +2931,9 @@ siteObjJs.admin.cprJs = function () {
                 setTimeout(checkBcaDate(), 200);
                 setTimeout(handleBcaRecordTable(), 400);
                 setTimeout(handleMeasurementTable(), 600);
-                if (siteObjJs.admin.cprJs.sessionId != 0) {
-                    setTimeout(handleSessionTable(), 800);
-                }
+                //if (siteObjJs.admin.cprJs.sessionId != 0) {
+                setTimeout(handleSessionTable(0), 800);
+                //}
                 setTimeout(handleDietaryAssessmentTable(), 1000);
                 setTimeout(handleFitnessAssessmentTable(), 1200);
                 setTimeout(handleMedicalAssessmentTable(), 1400);

@@ -98,7 +98,7 @@
 
     <tr>
         <td>{!! trans('admin::controller/session-bookings.staff') !!}<span class="required" aria-required="true" style="color: #e02222;">*</span></td>
-        <td id="staff_list" width="200"> @include('admin::session-bookings.staff') </td>
+        <td id="staff_list" width="300"> @include('admin::session-bookings.staff') </td>
         <td colspan="4"><div id="staff_calender"></div></td>
     </tr>
     <tr class="session_tr_machine">

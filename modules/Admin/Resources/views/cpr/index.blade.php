@@ -77,6 +77,7 @@
                 <input id="data-search" type="search" class="form-control" placeholder="Search">
                 <input type="hidden" name="session_id"  id ='session_id' value="{!! $session_id !!}">
                 <input type="hidden" name="member_id"  id ='member_id' value="{!! $member_id !!}">
+                <input type="hidden" name="session_center_id"  id ='session_center_id' value="{!! $session_center_id !!}">
                 <input type="hidden" name="package_id"  id ='package_id' value="{!! $package_id !!}">
                 <input type="hidden" name="check_bca_data_flag"  id ='check_bca_data_flag' value="99">
                 <input type="hidden" name="logged_in_user_id"  id ='logged_in_user_id' value="{!! $logged_in_user_id !!}">

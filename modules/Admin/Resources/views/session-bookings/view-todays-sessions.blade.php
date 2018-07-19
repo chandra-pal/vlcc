@@ -65,7 +65,7 @@
                         <th width='15%'>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="todays-sessions-table-body">
 
                 </tbody>
             </table>

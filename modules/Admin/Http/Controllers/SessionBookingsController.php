@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Validator;
 use Session;
+use Excel;
 
 class SessionBookingsController extends Controller
 {
@@ -59,8 +60,16 @@ class SessionBookingsController extends Controller
     {
         $memberHelper = new MemberHelper();
         $membersList = [];
+        $memGender = array("1" => "Male", "2" => "Female");
+        $pacServiceCat = array("1" => "Slimming", "2" => "Beauty");
 
-        if ((Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
+//        if ((Auth::guard('admin')->user()->userType->id == 4) || (Auth::guard('admin')->user()->userType->id == 7) || (Auth::guard('admin')->user()->userType->id == 8) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) { // 4:Dietician, 7:CH, 8:SH,9:ATH,11:CA,
+//            $centersList = $memberHelper->getCentersList();
+//        }
+
+        $sessionStatus = array("2" => "Booked", "6" => "Waiting list");
+
+        if ((Auth::guard('admin')->user()->userType->id == 5) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
             $centersList = $memberHelper->getCentersList();
             if (Session::get('center_id') != '') {
                 $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
@@ -74,7 +83,7 @@ class SessionBookingsController extends Controller
         } else {
             $membersList = $memberHelper->getUserWiseMemberList();
         }
-        $sessionStatus = array("2" => "Booked", "6" => "Waiting list");
+
         $arrTimes['start_time'] = $serving = config('settings.APP_SESSION_BOOKING_START_TIME');
         $arrTimes['end_time'] = $serving = config('settings.APP_SESSION_BOOKING_END_TIME');
         $timestamp = strtotime($arrTimes['end_time']) + 30 * 60;
@@ -92,7 +101,12 @@ class SessionBookingsController extends Controller
         $staffId = array();
         $machineId = array();
         $roomId = array();
-        return view('admin::session-bookings.index', compact('arrTimes', 'membersList', 'packageList', 'serviceList', 'dieticianId', 'olaCabRequired', 'flag', 'cancelFlag', 'selectedSessionServices', 'membersList', 'centersList', 'centerStaffList', 'centerMachineList', 'centerRoomList', 'staffId', 'machineId', 'roomId','sessionStatus'));
+
+        $staffResourceTime = '';
+        $machineResourceTime = "";
+        $roomResourceTime = "";
+        return view('admin::session-bookings.index', compact('arrTimes', 'membersList', 'packageList', 'serviceList', 'dieticianId', 'olaCabRequired', 'flag', 'cancelFlag', 'selectedSessionServices', 'membersList', 'centersList', 'centerStaffList', 'centerMachineList', 'centerRoomList', 'staffId', 'machineId', 'roomId','sessionStatus','memGender','pacServiceCat','staffResourceTime','machineResourceTime','roomResourceTime'));
+
     }
 
     /**
@@ -104,8 +118,18 @@ class SessionBookingsController extends Controller
     {
         $params['dietician_id'] = Auth::guard('admin')->user()->id;
         $params['logged_in_user_type_id'] = Auth::guard('admin')->user()->userType->id;
+
+        $center_id = $request->all()["center_id"];
+
+        $customer_gender = $request->all()["customer_gender"];
+        $customer_service_cat = $request->all()["customer_service_cat"];       
         $customer_id = $request->all()["customer_id"];
+
+        $params["center_id"] = $center_id;
+        $params["customer_gender"] = $customer_gender;
+        $params["customer_service_cat"] = $customer_service_cat;
         $params["customer_id"] = $customer_id;
+
         Session::set('member_id', $customer_id);
         $sessionBookings = $this->repository->data($params);
         $events = [];
@@ -139,9 +163,8 @@ class SessionBookingsController extends Controller
                 $background_color = '#E6E6FA';
             }
 
-            $displayText = ucwords($session->member->first_name . ' - ' . $session->member->mobile_number);
-            $memberId = $session->member_id;
-            $mobileNumber = $session->member->mobile_number;
+            $displayText = ucwords($session->first_name . ' - ' . $session->mobile_number);
+            $mobileNumber = $session->mobile_number;
             $finalDisplayText = $displayText;
 
             $events[] = [
@@ -155,7 +178,8 @@ class SessionBookingsController extends Controller
                 'status' => $session->status,
                 'mobile_number' => $session->mobile_number,
                 'member_id' => $session->member_id,
-                'created_by' => $session->created_by
+                'created_by' => $session->created_by,
+                'member_id' => $session->member_id
             ];
         }
 
@@ -167,11 +191,27 @@ class SessionBookingsController extends Controller
      *
      * @return event data
      */
-    public function getTodaysSessions()
+    public function getTodaysSessions(Request $request)
     {
         $params['user_id'] = Auth::guard('admin')->user()->id;
         $params['user_type_id'] = Auth::guard('admin')->user()->user_type_id;
         $params['session_date'] = date('Y-m-d');
+		$params['session_date1'] = date('Y-m-d',strtotime($params['session_date'].' -1 day'));
+		$params['session_date2'] = date('Y-m-d',strtotime($params['session_date'].' -2 day'));
+        
+
+        $center_id = $request->all()["center_id"];
+        $customer_gender = $request->all()["customer_gender"];
+        $customer_service_cat = $request->all()["customer_service_cat"];
+        $customer_id = $request->all()["customer_id"];
+        //  $params["customer_id"] = $customer_id;
+        
+        //$params["category_id"] = $category_id;
+        $params["center_id"] = $center_id;
+        $params["customer_gender"] = $customer_gender;
+        $params["customer_service_cat"] = $customer_service_cat;
+        $params["customer_id"] = $customer_id;
+        
         $sessionBookings = $this->repository->data($params);
         $sessionBookings = collect($sessionBookings);
 
@@ -182,64 +222,64 @@ class SessionBookingsController extends Controller
             });
         }
         return Datatables::of($sessionBookings)
-                ->addColumn('action', function ($sessionBookings) {
-                    $actionList = '';
-                    if (($sessionBookings->status == 7) && (!empty(Auth::guard('admin')->user()->hasAdd) && (Auth::guard('admin')->user()->userType->id != 11)) && $sessionBookings->package_id != 0) {
-                        // if (($sessionBookings->status == 1 || $sessionBookings->status == 2) && !empty(Auth::guard('admin')->user()->hasAdd)) {
-                        $actionList .= '<a href="cpr/' . $sessionBookings->id . '" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link">Start Session</i></a>';
-                    }
-                    if ($sessionBookings->package_id == 0 && $sessionBookings->status == 2) {
-                        $actionList .= '<a href="javascript:void(0)" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link mark-session-complete" id=' . $sessionBookings->id . '>Mark as completed</i></a>';
-                    }
-                    return $actionList;
-                })
-                ->addColumn('session_date', function ($sessionBookings) {
-                    $actionList = date('d-M-Y', strtotime($sessionBookings->session_date));
-                    return $actionList;
-                })
-                ->addColumn('service_name', function ($sessionBookings) {
-                    if ($sessionBookings->package_id != 0) {
-                        $services = $sessionBookings->MemberPackage->services;
-                        $services = $services->toArray();
-                        $service_id = explode(",", $sessionBookings->service_id);
-                        $string = '';
-                        foreach ($services as $key => $value) {
-                            if (in_array($services[$key]['id'], $service_id)) {
-                                $string = $string . ", " . $services[$key]['service_name'];
+                        ->addColumn('action', function ($sessionBookings) {
+                            $actionList = '';
+                            if (($sessionBookings->status == 7) && (!empty(Auth::guard('admin')->user()->hasAdd) && (Auth::guard('admin')->user()->userType->id != 11)) && $sessionBookings->package_id != 0) {
+                                // if (($sessionBookings->status == 1 || $sessionBookings->status == 2) && !empty(Auth::guard('admin')->user()->hasAdd)) {
+                                $actionList .= '<a href="cpr/' . $sessionBookings->id . '" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link">Start Session</i></a>';
                             }
-                            $string = (!empty(ltrim($string, ",")) ? ltrim($string, ",") : 'NA');
-                        }
-                    } else {
-                        $services_name = $this->repository->beautyServiceName($sessionBookings->service_id);
-                        $string = $services_name;
-                    }
+                            if ($sessionBookings->package_id == 0 && $sessionBookings->status == 7) {
+                                $actionList .= '<a href="javascript:void(0)" class="btn btn-xs default margin-bottom-5 yellow-gold edit-form-link mark-session-complete" id=' . $sessionBookings->id . '>Mark as completed</i></a>';
+                            }
+                            return $actionList;
+                        })
+                        ->addColumn('session_date', function ($sessionBookings) {
+                            $actionList = date('d-M-Y', strtotime($sessionBookings->session_date));
+                            return $actionList;
+                        })
+                        ->addColumn('service_name', function ($sessionBookings) {
+                            if ($sessionBookings->package_id != 0) {
+                                $servicesIds = $this->repository->getTodaysMemberPackageServices($sessionBookings->service_id);
+                                $string = '';
+                                foreach ($servicesIds as $key => $value) {
+                                    $string = $string . ", " . $value->service_name;
+                                }
+                                $string = (!empty(ltrim($string, ",")) ? ltrim($string, ",") : 'NA');
+                            } else {
+                                $services_name = $this->repository->beautyServiceName($sessionBookings->service_id);
+                                $string = $services_name;
+                            }
 
-                    return $string;
-                })
-                ->addColumn('start_time', function ($sessionBookings) {
-                    $actionList = date('h:i a', strtotime($sessionBookings->start_time));
-                    return $actionList;
-                })
-                ->addColumn('end_time', function ($sessionBookings) {
-                    $actionList = date('h:i a', strtotime($sessionBookings->end_time));
-                    return $actionList;
-                })
-                ->addColumn('first_name', function ($sessionBookings) {
-                    $member_name = $sessionBookings->member->first_name . " - " . $sessionBookings->member->mobile_number;
-                    return $member_name;
-                })
-                ->addColumn('status', function ($sessionBookings) {
+                            return $string;
+                        })
+                        ->addColumn('start_time', function ($sessionBookings) {
+                            $actionList = date('h:i a', strtotime($sessionBookings->start_time));
+                            return $actionList;
+                        })
+                        ->addColumn('end_time', function ($sessionBookings) {
+                            $actionList = date('h:i a', strtotime($sessionBookings->end_time));
+                            return $actionList;
+                        })
+                        ->addColumn('first_name', function ($sessionBookings) {
+                            $member_name = ucwords($sessionBookings->first_name . ' - ' . $sessionBookings->mobile_number);
+                            return $member_name;
+                        })
+                        ->addColumn('session_comment', function ($sessionBookings) {
+                            $session_comment = $sessionBookings->session_comment;
+                            return $session_comment;
+                        })
+                        ->addColumn('status', function ($sessionBookings) {
                     $sessionStatus = array("1" => "Requested","2" => "Booked","3" => "Rejected", "4" => "Cancelled","5" => "Completed","6" =>"Waiting list","7" =>"Confirmed","8" =>"No Response");
-                    $actionList = $sessionStatus[$sessionBookings->status];
-                    return $actionList;
-                })
-                ->addColumn('center_name', function ($sessionBookings) {
-                    $memberId = $sessionBookings->member_id;
-                    $center_name = $this->repository->getMemberCenterName($memberId);
-                    return $center_name;
-                })
+                            $actionList = $sessionStatus[$sessionBookings->status];
+                            return $actionList;
+                        })
+                        ->addColumn('center_name', function ($sessionBookings) {
+                            $memberId = $sessionBookings->member_id;
+                            $center_name = $this->repository->getMemberCenterName($memberId);
+                            return $center_name;
+                        })
 //                        }
-                ->make(true);
+                        ->make(true);
     }
 
     public function show(SessionBookings $sessionBookings)
@@ -302,8 +342,34 @@ class SessionBookingsController extends Controller
 
     public function viewTodaysSessions()
     {
+        $memberHelper = new MemberHelper();
+        $membersList = [];
+        $memGender = array("1" => "Male", "2" => "Female");
+        $pacServiceCat = array("1" => "Slimming", "2" => "Beauty");
+
+//        if ((Auth::guard('admin')->user()->userType->id == 4) || (Auth::guard('admin')->user()->userType->id == 7) || (Auth::guard('admin')->user()->userType->id == 8) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) { // 4:Dietician, 7:CH, 8:SH,9:ATH,11:CA,
+//           
+//            $centersList = $memberHelper->getCentersList();
+//            
+//        }
+        
+        if ((Auth::guard('admin')->user()->userType->id == 5) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
+            $centersList = $memberHelper->getCentersList();
+            if (Session::get('center_id') != '') {
+                $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
+            }
+        } elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
+            $centers = $memberHelper->getCentersList();
+            $centerId = key($centers);
+            if (isset($centerId) && $centerId != '') {
+                $membersList = $this->centerRepository->getMembersList($centerId);
+            }    
+        } else {
+            $membersList = $memberHelper->getUserWiseMemberList();
+        }
+
         $flag = 'add-session';
-        return view('admin::session-bookings.view-todays-sessions', compact('flag'));
+        return view('admin::session-bookings.view-todays-sessions', compact('membersList', 'memGender', 'pacServiceCat', 'centersList', 'flag'));
     }
 
     public function checkSessionBooking(Request $request)
@@ -375,7 +441,6 @@ class SessionBookingsController extends Controller
     public function edit(SessionBookings $sessionBookings)
     {
         $serviceList = array();
-
         $session_id = $sessionBookings['id'];
         $arrTimes['start_time'] = $serving = config('settings.APP_SESSION_BOOKING_START_TIME');
         $arrTimes['end_time'] = $serving = config('settings.APP_SESSION_BOOKING_END_TIME');
@@ -387,6 +452,7 @@ class SessionBookingsController extends Controller
         $params["member_id"] = $sessionBookings->member_id;
         $params["package_id"] = $sessionBookings->package_id;
         $packageList = $this->repository->getMemberPackages($params)->toArray();
+        $packageList = $packageList + array('0' => 'Others');
 
         // Get Services List of Selected Package
         $servicesList = $this->repository->getMemberPackageServices($params);
@@ -406,7 +472,7 @@ class SessionBookingsController extends Controller
         if ($sessionBookings->status == 1) {
             $sessionStatus = array("1" => "Requested", "2" => "Confirm", "3" => "Reject","6" =>"Waiting list");
         }/* else if ($sessionBookings->status == 2) {
-            $sessionStatus = array("2" => "Booked", "4" => "Cancel","9" =>"Waiting list","10" =>"Confirmed","11" =>"No Response");
+          $sessionStatus = array("2" => "Booked", "4" => "Cancel","9" =>"Waiting list","10" =>"Confirmed","11" =>"No Response");
         }*/ else {
             $sessionStatus = array("2" => "Booked", "4" => "Cancel","6" =>"Waiting list","7" =>"Confirmed","8" =>"No Response");
         }
@@ -466,25 +532,39 @@ class SessionBookingsController extends Controller
         $staffId = array();
         $machineId = array();
         $roomId = array();
+        $staffResourceTime = '';
+        $machineResourceTime = '';
+        $roomResourceTime = '';
         if (!empty($sessionDetails->toArray())) {
 
             foreach ($sessionDetails->toArray() as $key => $value) {
                 if ($value['resource_type'] == 1) {
                     array_push($staffId, $value['resource_id']);
+                    $staffResourceTime.= '<div id="staff-'.$value['resource_id'].'"><table><tbody><tr><td>'.$centerStaffList[$value['resource_id']].'</td><td><input type="text" id="resource_start_time_'.$value['resource_id'].'" name="staff_start_time[]" data-index="'.$value['resource_id'].'" value="'.date('h:i A', strtotime($value['resource_start_time'])).'" class="resource-start-time form-control"></td><td><input type="text" id="resource_end_time_'.$value['resource_id'].'" name="staff_end_time[]" data-index="'.$value['resource_id'].'" value="'.date('h:i A', strtotime($value['resource_end_time'])).'" class="resource-end-time form-control"></td></tr></tbody></table></div>';
                 } else if ($value['resource_type'] == 2) {
                     array_push($machineId, $value['resource_id']);
+                    if (!in_array(9999999, $machineId)) {
+                        $machineResourceTime .= '<div id="machine-' . $value['resource_id'] . '"><table><tbody><tr><td>' . $centerMachineList[$value['resource_id']] . '</td><td><input type="text" id="machine_resource_start_time_' . $value['resource_id'] . '" name="machine_start_time[]" data-index="' . $value['resource_id'] . '" value="' . date('h:i A', strtotime($value['resource_start_time'])) . '" class="resource-start-time form-control"></td><td><input type="text" id="machine_resource_end_time_' . $value['resource_id'] . '" name="machine_end_time[]" data-index="' . $value['resource_id'] . '" value="' . date('h:i A', strtotime($value['resource_end_time'])) . '" class="resource-end-time form-control"></td></tr></tbody></table></div>';
+                    } else {
+                        $machineResourceTime = '';
+                    }
                 } else if ($value['resource_type'] == 3) {
                     array_push($roomId, $value['resource_id']);
+                    if (!in_array(9999999, $roomId)) {
+                        $roomResourceTime .= '<div id="room-' . $value['resource_id'] . '"><table><tbody><tr><td>' . $centerRoomList[$value['resource_id']] . '</td><td><input type="text" id="room_resource_start_time_' . $value['resource_id'] . '" name="room_start_time[]" data-index="' . $value['resource_id'] . '" value="' . date('h:i A', strtotime($value['resource_start_time'])) . '" class="resource-start-time form-control"></td><td><input type="text" id="room_resource_end_time_' . $value['resource_id'] . '" name="room_end_time[]" data-index="' . $value['resource_id'] . '" value="' . date('h:i A', strtotime($value['resource_end_time'])) . '" class="resource-end-time form-control"></td></tr></tbody></table></div>';
+                    } else {
+                        $roomResourceTime = '';
+                    }
                 }
             }
         }
 
-        $response['staff_list'] = View('admin::session-bookings.staff', compact('centerStaffList', 'staffId'))->render();
-        $response['machine_list'] = View('admin::session-bookings.machine', compact('centerMachineList', 'machineId'))->render();
-        $response['room_list'] = View('admin::session-bookings.room', compact('centerRoomList', 'roomId'))->render();
+        $response['staff_list'] = View('admin::session-bookings.staff', compact('centerStaffList', 'staffId','staffResourceTime'))->render();
+        $response['machine_list'] = View('admin::session-bookings.machine', compact('centerMachineList', 'machineId','machineResourceTime'))->render();
+        $response['room_list'] = View('admin::session-bookings.room', compact('centerRoomList', 'roomId','roomResourceTime'))->render();
 
         $response['success'] = true;
-        $response['form'] = view('admin::session-bookings.edit', compact('sessionBookings', 'arrTimes', 'membersList', 'packageList', 'dieticianId', 'olaCabRequired', 'flag', 'sessionStatus', 'cancelFlag', 'serviceList', 'selectedSessionServices', 'centerStaffList', 'centerMachineList', 'centerRoomList', 'staffId', 'machineId', 'roomId'))->render();
+        $response['form'] = view('admin::session-bookings.edit', compact('sessionBookings', 'arrTimes', 'membersList', 'packageList', 'dieticianId', 'olaCabRequired', 'flag', 'sessionStatus', 'cancelFlag', 'serviceList', 'selectedSessionServices', 'centerStaffList', 'centerMachineList', 'centerRoomList', 'staffId', 'machineId', 'roomId','staffResourceTime','machineResourceTime','roomResourceTime'))->render();
 
         return response()->json($response);
     }
@@ -613,11 +693,14 @@ class SessionBookingsController extends Controller
         $staffId = "";
         $machineId = "";
         $roomId = "";
+        $staffResourceTime = "";
+        $machineResourceTime = "";
+        $roomResourceTime = "";
 
         $response['center_id'] = $list['center_id'];
-        $response['staff_list'] = View('admin::session-bookings.staff', compact('centerStaffList', 'staffId'))->render();
-        $response['machine_list'] = View('admin::session-bookings.machine', compact('centerMachineList', 'machineId'))->render();
-        $response['room_list'] = View('admin::session-bookings.room', compact('centerRoomList', 'roomId'))->render();
+        $response['staff_list'] = View('admin::session-bookings.staff', compact('centerStaffList', 'staffId','staffResourceTime'))->render();
+        $response['machine_list'] = View('admin::session-bookings.machine', compact('centerMachineList', 'machineId','machineResourceTime'))->render();
+        $response['room_list'] = View('admin::session-bookings.room', compact('centerRoomList', 'roomId','roomResourceTime'))->render();
         return response()->json($response);
     }
 
@@ -706,14 +789,100 @@ class SessionBookingsController extends Controller
 
     public function bookingHistory(Request $request)
 	{
-	    $user_name = Auth::guard('admin')->user()->id;
-		$time_from = $request->input('from');
-		$time_from = date('Y-m-d', strtotime($time_from));
-		$time_to = $request->input('to');
-		$time_to = date('Y-m-d', strtotime($time_to));
-		$var = $this->repository->bookingHistoryStatus($user_name,$time_from,$time_to);
+	    $params['dietician_id'] = Auth::guard('admin')->user()->id;
+		$params['from'] = $request->all()["from"];
+		$params['from'] = date('Y-m-d', strtotime($params['from']));
+		$params['to'] = $request->all()["to"];
+		$params['to'] = date('Y-m-d', strtotime($params['to']));
+        //$memberId =  Session::get('member_id') ? Session::get('member_id') : (isset($request->all()["customer"]) ? $request->all()["customer"] :0);
+        $memberId =  isset($request->all()["customer"]) ? $request->all()["customer"] :0;
+        $params['member_id'] = $memberId;
+		$flag = 1;
+		$var = $this->repository->bookingHistoryStatus($params,$flag);
 
-	    return view('admin::session-bookings.booking-history',compact('var'));
-
+	    return view('admin::session-bookings.booking-history',compact('var','params'));
     }
+	
+	public function downloadBookingHistory(Request $request)
+    {
+        try {
+            $fileFormat = 'csv';
+            $validFormat = ['csv', 'xls', 'xlsx'];
+
+            set_time_limit(0);
+            $response = [];
+			$flag = 0;
+            $params['dietician_id'] = Auth::guard('admin')->user()->id;
+			$params['from'] = $request->all()["from"];
+			$params['to'] = $request->all()["to"];
+            $memberId =  isset($request->all()["customer"]) ? $request->all()["customer"] :0;
+            $params['member_id'] = $memberId;
+			$data = $this->repository->bookingHistoryStatus($params,$flag);
+			
+            $uniqueTimeStr = Carbon::today()->toDateString();
+            $fileName = "Previous-Booking-History-{$uniqueTimeStr}";
+
+            Excel::create($fileName, function($excel) use ($data) {
+                $excel->sheet('Previous Booking History', function($sheet) use($data) {
+
+                    $data->chunk(250, function($records) use($sheet) {
+
+                        $recordsData = array_map(function($item) {
+                            $tempItem = (array) $item;
+							if($tempItem['package_id']==0)
+							{
+								$tempItem['package_title']='Others';
+								$tempItem['service_name']=$tempItem['service_name1'];
+							}
+							if($tempItem['status']==1)
+								$tempItem['status']='Requested';
+							elseif($tempItem['status']==2)
+								$tempItem['status']='Booked';
+							elseif($tempItem['status']==3)
+								$tempItem['status']='Rejected';
+							elseif($tempItem['status']==4)
+								$tempItem['status']='Cancelled';
+							elseif($tempItem['status']==5)
+								$tempItem['status']='Completed';
+							elseif($tempItem['status']==6)
+								$tempItem['status']='Waiting List';
+							elseif($tempItem['status']==7)
+								$tempItem['status']='Confirmed';
+							else
+								$tempItem['status']='No Response';
+                            $requireExportData = [
+//                                'index' => '',
+                                'customer' => $tempItem['first_name'],
+                                'mobile Number' => $tempItem['mobile_number'],
+                                'Package' => $tempItem['package_title'],
+                                'Service' => $tempItem['service_name'],
+                                'Appointment Date' => $tempItem['session_date'],
+                                'Start Time' => $tempItem['start_time'],
+                                'End Time' => $tempItem['end_time'],
+                                'Status' => $tempItem['status'],
+								'Created By' => $tempItem['Created_BY'],
+								'Updated By' => $tempItem['Updated_BY']
+                            ];
+
+                            return $requireExportData;
+                            $i++;
+                        }, $records);
+
+                        $sheet->fromArray($recordsData, null, 'A1', false, false);
+                    });
+// Add before first row
+                    $sheet->prependRow(1, array('Customer', 'Mobile Number', 'Package', 'Service', 'Appointment Date', 'Start Time', 'End Time', 'Status', 'Created By', 'Updated By'));
+                });
+            })->export('xls');
+//            })->export($fileFormat);
+        } catch (Exception $e) {
+            $exceptionDetails = $e->getMessage();
+            $response['status'] = 'error';
+            $response['message'] = "<b> Error Details</b> - " . $exceptionDetails;
+            Log::error(trans('admin::messages.not-exported', ['name' => 'Detailed Sales Report']), ['Error Message' => $exceptionDetails, 'Current Action' => Route::getCurrentRoute()->getActionName()]);
+            redirect('session-bookings/booking-history')->with('msg-error', 'Error to export data.');
+        }
+        redirect('session-bookings/booking-history')->with('msg-success', 'Data Export successfuly!!');
+    }
+
 }

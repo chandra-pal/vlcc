@@ -175,6 +175,7 @@ siteObjJs.admin.membersJs = function () {
                     {data: 'mobile_number', name: 'mobile_number', visible: false}, //,
                     {data: 'full_name', name: 'full_name'},
                     {data: 'mobile_number', name: 'mobile_number'},
+                    {data: 'area', name: 'area'},
                     {data: 'age', name: 'age'},
                     {data: 'gender', name: 'gender'},
                     {data: 'package_name', name: 'package_name'},
@@ -228,6 +229,7 @@ siteObjJs.admin.membersJs = function () {
                     {data: null, name: 'rownum', searchable: false},
                     {data: 'id', name: 'id', visible: false},
                     {data: 'crm_package_id', name: 'crm_package_id'}, //,
+                    {data: 'package_center.area', name: 'package_center.area'},
                     {data: 'package_title', name: 'package_title'},
                     {data: 'start_date', name: 'start_date'},
                     {data: 'end_date', name: 'end_date'},
@@ -252,7 +254,7 @@ siteObjJs.admin.membersJs = function () {
                     });
                     
                     /*** Code to append Banner Sub details in Table row ***/
-                    api.column(8, {page: 'current'}).data().each(function (group, i) {
+                    api.column(9, {page: 'current'}).data().each(function (group, i) {
                         var fullHtml = '';
                         var trWidth = $('#members-packages-table').outerWidth();
 

@@ -63,19 +63,37 @@ class ProductRecommendationController extends Controller {
         $productList = $this->repository->getProductList()->toArray();
         $selectedProduct = '';
         $membersList = [];
-        if (Auth::guard('admin')->user()->userType->id == 9) {
-            $centersList = $memberHelper->getCentersList();
+//        if (Auth::guard('admin')->user()->userType->id == 9) {
+//            $centersList = $memberHelper->getCentersList();
+//            if (Session::get('center_id') != '') {
+//                $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
+//            }
+//        } elseif (Auth::guard('admin')->user()->userType->id == 1) {
+//            unset($membersList);
+//        } elseif (Auth::guard('admin')->user()->userType->id == 7) {
+//            $centers = $memberHelper->getCentersList();
+//            $centerId = key($centers);
+//            if (isset($centerId) && $centerId != '') {
+//                $membersList = $this->centerRepository->getMembersList($centerId);
+//            }
+//        } else {
+//            $membersList = $memberHelper->getUserWiseMemberList();
+//        }
+        
+        
+         if(count($memberHelper->getCentersList()) > 1) {
+            $centersList = $memberHelper->getCentersList();            
             if (Session::get('center_id') != '') {
                 $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
             }
-        } elseif (Auth::guard('admin')->user()->userType->id == 1) {
-            unset($membersList);
-        } elseif (Auth::guard('admin')->user()->userType->id == 7) {
-            $centers = $memberHelper->getCentersList();
-            $centerId = key($centers);
+        } elseif ((Auth::guard('admin')->user()->userType->id == 4) || (Auth::guard('admin')->user()->userType->id == 5) || (Auth::guard('admin')->user()->userType->id == 7) || (Auth::guard('admin')->user()->userType->id == 8) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
+            $centersList = $memberHelper->getCentersList();
+            $centerId = key($centersList);
             if (isset($centerId) && $centerId != '') {
                 $membersList = $this->centerRepository->getMembersList($centerId);
-            }
+            }    
+        } elseif (Auth::guard('admin')->user()->userType->id == 1) {
+            unset($membersList);
         } else {
             $membersList = $memberHelper->getUserWiseMemberList();
         }

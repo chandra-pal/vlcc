@@ -1,5 +1,6 @@
 siteObjJs.admin.memberDietPlanJs = function () {
 
+    setDateRange();
 // Initialize all the page-specific event listeners here.
     var add_custom_food = 0;
     var select_custom_food = 0;
@@ -72,6 +73,11 @@ siteObjJs.admin.memberDietPlanJs = function () {
         $('body').on('change', '#diet_plan_id', function (e) {
             var customerId = $('#customer_select').val();
             var selectedVal = $(this).val();
+            if ($(this).val() != 0 && $(this).val() != "") {
+                $(".diet-plan-error").html('');
+            } else {
+                $(".diet-plan-error").html('Please Select Diet Plan.');
+            }
             if (customerId == "") {
                 $(".customer_error").html('Please Select Customer.');
                 return false;
@@ -347,6 +353,7 @@ siteObjJs.admin.memberDietPlanJs = function () {
                 }
             }
         });
+
     };
     var fetchDataForEdit = function () {
         $('.portlet-body').on('click', '.edit-form-link', function () {
@@ -446,7 +453,8 @@ siteObjJs.admin.memberDietPlanJs = function () {
 
     // Method to fetch Plan on member changed
     var fetchPlan = function (memberID) {
-        var actionUrl = 'member-diet-plan/get-member-diet-plan/' + memberID;
+        var dietDate = $("#diet_date").val();
+        var actionUrl = 'member-diet-plan/get-member-diet-plan?mId=' + memberID+'&date='+dietDate;
         $.ajax({
             url: actionUrl,
             cache: false,
@@ -457,9 +465,16 @@ siteObjJs.admin.memberDietPlanJs = function () {
             {
                 $("#plan-drop-down").html(data.list);
                 $("#diet_plan_calories").val(data.diet_plan_calories);
+                var dietPlan = $('#diet_plan_id').val();
+
                 if ('' == data.diet_plan_id) {
                     $('#member-diet-plan-table-body').empty("");
                     $("#action-button-box").hide();
+                    if (dietPlan == "") {
+                        $(".diet-plan-error").html('Please Select Diet Plan.');
+                        $(".customer_error").html('');
+                        return false;
+                    }
                 } else {
                     handleTable('member-diet-plan-table', memberID, data.diet_plan_id);
                     $("#action-button-box").show();
@@ -539,6 +554,7 @@ siteObjJs.admin.memberDietPlanJs = function () {
             submitHandler: function (form) {
                 // do other things for a valid form
                 //form.submit();
+                $(".diet-plan-error").html('');
                 handleAjaxRequest();
             }
         });
@@ -709,6 +725,7 @@ siteObjJs.admin.memberDietPlanJs = function () {
     }
 
     var handleTable = function (tableId, customerId, dietPlanid) {
+        var dietDate = $("#diet_date").val();
         $('#' + tableId).dataTable().fnDestroy();
         grid = new Datatable();
         grid.init({
@@ -773,7 +790,7 @@ siteObjJs.admin.memberDietPlanJs = function () {
                 "ajax": {
                     "url": "member-diet-plan/data",
                     "type": "POST",
-                    "data": {customerId: customerId, dietPlanid: dietPlanid},
+                    "data": {customerId: customerId, dietPlanid: dietPlanid,dietDate:dietDate},
                     "dataType": "json",
                 },
                 "bPaginate": false,
@@ -807,12 +824,208 @@ siteObjJs.admin.memberDietPlanJs = function () {
         });
     };
 
+
+    var memberDietPlanDate = function (dateArray) {
+        $('body').on('focus', '#availability_date', function (e) {
+            $(this).datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: 1,
+                datesDisabled: dateArray,
+            }).on('changeDate', function (e) {
+                setDateRange($(this).val());
+            });
+        });
+
+        $('#from_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#to_date').datepicker('setStartDate', startDate);
+        }).on('clearDate', function (selected) {
+            $('#to_date').datepicker('setStartDate', null);
+        });
+
+        $('#to_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#from_date').datepicker('setEndDate', endDate);
+        }).on('clearDate', function (selected) {
+            $('#from_date').datepicker('setEndDate', null);
+        });
+    }
+
+
+    function setDateRange(date = null) {
+
+        var dateNew;
+        var i;
+        if (date == null){
+            dateNew = $('#availability_date').val();
+        } else {
+            dateNew = date;
+        }
+
+        var today = new Date();
+        var currDay = today.getDate();
+        var currMonth = today.getMonth()+1;
+        var currYear = today.getFullYear();
+
+        var dateObj = new Date(dateNew);
+
+        $(".weekly-diet-plan-range").html('');
+        for (i=0;i < 5;i++){
+
+            var day = dateObj.getDate();
+
+            if(day.toString().length < 2){
+                day = '0'+day;
+            }
+            var month = dateObj.getMonth() + 1;
+            if(month.toString().length < 2){
+                month = '0'+month;
+            }
+            var year = dateObj.getFullYear();
+            var finalDate = day+'-'+month+'-'+year;
+            dateObj.setDate(dateObj.getDate() + 1);
+
+            var dateOne = new Date(currYear, currMonth, currDay); //Year, Month, Date
+            var dateTwo = new Date(year, month, day); //Year, Month, Date
+
+            var activeClass;
+            if (dateOne > dateTwo) {
+                var color = '#FF0000';
+            } else {
+                var color = '#32c5d2';
+            }
+
+            if(($("#diet_date").val()) == finalDate){
+                activeClass = 'active';
+            } else {
+                activeClass = '';
+            }
+
+            $(".weekly-diet-plan-range").append('<span class="button diet-date '+activeClass+'" data-index="'+finalDate+'" style="cursor: pointer;margin-right: 10px;border-radius: 6px;background: '+color+';padding: 5px;color: #fff6ec;">'+finalDate+'</span>');
+        }
+    }
+
+    $('body').on('click','.diet-date',function () {
+        //alert($(this).data('index'))
+        var today = new Date();
+        var currDay = today.getDate();
+        var currMonth = today.getMonth()+1;
+        var currYear = today.getFullYear();
+        var selectedDate = $(this).data('index').split('-');
+        var dateOne = new Date(currYear, currMonth, currDay); //Year, Month, Date
+        var dateTwo = new Date(selectedDate[2], selectedDate[1], selectedDate[0]); //Year, Month, Date
+
+        if (dateOne > dateTwo) {
+            $(".save-member-diet-plan").attr('disabled',true);
+        } else {
+            $(".save-member-diet-plan").attr('disabled',false);
+        }
+
+        $("#diet_date").val($(this).data('index'));
+        //$('.diet-date').removeClass('active');
+        $('.diet-date').css('color','white');
+        $(this).css('color','yellow');
+        //$(this).addClass('active');
+        var customerId = $('#customer_select').val();
+        if (customerId == "") {
+            $(".customer_error").html('Please Select Customer.');
+            $(".diet-plan-error").html('');
+            return false;
+        }  else {
+            $(".diet-plan-error").html('');
+            $(".customer_error").html('');
+            fetchPlan(customerId);
+        }
+
+
+    });
+
+    $('.btn-expand-download').click(function(e){
+        $("#from_date").val("");
+        $("#to_date").val("");
+        $(".history").css("display","block");
+        $(".date-Block").css("display","block");
+    });
+
+    $('.date-hide').click(function(e){
+        $(".history").css("display","none");
+        $("#from_date").val("");
+        $("#to_date").val("");
+    });
+
+    $('.date-submit').click(function(){
+        var customer = $("#customer_select").val();
+        var fromDate = $("#from_date").val();
+        var toDate = $("#to_date").val();
+        $("#selected_customer").val(customer);
+        var arrStartDate = fromDate.split("-");
+        var date1 = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+        var arrEndDate = toDate.split("-");
+        var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
+        if (fromDate == "" || toDate == "") {
+            $("#date-error").css('display', 'block');
+            return false;
+        } else {
+            $("#date-error").css('display', 'none');
+        }
+
+        if (customer == '' || customer == null){
+            $(".customer_error").html('Please select customer');
+            return false;
+        } else {
+            $(".customer_error").html('');
+        }
+
+        if (date1 > date2) {
+            $("#date-range-error").css('display', 'block');
+            return false;
+        }
+        else {
+            $("#date-range-error").css('display', 'none');
+        }
+
+    });
+
+    /*var reportDownloadDate = function (dateArray) {
+
+        $('#from_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#to_date').datepicker('setStartDate', startDate);
+        }).on('clearDate', function (selected) {
+            $('#to_date').datepicker('setStartDate', null);
+        });
+
+        $('#to_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#from_date').datepicker('setEndDate', endDate);
+        }).on('clearDate', function (selected) {
+            $('#from_date').datepicker('setEndDate', null);
+        });
+    };*/
+
     return {
         //main function to initiate the module
         init: function () {
             initializeListener();
+            memberDietPlanDate();
+            //reportDownloadDate();
             fetchDataForEdit();
-
             //handleTable();
             //initalizeTable();
             //bind the validation method to 'add' form on load

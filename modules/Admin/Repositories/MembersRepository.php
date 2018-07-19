@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The repository class for managing member model specific actions.
  *
@@ -30,10 +29,12 @@ use Carbon\Carbon;
 use Log;
 use PDO;
 use Modules\Admin\Services\Helper\UserInfoHelper;
+use Route;
 
 //use Guzzle\Http\Exception\ClientErrorResponseException;
 
-class MembersRepository extends BaseRepository {
+class MembersRepository extends BaseRepository
+{
 
     /**
      * Create a new repository instance.
@@ -41,7 +42,8 @@ class MembersRepository extends BaseRepository {
      * @param  Modules\Admin\Models\Country $country
      * @return void
      */
-    public function __construct(Member $member) {
+    public function __construct(Member $member)
+    {
         $this->model = $member;
     }
 
@@ -50,38 +52,70 @@ class MembersRepository extends BaseRepository {
      *
      * @return Response
      */
-    public function data($request, $params = []) {
+    public function data($request, $params = [])
+    {
         $cacheKey = str_replace(['\\'], [''], __METHOD__) . ':' . md5(json_encode($params));
         $response = '';
-        if ($params['user_type_id'] == 4) { //Dietician 
-            $userInfoHelper = new UserInfoHelper();
-            $user_center = $userInfoHelper->getLoggedInUserCenter($params["user_id"]);
-            $response = Member::orderBy('first_name')->where('dietician_username', $params['username'])->whereStatus("1")->get();
-            //$response = Member::has('Packages')->with('Packages')->orderBy('first_name')->where('dietician_username', $params['username'])->get();
-//
-            $first = Member::orderBy('first_name')->where('dietician_username', $params['username'])->where('status', 1)->get();
-            $second = Member::select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id')->with('Centers')->orderBy('first_name')->where('dietician_username', '')->where('crm_center_id', $user_center[0]['crm_center_id'])->where('status', 1)->get();
+        $center_ids = [];
 
-            $response = $first->merge($second); // Contains foo and bar.
-//            print_r($merged->toArray());
-//            die;
+        $userInfoHelper = new UserInfoHelper();
+        $user_center = $userInfoHelper->getLoggedInUserCenter($params["user_id"]);
+
+        if (!empty($user_center)) {
+            $center_ids = array_column($user_center, 'crm_center_id');
+        }
+
+        if ($params['user_type_id'] == 4) { //Dietician 
+            if (!empty($center_ids)) {
+
+                // get members whose dietician_username = logged in user's username
+                $first = Member::select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'members.crm_member_guid', 'members.email', 'vlcc_centers.area')
+                        ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                        ->orderBy('members.first_name')
+                        ->where('members.dietician_username', $params['username'])
+                        ->where('members.status', 1)->get();
+
+                // get all members of center of logged in dietician & dietician_username is blank
+                //$second = Member::select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'members.crm_member_guid', 'members.email')->with('Centers')->orderBy('first_name')->where('dietician_username', '')->whereIn('crm_center_id', $center_ids)->where('status', 1)->get();
+
+                $second = Member::select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'members.crm_member_guid', 'members.email', 'vlcc_centers.area')
+                        ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                        ->orderBy('members.first_name')
+                        ->where('members.dietician_username', '')
+                        ->whereIn('members.crm_center_id', $center_ids)
+                        ->where('members.status', 1)->get();
+
+                $response = $first->merge($second); // Contains foo and bar.
+                // get those members whose package is transferred in center of logged in user and base center is not equal to  center of logged in user
+                $third = $this->getPackageTransferredMembers($center_ids);
+                $result = $response->merge($third);
+                $response = $result;
+            } else {
+                $response = collect();
+            }
         } elseif ($params['user_type_id'] == 7 || $params['user_type_id'] == 8) { // Center Head & Slimming Head
             $response = Member::orderBy('first_name')
-                    ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
-                    ->join('admin_centers', 'vlcc_centers.id', '=', 'admin_centers.center_id')
-                    ->select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id')
-                    ->where('admin_centers.user_id', '=', $params['user_id'])
-                    ->where('members.status', '=', 1)
-                    //->whereStatus("1")
-                    ->get();
+                ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                ->join('admin_centers', 'vlcc_centers.id', '=', 'admin_centers.center_id')
+                ->select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'vlcc_centers.area')
+                ->where('admin_centers.user_id', '=', $params['user_id'])
+                ->where('members.status', '=', 1)
+                ->get();
+            $third = $this->getPackageTransferredMembers($center_ids);
+            $result = $response->merge($third);
+            $response = $result;
         } elseif ($params['user_type_id'] == 9 || $params['user_type_id'] == 5) { // ATH & Physiotherapist
             $response = Member::orderBy('first_name')
-                    ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
-                    ->select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id')
-                    ->where('vlcc_centers.id', '=', $params['centerId'])
-                    ->where('members.status', '=', 1)
-                    //->whereStatus("1")
-                    ->get();
+                ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                ->select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'vlcc_centers.area')
+                ->where('vlcc_centers.id', '=', $params['centerId'])
+                ->where('members.status', '=', 1)
+                ->get();
+            $key = array_search($params['centerId'], array_column($user_center, 'center_id'));
+            $center_id[] = $user_center[$key]["crm_center_id"];
+            $third = $this->getPackageTransferredMembers($center_id);
+            $result = $response->merge($third);
+            $response = $result;
         } else {
             $response = collect();
         }
@@ -93,7 +127,8 @@ class MembersRepository extends BaseRepository {
      *
      * @return Response
      */
-    public function getMemberData($request, $params = []) {
+    public function getMemberData($request, $params = [])
+    {
         $cacheKey = str_replace(['\\'], [''], __METHOD__) . ':' . md5(json_encode($params));
         //Cache::tags not suppport with files and Database
         //$response = Cache::tags(Member::table())->remember($cacheKey, $this->ttlCache, function() use($params) {
@@ -107,7 +142,8 @@ class MembersRepository extends BaseRepository {
      *
      * @return Response
      */
-    public function listMembersDataByDietician($params = []) {
+    public function listMembersDataByDietician($params = [])
+    {
         if (isset($params['username'])) {
             $cacheKey = str_replace(['\\'], [''], __METHOD__) . ':' . md5(json_encode($params['username']));
         } else {
@@ -127,7 +163,8 @@ class MembersRepository extends BaseRepository {
         return $response;
     }
 
-    public function listMemberData($params) {
+    public function listMemberData($params)
+    {
 
         $client = new Client(); //GuzzleHttp\Client
         $apiBaseUrl = Config::get('admin.api_base_url');
@@ -137,7 +174,8 @@ class MembersRepository extends BaseRepository {
         return json_decode($response->getBody(), true);
     }
 
-    public function getMemberBcaData($memberId) {
+    public function getMemberBcaData($memberId)
+    {
         $response = MemberBcaDetails::orderBY('recorded_date', 'DESC')->whereMemberId($memberId)->first();
         return $response;
         /* $client = new Client(); //GuzzleHttp\Client
@@ -155,7 +193,8 @@ class MembersRepository extends BaseRepository {
           return $response; */
     }
 
-    public function getRecommendedCalories($params) {
+    public function getRecommendedCalories($params)
+    {
         $cacheKey = str_replace(['\\'], [''], __METHOD__) . ':' . md5(json_encode($params));
         $response = Cache::tags(DietPlan::table())->remember($cacheKey, $this->ttlCache, function() use($params) {
             return DietPlan::select('calories')->whereId($params['memberDietPlan'])->orderBY('id')->first();
@@ -163,7 +202,8 @@ class MembersRepository extends BaseRepository {
         return $response;
     }
 
-    public function getLatestActivity($params) {
+    public function getLatestActivity($params)
+    {
         $cacheKey = str_replace(['\\'], [''], __METHOD__) . ':' . md5(json_encode($params));
         $response = Cache::tags(MemberActivityLog::table())->remember($cacheKey, $this->ttlCache, function() use($params) {
             return MemberActivityLog::select('activity')->whereMemberId($params['id'])->orderBY('created_at', 'desc')->lists('activity')->first();
@@ -171,11 +211,13 @@ class MembersRepository extends BaseRepository {
         return $response;
     }
 
-    public function listMembers($params) {
+    public function listMembers($params)
+    {
         return Member::whereDietitianUsername($params['username'])->get();
     }
 
-    public function importMemberDataOriginal($params) {
+    public function importMemberDataOriginal($params)
+    {
         $client = new Client(); //GuzzleHttp\Client
         if (config('app.env') == 'production') {
             $crmBaseUrl = config('admin.crm_base_url_prod');
@@ -527,13 +569,14 @@ class MembersRepository extends BaseRepository {
         return $repoResponse;
     }
 
-    public function importMemberData($params) {
+    public function importMemberData($params)
+    {
         $client = new Client(); //GuzzleHttp\Client
         if (config('app.env') == 'production') {
             $crmBaseUrl = config('admin.crm_base_url_prod');
         } else {
             $crmBaseUrl = config('admin.crm_base_url_dev');
-        }        
+        }
         $guzzleDebugMode = false;
         if (config('app.timezone') == 'Asia/Dubai') {
             $guzzleDebugMode = true;
@@ -577,19 +620,22 @@ class MembersRepository extends BaseRepository {
         return $repoResponse;
     }
 
-    public function getMemberpackages($params) {
+    public function getMemberpackages($params)
+    {
         $response = MemberPackage::orderBY('id')->whereMemberId($params['member_id'])->lists('package_title', 'id');
         return $response;
     }
 
     // Function to get Members Latest Package
-    public function getMemberLatestPackage($member_id) {
+    public function getMemberLatestPackage($member_id)
+    {
         $response = MemberPackage::orderBY('end_date', 'desc')->whereMemberId($member_id)->get();
         return $response;
     }
 
     // Function to get Members Latest weight
-    public function getMemberLatestWeight($memberId) {
+    public function getMemberLatestWeight($memberId)
+    {
         $response = MemberSessionRecord::orderBY('recorded_date', 'DESC')->whereMemberId($memberId)->first();
         $response = (!empty($response) && isset($response["after_weight"])) ? $response["after_weight"] : 0;
         return $response;
@@ -600,23 +646,41 @@ class MembersRepository extends BaseRepository {
      * @param type $params
      * @return type
      */
-    public function dataCount($params = []) {
+    public function dataCount($params = [])
+    {
         $response = '';
-        if ($params['user_type_id'] == 4) { //Dietician & Slimming Head
+        $center_ids = [];
+        $userInfoHelper = new UserInfoHelper();
+        $user_center = $userInfoHelper->getLoggedInUserCenter($params["user_id"]);
+        if (!empty($user_center)) {
+            $center_ids = array_column($user_center, 'crm_center_id');
+        }
+
+        if ($params['user_type_id'] == 4) { //Dietician 
             //$response = Member::where('dietician_username', $params['user_name'])->where('status', 1)->count();
             // Get Count of those members for whom dietician_username is empty
-            $userInfoHelper = new UserInfoHelper();
-            $user_center = $userInfoHelper->getLoggedInUserCenter($params["user_id"]);
-            $first = Member::orderBy('first_name')->where('dietician_username', $params['user_name'])->where('status', 1)->get();
-            $second = Member::select('members.*')->with('Centers')->orderBy('first_name')->where('dietician_username', '')->where('crm_center_id', $user_center[0]['crm_center_id'])->where('status', 1)->get();
-            $response = (count($first->merge($second))) ? count($first->merge($second)) : ''; // Contains foo and bar.          
-        } elseif ($params['user_type_id'] == 7 || $params['user_type_id'] == 9 || $params['user_type_id'] == 5 || $params['user_type_id'] == 8) { // ATH, Center Head, Physiotherapist
+            if (!empty($center_ids)) {
+                $first = Member::select('members.id')->orderBy('members.first_name')->where('members.dietician_username', $params['user_name'])->where('members.status', 1)->get();
+                //$second = Member::select('members.id')->with('Centers')->orderBy('first_name')->where('dietician_username', '')->where('crm_center_id', $user_center[0]['crm_center_id'])->where('status', 1)->get();
+                $second = Member::select('members.id')->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')->orderBy('members.first_name')->where('members.dietician_username', '')->whereIn('members.crm_center_id', $center_ids)->where('members.status', 1)->get();
+                $response = $first->merge($second);
+
+                $third = $this->getPackageTransferredMembers($center_ids);
+                $result = $response->merge($third);
+                $response = $result;
+                $response = count($response) ? count($response) : ''; // Contains foo and bar.          
+            } else {
+                $response = collect();
+            }
+        } elseif ($params['user_type_id'] == 7 || $params['user_type_id'] == 9 || $params['user_type_id'] == 5 || $params['user_type_id'] == 8) { // ATH, Center Head, Physiotherapist, Slimming Head
             $response = DB::table('members')
-                    ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
-                    ->join('admin_centers', 'vlcc_centers.id', '=', 'admin_centers.center_id')
-                    ->where('admin_centers.user_id', '=', $params['user_id'])
-                    ->where('members.status', '=', 1)
-                    ->count();
+                ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                ->join('admin_centers', 'vlcc_centers.id', '=', 'admin_centers.center_id')
+                ->where('admin_centers.user_id', '=', $params['user_id'])
+                ->where('members.status', '=', 1)
+                ->count();
+            $third = $this->getPackageTransferredMembers($center_ids);
+            $response = $third->count() + $response;
         } else {
             $response = collect();
         }
@@ -624,13 +688,18 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function To get Member Packages with Services
-    public function getMemberpackagesWithServices($memberId) {
-        $response = MemberPackage::has('Services')->with('Services')->orderBy('id', 'ASC')->where('member_id', $memberId)->get();
+    public function getMemberpackagesWithServices($memberId)
+    {
+        $response = MemberPackage::has('Services')->with('Services')->with('PackageCenter')->orderBy('id', 'DESC')
+            ->where('member_id', $memberId)
+            ->where('status', 1)
+            ->get();
         return $response;
     }
 
     // Function To get Count of Successful Customers
-    public function getSuccessfulCustomerCount($params) {
+    public function getSuccessfulCustomerCount($params)
+    {
         $week = $this->getLastWeekStartEndDate();
         $userInfoHelper = new UserInfoHelper();
         if ($params["user_type_id"] == 4 || $params["user_type_id"] == 8 || $params["user_type_id"] == 5) {
@@ -660,7 +729,8 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function To get Count of Regular Customers
-    public function getRegularCustomerCount($params) {
+    public function getRegularCustomerCount($params)
+    {
         $week = $this->getLastWeekStartEndDate();
         $userInfoHelper = new UserInfoHelper();
         if ($params["user_type_id"] == 4 || $params["user_type_id"] == 8 || $params["user_type_id"] == 5) {
@@ -690,7 +760,8 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function To get Count of Un Successful Customers
-    public function getUnsuccessfulCustomerCount($params) {
+    public function getUnsuccessfulCustomerCount($params)
+    {
         $week = $this->getLastWeekStartEndDate();
         $userInfoHelper = new UserInfoHelper();
         if ($params["user_type_id"] == 4 || $params["user_type_id"] == 8 || $params["user_type_id"] == 5) {
@@ -720,7 +791,8 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function To get Count of Irregular Customers
-    public function getIrregularCustomerCount($params) {
+    public function getIrregularCustomerCount($params)
+    {
         $week = $this->getLastWeekStartEndDate();
         $userInfoHelper = new UserInfoHelper();
         if ($params["user_type_id"] == 4 || $params["user_type_id"] == 8 || $params["user_type_id"] == 5) {
@@ -750,7 +822,8 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function to get Start date & end date of last week
-    public function getLastWeekStartEndDate() {
+    public function getLastWeekStartEndDate()
+    {
         $previous_week = strtotime("-1 week +1 day");
 
         $start_week = strtotime("last monday midnight", $previous_week);
@@ -766,7 +839,8 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function to check if Member is Regular or not
-    public function checkRegularMember($memberId) {
+    public function checkRegularMember($memberId)
+    {
         $isRegular = 0;
         $week = $this->getLastWeekStartEndDate();
         $result = DB::select("SELECT IFNULL(COUNT(id),0) as session_count FROM member_session_bookings WHERE member_id = " . $memberId . "  AND session_date BETWEEN '" . $week["start_day"] . "' AND '" . $week["end_day"] . "'");
@@ -779,7 +853,8 @@ class MembersRepository extends BaseRepository {
     }
 
     // Function to check if Member is Successful or not
-    public function checkSuccessfulMember($memberId) {
+    public function checkSuccessfulMember($memberId)
+    {
         $isSuccessful = 0;
         $week = $this->getLastWeekStartEndDate();
         $result = DB::select("SELECT IFNULL(COUNT(id),0) as summary_count FROM member_session_record_summary WHERE member_id = " . $memberId . "  AND recorded_date BETWEEN '" . $week["start_day"] . "' AND '" . $week["end_day"] . "' AND net_weight_loss >=1");
@@ -790,47 +865,48 @@ class MembersRepository extends BaseRepository {
         }
         return $isSuccessful;
     }
-    
+
     //Function to display dieticians dropdown    
-    public function dataMemberDetails($request, $params = []) {
+    public function dataMemberDetails($request, $params = [])
+    {
         $memberId = $params['id'];
-        $response = '';       
-       //$result = DB::select("SELECT CONCAT(admins.first_name, ' ',admins.last_name) as AdminFullName, admins.id, admins.user_type_id, admins.username, CONCAT(members.first_name, ' ', members.last_name) as memFullName, members.mobile_number,members.dietician_username, vlcc_centers.center_name from admins, members,vlcc_centers ,admin_centers WHERE admins.user_type_id = 4 AND members.crm_center_id = vlcc_centers.crm_center_id AND vlcc_centers.id = admin_centers.center_id AND admin_centers.user_id = admins.id AND members.id = ".$memberId);        
-       $result = DB::select("SELECT CONCAT(admins.first_name, ' ',admins.last_name) as AdminFullName, admins.id, admins.user_type_id, admins.username, CONCAT(members.first_name, ' ', members.last_name) as memFullName, members.mobile_number,members.dietician_username, vlcc_centers.center_name FROM members LEFT OUTER JOIN vlcc_centers ON members.crm_center_id = vlcc_centers.crm_center_id LEFT OUTER JOIN admin_centers ON vlcc_centers.id = admin_centers.center_id LEFT OUTER JOIN admins ON admin_centers.user_id = admins.id WHERE (admins.user_type_id=4 or admins.user_type_id=8) AND admins.status=1 AND members.id=".$memberId);
-         return collect($result);
+        $response = '';
+        //$result = DB::select("SELECT CONCAT(admins.first_name, ' ',admins.last_name) as AdminFullName, admins.id, admins.user_type_id, admins.username, CONCAT(members.first_name, ' ', members.last_name) as memFullName, members.mobile_number,members.dietician_username, vlcc_centers.center_name from admins, members,vlcc_centers ,admin_centers WHERE admins.user_type_id = 4 AND members.crm_center_id = vlcc_centers.crm_center_id AND vlcc_centers.id = admin_centers.center_id AND admin_centers.user_id = admins.id AND members.id = ".$memberId);        
+        $result = DB::select("SELECT CONCAT(admins.first_name, ' ',admins.last_name) as AdminFullName, admins.id, admins.user_type_id, admins.username, CONCAT(members.first_name, ' ', members.last_name) as memFullName, members.mobile_number,members.dietician_username, vlcc_centers.center_name FROM members LEFT OUTER JOIN vlcc_centers ON members.crm_center_id = vlcc_centers.crm_center_id LEFT OUTER JOIN admin_centers ON vlcc_centers.id = admin_centers.center_id LEFT OUTER JOIN admins ON admin_centers.user_id = admins.id WHERE (admins.user_type_id=4 or admins.user_type_id=8) AND admins.status=1 AND members.id=" . $memberId);
+        return collect($result);
     }
 
     //Function to get existing dietician to display as selected in the dropdown
-    
-    public function getExistingDietician($memberId)  {
-         $memberId = (int) $memberId;
-         $result = DB::select("SELECT CONCAT(admins.first_name, ' ',admins.last_name) as AdminFullName, admins.id, admins.username, members.dietician_username from admins, members where members.dietician_username = admins.username AND admins.user_type_id = 4 AND members.id = ".$memberId);
-         return collect($result);
+
+    public function getExistingDietician($memberId)
+    {
+        $memberId = (int) $memberId;
+        $result = DB::select("SELECT CONCAT(admins.first_name, ' ',admins.last_name) as AdminFullName, admins.id, admins.username, members.dietician_username from admins, members where members.dietician_username = admins.username AND admins.user_type_id = 4 AND members.id = " . $memberId);
+        return collect($result);
     }
 
     //Function to edit dietician in database
-    
-    public function editMemberDetails($inputs, $params = []){
-        try{
+
+    public function editMemberDetails($inputs, $params = [])
+    {
+        try {
             $memberId = $params['member_id'];
-            $dieticianId=$params['dietician_id'];
-            
+            $dieticianId = $params['dietician_id'];
+
 //            if(isset($params['dietician_id']) && !empty($params['dietician_id'])){
 //               //dd($dieticianId=$params['dietician_id']);
 //            }
-            
-            $result = DB::select("SELECT admins.username from admins where admins.id =".$dieticianId);
-            $responsee=collect($result)->toArray();
-            $response1=($responsee[0]->username);
 
-            DB::table('members')->where('id', $memberId)->update(['dietician_username' => $response1,'updated_at' => Carbon::now()]);
+            $result = DB::select("SELECT admins.username from admins where admins.id =" . $dieticianId);
+            $responsee = collect($result)->toArray();
+            $response1 = ($responsee[0]->username);
+
+            DB::table('members')->where('id', $memberId)->update(['dietician_username' => $response1, 'updated_at' => Carbon::now()]);
             $response['status'] = 'success';
             $response['message'] = trans('admin::messages.updated', ['name' => trans('admin::controller/member.member')]);
 
             return $response;
-        
-        }
-        catch (Exception $ex){
+        } catch (Exception $ex) {
             $exceptionDetails = $e->getMessage();
             $response['status'] = 'error';
             $response['message'] = trans('admin::messages.not-updated', ['name' => trans('admin::controller/member.member')]) . "<br /><b> Error Details</b> - " . $exceptionDetails;
@@ -838,5 +914,35 @@ class MembersRepository extends BaseRepository {
 
             return $response;
         }
+    }
+
+    // Function to get Members of other center whose package is transferred in center of logged in User
+    public function getPackageTransferredMembers($center_ids)
+    {
+        $currentRouteName = Route::currentRouteName();
+        if ($currentRouteName == "admin.cpr.index") {
+            $package_transfer_members = MemberPackage::orderBy('member_packages.member_id')
+                ->join('members', 'member_packages.member_id', '=', 'members.id')
+                ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                ->select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'members.crm_member_guid', 'members.email', 'vlcc_centers.area', DB::raw('CONCAT_WS(" ",members.mobile_number, "-", members.first_name, members.last_name) AS full_name'))
+                //->where('member_packages.status', '=', 1)
+                ->where('members.status', '=', 1)
+                ->whereIn('member_packages.crm_center_id', $center_ids)
+                ->whereRaw('member_packages.crm_center_id!=members.crm_center_id')
+                ->groupBy('member_packages.member_id')
+                ->get();
+        } else {
+            $package_transfer_members = MemberPackage::orderBy('member_packages.member_id')
+                ->join('members', 'member_packages.member_id', '=', 'members.id')
+                ->join('vlcc_centers', 'members.crm_center_id', '=', 'vlcc_centers.crm_center_id')
+                ->select('members.id', 'members.dietician_username', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.gender', 'members.status', 'members.crm_customer_id', 'members.crm_center_id', 'members.crm_member_guid', 'members.email', 'vlcc_centers.area', DB::raw('CONCAT_WS(" ",members.mobile_number, "-", members.first_name, members.last_name) AS full_name'))
+                ->where('member_packages.status', '=', 1)
+                ->where('members.status', '=', 1)
+                ->whereIn('member_packages.crm_center_id', $center_ids)
+                ->whereRaw('member_packages.crm_center_id!=members.crm_center_id')
+                ->groupBy('member_packages.member_id')
+                ->get();
+        }
+        return $package_transfer_members;
     }
 }

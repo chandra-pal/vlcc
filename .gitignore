@@ -22,6 +22,7 @@ public/clm_member_insertion_request_files
 public/clm_member_insertion_response_files
 public/clm_package_insertion_request_files
 public/clm_package_insertion_response_files
+/public/import_csv
 vendor/
 /app/Console/Kernel.php
 /app/Console/Kernel_server.php

@@ -16,5 +16,6 @@ return [
     'view-serving-size' => 'Serving Size',
     'view-serving-unit' => 'Serving Unit',
     'food-type' => 'Food Type',
-    'total-calories' => 'Total Calories'
+    'total-calories' => 'Total Calories',
+    'select-date' => 'Select Date'
 ];

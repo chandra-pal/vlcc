@@ -96,7 +96,7 @@ class SessionResourcesRepository extends BaseRepository {
                 ->leftJoin('member_session_booking_resources AS msba', 'msba.resource_id', '=', 'ac.user_id')
                 ->leftJoin('member_session_bookings AS msb', 'msba.session_id', '=', 'msb.id')
                 ->leftJoin('members', 'msb.member_id', '=', 'members.id')
-                ->select('ac.*','msb.session_date','msb.start_time', 'msb.end_time','members.first_name','members.mobile_number')
+                ->select('ac.*','msb.session_date','msba.resource_start_time AS start_time', 'msba.resource_end_time AS end_time','members.first_name','members.mobile_number')
                 //->where('ma.availability_date', '=', date('Y-m-d', strtotime($params["availability_date"])))
                 ->where('ac.center_id', "=", $params["center_id"])
                 ->where('msba.resource_type', "=", '1')
@@ -115,7 +115,7 @@ class SessionResourcesRepository extends BaseRepository {
                 ->leftJoin('member_session_booking_resources AS msba', 'msba.resource_id', '=', 'mc.machine_id')
                 ->leftJoin('member_session_bookings AS msb', 'msba.session_id', '=', 'msb.id')
                 ->leftJoin('members', 'msb.member_id', '=', 'members.id')
-                ->select('mc.*','msb.session_date','msb.start_time', 'msb.end_time','members.first_name','members.mobile_number')
+                ->select('mc.*','msb.session_date','msba.resource_start_time AS start_time', 'msba.resource_end_time AS end_time','members.first_name','members.mobile_number')
                 //->where('ma.availability_date', '=', date('Y-m-d', strtotime($params["availability_date"])))
                 ->where('mc.center_id', "=", $params["center_id"])
                 ->where('msba.resource_type', "=", '2')
@@ -135,7 +135,7 @@ class SessionResourcesRepository extends BaseRepository {
                 ->leftJoin('member_session_booking_resources AS msba', 'msba.resource_id', '=', 'rooms.id')
                 ->leftJoin('member_session_bookings AS msb', 'msba.session_id', '=', 'msb.id')
                 ->leftJoin('members', 'msb.member_id', '=', 'members.id')
-                ->select('rooms.*','msb.session_date','msb.start_time', 'msb.end_time','members.first_name','members.mobile_number')
+                ->select('rooms.*','msb.session_date','msba.resource_start_time AS start_time', 'msba.resource_end_time AS end_time','members.first_name','members.mobile_number')
                 //->where('ma.availability_date', '=', date('Y-m-d', strtotime($params["availability_date"])))
                 ->where('rooms.center_id', "=", $params["center_id"])
                 ->where('msba.resource_type', "=", '3')
@@ -160,6 +160,7 @@ class SessionResourcesRepository extends BaseRepository {
                 ->leftJoin('member_session_bookings AS msb', 'msba.session_id', '=', 'msb.id')
                 ->leftJoin('members', 'msb.member_id', '=', 'members.id')
                 ->leftJoin('member_packages AS mp', 'msb.package_id', '=', 'mp.id')
+
                 ->select(DB::raw('CONCAT(admins.first_name, " ", admins.last_name) AS staff_name'),'msb.id AS session_id',
                     DB::raw("(SELECT GROUP_CONCAT(mps.service_name) FROM member_session_bookings AS mbs_new
                                 INNER JOIN member_package_services AS mps ON FIND_IN_SET(mps.id, mbs_new.service_id) > 0
@@ -167,7 +168,7 @@ class SessionResourcesRepository extends BaseRepository {
                     DB::raw("(SELECT GROUP_CONCAT(bs.service_name) FROM member_session_bookings AS mbs_new2
                                 INNER JOIN beauty_services AS bs ON FIND_IN_SET(bs.id, mbs_new2.service_id) > 0
                                 WHERE mbs_new2.id = session_id) as beauty_service_name"),
-                    'ac.*','msb.session_date','msb.package_id','msb.start_time', 'msb.end_time', 'msb.status','members.first_name','members.mobile_number','mp.package_title')
+                    'ac.*','msb.session_date','msb.package_id','msba.resource_start_time AS start_time', 'msba.resource_end_time AS end_time', 'msb.status','members.first_name','members.mobile_number','mp.package_title')
                 ->where('ac.center_id', "=", $params["center_id"])
                 ->where('msba.resource_type', "=", '1')
                 ->where('msb.session_date', ">=", date('Y-m-d', strtotime($params['from_date'])))
@@ -197,7 +198,7 @@ class SessionResourcesRepository extends BaseRepository {
                     DB::raw("(SELECT GROUP_CONCAT(bs.service_name) FROM member_session_bookings AS mbs_new2
                                 INNER JOIN beauty_services AS bs ON FIND_IN_SET(bs.id, mbs_new2.service_id) > 0
                                 WHERE mbs_new2.id = session_id) as beauty_service_name"),
-                    'mc.*','msb.session_date','msb.package_id','msb.start_time', 'msb.end_time', 'msb.status','members.first_name','members.mobile_number','mp.package_title')
+                    'mc.*','msb.session_date','msb.package_id','msba.resource_start_time AS start_time', 'msba.resource_end_time AS end_time', 'msb.status','members.first_name','members.mobile_number','mp.package_title')
                 ->where('mc.center_id', "=", $params["center_id"])
                 ->where('msba.resource_type', "=", '2')
                 ->where('msb.session_date', ">=", date('Y-m-d', strtotime($params['from_date'])))
@@ -224,7 +225,7 @@ class SessionResourcesRepository extends BaseRepository {
                     DB::raw("(SELECT GROUP_CONCAT(bs.service_name) FROM member_session_bookings AS mbs_new2
                                 INNER JOIN beauty_services AS bs ON FIND_IN_SET(bs.id, mbs_new2.service_id) > 0
                                 WHERE mbs_new2.id = session_id) as beauty_service_name"),
-                    'rooms.*','msb.session_date','msb.package_id','msb.start_time', 'msb.end_time', 'msb.status','members.first_name','members.mobile_number','mp.package_title')
+                    'rooms.*','msb.session_date','msb.package_id','msba.resource_start_time AS start_time', 'msba.resource_end_time AS end_time', 'msb.status','members.first_name','members.mobile_number','mp.package_title')
                 ->where('rooms.center_id', "=", $params["center_id"])
                 ->where('msba.resource_type', "=", '3')
                 ->where('msb.session_date', ">=", date('Y-m-d', strtotime($params['from_date'])))

@@ -1,8 +1,14 @@
 @extends('admin::layouts.master')
 
+@section('template-level-styles')
+    @parent
+    {!! HTML::style( URL::asset('global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') ) !!}
+@stop
+
 @section('template-level-scripts')
 @parent
 {!! HTML::script( URL::asset('js/admin/member-diet-plan.js') ) !!}
+{!! HTML::script( URL::asset('global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ) !!}
 @stop
 
 @section('scripts')
@@ -21,6 +27,14 @@
     });
 </script>
 @stop
+@section('styles')
+    <style>
+        .active {
+            color: yellow;
+        }
+
+    </style>
+@stop
 
 @section('content')
 @include('admin::partials.breadcrumb')
@@ -38,6 +52,10 @@
             <span class="caption-subject font-blue-sharp bold uppercase">{!! trans('admin::controller/member-diet-plan.view-change-diet-plan') !!}</span>
         </div>
 
+    </div>
+    @include('admin::member-diet-plan.history')
+    <div class="actions" style="margin-right: 35px; ">
+        <a href="javascript:;" class="btn blue btn-add-big btn-expand-download"><span class="hidden-480">Generate Report</span></a>
     </div>
     <div class="add-form-main">
 
@@ -61,6 +79,8 @@
                     </div>
                     @endif
                 </div>
+                <div class="weekly-diet-plan-range"></div>
+
                 <div class="portlet-body">
                     <div class="table-container">
                         <div class="">
@@ -110,6 +130,7 @@
 
                             </tbody>
                         </table>
+                        {!! Form::hidden('diet_date', $diet_date , ['class'=>'form-control diet-date', 'id'=>'diet_date' ])!!}
                     </div>
                 </div>
             </div>

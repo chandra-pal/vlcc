@@ -38,4 +38,8 @@ class MemberPackage extends BaseModel {
     public function services() {
         return $this->hasMany('Modules\Admin\Models\MemberPackageServices', 'package_id', 'id');
     }
+    
+    public function packageCenter() {
+        return $this->belongsTo('Modules\Admin\Models\Center', 'crm_center_id', 'crm_center_id');
+    }
 }

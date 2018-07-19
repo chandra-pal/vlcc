@@ -15,8 +15,8 @@
 </div>
 @endif
 
-<!--@if(!empty($unpaid_services))
-<div id="unpaid-services-block">
+@if(!empty($unpaid_services))
+<!--<div id="unpaid-services-block">
     <p class="help-block help-block-error">Unpaid Services : </p>
     @foreach ($unpaid_services as $item)
     @if ($item == end($unpaid_services))
@@ -25,5 +25,5 @@
     <span>{{ $item }},</span>
     @endif
     @endforeach
-</div>
-@endif-->
+</div>-->
+@endif

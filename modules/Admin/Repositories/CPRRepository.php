@@ -1199,7 +1199,7 @@ class CPRRepository extends BaseRepository
     {
         $logged_in_user_id = Auth::guard('admin')->user()->id;
 //        $response = DB::select("SELECT id, session_date FROM `member_session_bookings` WHERE `member_session_bookings`.`member_id` = '$memberId' AND `member_session_bookings`.status IN(2,5)AND id NOT IN(Select session_id from member_measurement_details where member_id = '$memberId' AND session_id IS NOT NULL)");
-        $response = DB::select("SELECT id, date_format(session_date,'%d-%b-%Y') as session_date FROM `member_session_bookings` WHERE `member_session_bookings`.`member_id` = '$memberId' AND `member_session_bookings`.`dietician_id` = '$logged_in_user_id' AND `member_session_bookings`.status IN(5,7)AND id NOT IN(Select session_id from member_measurement_details where member_id = '$memberId' AND session_id IS NOT NULL) ORDER BY session_date DESC");
+        $response = DB::select("SELECT id, date_format(session_date,'%d-%b-%Y') as session_date FROM `member_session_bookings` WHERE `member_session_bookings`.`member_id` = '$memberId' AND `member_session_bookings`.status IN(5,7) AND id NOT IN(Select session_id from member_measurement_details where member_id = '$memberId' AND session_id IS NOT NULL) ORDER BY session_date DESC");
         $arrSessionData = collect($response)->toArray();
         $arrSessionData1 = array_column($arrSessionData, 'session_date', 'id');
        // dd($arrSessionData1);
@@ -1211,7 +1211,7 @@ class CPRRepository extends BaseRepository
     {
         $logged_in_user_id = Auth::guard('admin')->user()->id;
         // $response=DB::select("SELECT id, session_date FROM `member_session_bookings` WHERE `member_session_bookings`.`member_id` = '$memberId' AND `member_session_bookings`.status IN(2,5) AND id NOT IN(Select session_id from member_measurement_records where member_id = '$memberId' AND session_id IS NOT NULL)");
-        $response = DB::select("SELECT id, date_format(session_date,'%d-%b-%Y') as session_date FROM `member_session_bookings` WHERE `member_session_bookings`.`member_id` = '$memberId' AND `member_session_bookings`.`dietician_id` = '$logged_in_user_id' AND `member_session_bookings`.status IN(5,7) ORDER BY session_date DESC");
+        $response = DB::select("SELECT id, date_format(session_date,'%d-%b-%Y') as session_date FROM `member_session_bookings` WHERE `member_session_bookings`.`member_id` = '$memberId' AND `member_session_bookings`.status IN(5,7) ORDER BY session_date DESC");
         $arrSessionData = collect($response)->toArray();
         $arrSessionData1 = array_column($arrSessionData, 'session_date', 'id');
         return $arrSessionData1;

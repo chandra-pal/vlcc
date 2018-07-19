@@ -25,7 +25,7 @@ class SessionBookings extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['member_id', 'dietician_id', 'package_id', 'session_date', 'start_time', 'end_time', 'dietitian_comment', 'doctor_comment', 'physiotherpist_comment', 'ola_cab_required', 'attendance_status', 'session_comment', 'cancellation_comment', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'];
+    protected $fillable = ['member_id', 'dietician_id', 'package_id', 'crm_center_id', 'session_date', 'start_time', 'end_time', 'dietitian_comment', 'doctor_comment', 'physiotherpist_comment', 'ola_cab_required', 'attendance_status', 'session_comment', 'cancellation_comment', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'];
 
     public function member()
     {

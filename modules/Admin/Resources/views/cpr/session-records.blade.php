@@ -1,18 +1,12 @@
 <div id="ajax-response-text"></div>
 
-
-@if($session_id == 0) 
-<div class="portlet light col-lg-12">
-    <div class="portlet-title">
-        <p>Session Not available for this member.</p>
-    </div>
-</div>    
-
-@else
+<div style="margin-bottom: 5%">
+{!! Form::select('member_package_id', [''=> trans('admin::messages.select-name', [ 'name' => trans('admin::controller/session-bookings.select-package') ])] + $memberPackages, $selectedPackage, ['class'=>'select2me form-control form-filter select-package', 'id' => 'member_package_id', 'data-rule-required'=>'true', 'data-msg-required'=>'Please select Package.']) !!}
+</div>
 
 {{--- Commenting this code as this can be managed using ACL ---}}
 {{--- @if($logged_in_by_user_type == 4 || $logged_in_by_user_type == 8) ---}}
-@if(!empty(Auth::guard('admin')->user()->hasAdd))
+@if(!empty(Auth::guard('admin')->user()->hasAdd) && $session_id!=0)
 @include('admin::cpr.create-session')
 @endif
 {{--- @endif ---}}
@@ -26,7 +20,7 @@
 
         {{--- Commenting this code as this can be managed using ACL ---}}        
         {{--- @if(!empty(Auth::guard('admin')->user()->hasAdd) && ($logged_in_by_user_type == 4 || $logged_in_by_user_type == 8)) ---}}
-        @if(!empty(Auth::guard('admin')->user()->hasAdd))
+        @if(!empty(Auth::guard('admin')->user()->hasAdd) && $session_id!=0)
         <div class="actions">
             <a href="javascript:;" class="btn blue btn-add-big btn-expand-form"><i class="fa fa-plus"></i><span class="hidden-480">{!! trans('admin::messages.add-name',['name'=>trans('admin::controller/cpr.session-records')]) !!} </span></a>
         </div>
@@ -49,11 +43,13 @@
                         <th>Session No</th>
                         <th>BP</th>
                         <th>Date</th>
+                        <th>Center</th>
                         <th>Before Weight (kg)</th>
                         <th>After Weight (kg)</th>
                         <th>A Code</th>
                         <th style="width: 2%">Diet & Activity Deviation, if any</th>
                         <th>Therapist</th>
+                        <th>Session Comment</th>
                         <th>OTP Verified</th>
                         <th>Service Execution</th>
                     </tr>
@@ -128,4 +124,3 @@
 
 </div>
 
-@endif

@@ -53,6 +53,7 @@
                         <th>{!! trans('admin::controller/recommendation.recommendation-id') !!}</th>
                         <th>Name</th>
                         <th>Mobile Number</th>
+                        <th>Center</th>
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Package</th>

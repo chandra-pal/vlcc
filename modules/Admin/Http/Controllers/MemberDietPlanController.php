@@ -13,6 +13,7 @@ namespace Modules\Admin\Http\Controllers;
 
 use Auth;
 use Datatables;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Modules\Admin\Models\MemberDietPlan;
 use Modules\Admin\Repositories\MemberDietPlanRepository;
@@ -28,6 +29,8 @@ use Modules\Admin\Services\Helper\MemberHelper;
 use Session;
 use Illuminate\Http\Request;
 use Validator;
+use Excel;
+use Carbon\Carbon;
 
 //use GuzzleHttp\Exception\GuzzleException;
 //use GuzzleHttp\Client;
@@ -74,6 +77,8 @@ class MemberDietPlanController extends Controller {
      * @return view as response
      */
     public function index() {
+        $date = \Carbon\Carbon::now()->format('Y-m-d');
+        $diet_date = \Carbon\Carbon::now()->format('d-m-Y');
         $acl_flag = !empty(Auth::guard('admin')->user()->hasAdd) ? 1 : 2;
         $userTypeId = Auth::guard('admin')->user()->userType->id;
         $dietPlanType = $this->dietPlanRepository->listPlanType()->toArray();
@@ -85,12 +90,14 @@ class MemberDietPlanController extends Controller {
         }
         $memberID = Session::get('member_id');
         if ("" != $memberID) {
-            $dietPlan = $this->repository->getMemberPlan($memberID);
+            $dietPlan = $this->repository->getMemberPlan($memberID,$diet_date);
+            //print_r($dietPlan);
+            //exit();
             if (null == $dietPlan || "" == $dietPlan) {
                 $dietPlanId = "";
             } else {
-                $plan = $dietPlan->toArray();
-                $dietPlanId = $plan['diet_plan_id'];
+                //$plan = $dietPlan->toArray();
+                $dietPlanId = $dietPlan[0]['diet_plan_id'];
             }
         } else {
             $dietPlanId = "";
@@ -110,17 +117,32 @@ class MemberDietPlanController extends Controller {
         }
         $memberHelper = new MemberHelper();
         $membersList = [];
-        if (Auth::guard('admin')->user()->userType->id == 9) {
-            $centersList = $memberHelper->getCentersList();
+//        if (Auth::guard('admin')->user()->userType->id == 9) {
+//            $centersList = $memberHelper->getCentersList();
+//            if (Session::get('center_id') != '') {
+//                $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
+//            }
+//        } elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
+//            $centers = $memberHelper->getCentersList();
+//            $centerId = key($centers);
+//            if (isset($centerId) && $centerId != '') {
+//                $membersList = $this->centerRepository->getMembersList($centerId);
+//            }
+//        } else {
+//            $membersList = $memberHelper->getUserWiseMemberList();
+//        }
+        
+        if(count($memberHelper->getCentersList()) > 1) {
+            $centersList = $memberHelper->getCentersList();            
             if (Session::get('center_id') != '') {
                 $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
             }
-        } elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
-            $centers = $memberHelper->getCentersList();
-            $centerId = key($centers);
+        } elseif ((Auth::guard('admin')->user()->userType->id == 4) || (Auth::guard('admin')->user()->userType->id == 5) || (Auth::guard('admin')->user()->userType->id == 7) || (Auth::guard('admin')->user()->userType->id == 8) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
+            $centersList = $memberHelper->getCentersList();
+            $centerId = key($centersList);
             if (isset($centerId) && $centerId != '') {
                 $membersList = $this->centerRepository->getMembersList($centerId);
-            }
+            }    
         } else {
             $membersList = $memberHelper->getUserWiseMemberList();
         }
@@ -130,7 +152,7 @@ class MemberDietPlanController extends Controller {
 //            $dietPlanCalories = $this->repository->getDietPlanCalories($dietPlanId);
 //            $dietPlanCalories = $dietPlanCalories["calories"];
 //        }
-        return view('admin::member-diet-plan.index', compact('dietPlanTypeList', 'dietPlanId', 'membersList', 'scheduleTypeList', 'dietPlanCalories', 'centersList', 'userTypeId', 'acl_flag'));
+        return view('admin::member-diet-plan.index', compact('dietPlanTypeList', 'dietPlanId', 'membersList', 'scheduleTypeList', 'dietPlanCalories', 'centersList', 'userTypeId', 'acl_flag','date','diet_date'));
     }
 
     /**
@@ -141,6 +163,7 @@ class MemberDietPlanController extends Controller {
     public function getData(Request $request) {
         $params["member_id"] = $request->all()["customerId"];
         $params['diet_plan_id'] = $request->all()["dietPlanid"];
+        $params['dietDate'] = $request->all()["dietDate"];
         $memberDietPlanDetails = $this->repository->data($params);
 
 
@@ -221,7 +244,9 @@ class MemberDietPlanController extends Controller {
      *
      * @return json encoded response
      */
-    public function getPlan($memberID) {
+    public function getPlan(Request $request) {
+        $memberID = $request->mId;
+        $dietDate = $request->date;
         Session::set('member_id', $memberID);
         $dietPlanType = $this->dietPlanRepository->listPlanType()->toArray();
         $planType = array("1" => "Veg", "2" => "Non Veg");
@@ -230,10 +255,11 @@ class MemberDietPlanController extends Controller {
                 $dietPlanTypeList[$diet['id']] = $diet['plan_name'] . " - " . $planType[$diet['plan_type']] . " - " . $diet['calories'];
             }
         }
-        $dietPlan = $this->repository->getMemberPlan($memberID);
+        $dietPlan = $this->repository->getMemberPlan($memberID,$dietDate);
+        //print_r($dietPlan);
         if (!empty($dietPlan)) {
-            $dietPlan = $dietPlan->toArray();
-            $dietPlanId = $dietPlan['diet_plan_id'];            
+            //$dietPlan = $dietPlan->toArray();
+            $dietPlanId = $dietPlan[0]['diet_plan_id'];            
         } else {
             $dietPlanId = "";
         }
@@ -243,11 +269,12 @@ class MemberDietPlanController extends Controller {
             $dietPlanCalories = $dietPlanCalories["calories"];
         }
 
-        $created_At = $this->repository->getDietPlanDate($memberID);
-        $response['list'] = View('admin::member-diet-plan.plandropdown', compact('dietPlanId', 'dietPlanTypeList', 'dietPlanCalories'))->render();
+        //$date = \Carbon\Carbon::now()->format('Y-m-d');
+        $date = date("Y-m-d", strtotime($dietDate) );
+        $response['list'] = View('admin::member-diet-plan.plandropdown', compact('dietPlanId', 'dietPlanTypeList', 'dietPlanCalories','date'))->render();
+
         $response['diet_plan_id'] = $dietPlanId;
         $response['diet_plan_calories'] = $dietPlanCalories;
-        $response['created_at'] = $created_At;
         return response()->json($response);
     }
 
@@ -276,69 +303,74 @@ class MemberDietPlanController extends Controller {
      * @param  Modules\Admin\Http\Requests\MemberDietPlanUpdateRequest $request
      * @return json encoded Response
      */
-    public function store(Request $request, MemberDietPlan $memberDietPlan) {
-
+    public function store(Request $request, MemberDietPlan $memberDietPlan)
+    {
         $requestParamas = $request->all();
-        $serving = config('settings.APP_SERVING_SIZE_LIMIT');
-        print_r($requestParamas['member_diet_plan']);
-        $checked_diet_food_items = explode(",", $requestParamas['member_diet_plan']);
-
-        $requestParamas['diet_schedule_type_id'] = array_values($requestParamas['diet_schedule_type_id']);
-        $requestParamas['food_id'] = array_values($requestParamas['food_id']);
-        $requestParamas['servings_recommended'] = array_values($requestParamas['servings_recommended']);
-
-
-        $rules['id'] = 'required';
-        $rules['diet_plan_id'] = 'required';
-
-        // Create Rules for food_id
-        foreach ($requestParamas['food_id'] as $key => $val) {
-            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
-                $rules['food_id.' . $key] = 'required';
-            }
-        }
-
-        // Create Rules for servings_recommended
-        foreach ($requestParamas['servings_recommended'] as $key => $val) {
-            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
-                $rules['servings_recommended.' . $key] = 'required|numeric';
-                $rules['servings_recommended.' . $key] = 'required|integer|between:1,' . $serving;
-            }
-        }
-
-        $messages = [];
-        $messages['id.required'] = 'Please Select Customer.';
-        $messages['diet_plan_id.required'] = 'Please Select Diet Plan.';
-
-        foreach ($requestParamas['food_id'] as $key => $val) {
-            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
-                $messages['food_id.' . $key . '.required'] = 'Please Select Food.';
-            }
-        }
-
-        foreach ($requestParamas['servings_recommended'] as $key => $val) {
-            if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
-                $messages['servings_recommended.' . $key . '.required'] = 'Please Enter Servings Recommended.';
-                $messages['servings_recommended.' . $key . '.integer'] = 'Servings Recommended should be integer.';
-                $messages['servings_recommended.' . $key . '.between'] = 'Servings Recommended should not be greater than ' . $serving;
-            }
-        }
-
-        $validationArray['id'] = $requestParamas['id'];
-        $validationArray['diet_plan_id'] = $requestParamas['diet_plan_id'];
-        $validationArray['servings_recommended'] = $requestParamas['servings_recommended'];
-        $validationArray['food_id'] = $requestParamas['food_id'];
-
-
-        //$validator=Validator::make($request->only('id', 'diet_plan_id', 'servings_recommended', 'food_id'), $rules, $messages);
-        $validator = Validator::make($validationArray, $rules, $messages);
-
-        if ($validator->fails()) {
-            $validation_message = $validator->errors()->first();
+        $date = \Carbon\Carbon::now()->format('Y-m-d');
+        if (strtotime($requestParamas['diet_date']) < strtotime($date)) {
             $response['status'] = 'error';
-            $response['message'] = $validation_message;
+            $response['message'] = 'Invalid Date Selection';
         } else {
-            $response = $this->repository->update($requestParamas, $memberDietPlan);
+            $serving = config('settings.APP_SERVING_SIZE_LIMIT');
+            $checked_diet_food_items = explode(",", $requestParamas['member_diet_plan']);
+
+            $requestParamas['diet_schedule_type_id'] = array_values($requestParamas['diet_schedule_type_id']);
+            $requestParamas['food_id'] = array_values($requestParamas['food_id']);
+            $requestParamas['servings_recommended'] = array_values($requestParamas['servings_recommended']);
+
+
+            $rules['id'] = 'required';
+            $rules['diet_plan_id'] = 'required';
+
+            // Create Rules for food_id
+            foreach ($requestParamas['food_id'] as $key => $val) {
+                if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+                    $rules['food_id.' . $key] = 'required';
+                }
+            }
+
+            // Create Rules for servings_recommended
+            foreach ($requestParamas['servings_recommended'] as $key => $val) {
+                if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+                    $rules['servings_recommended.' . $key] = 'required|numeric';
+                    $rules['servings_recommended.' . $key] = 'required|integer|between:1,' . $serving;
+                }
+            }
+
+            $messages = [];
+            $messages['id.required'] = 'Please Select Customer.';
+            $messages['diet_plan_id.required'] = 'Please Select Diet Plan.';
+
+            foreach ($requestParamas['food_id'] as $key => $val) {
+                if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+                    $messages['food_id.' . $key . '.required'] = 'Please Select Food.';
+                }
+            }
+
+            foreach ($requestParamas['servings_recommended'] as $key => $val) {
+                if (isset($checked_diet_food_items[$key]) && $checked_diet_food_items[$key]) {
+                    $messages['servings_recommended.' . $key . '.required'] = 'Please Enter Servings Recommended.';
+                    $messages['servings_recommended.' . $key . '.integer'] = 'Servings Recommended should be integer.';
+                    $messages['servings_recommended.' . $key . '.between'] = 'Servings Recommended should not be greater than ' . $serving;
+                }
+            }
+
+            $validationArray['id'] = $requestParamas['id'];
+            $validationArray['diet_plan_id'] = $requestParamas['diet_plan_id'];
+            $validationArray['servings_recommended'] = $requestParamas['servings_recommended'];
+            $validationArray['food_id'] = $requestParamas['food_id'];
+
+
+            //$validator=Validator::make($request->only('id', 'diet_plan_id', 'servings_recommended', 'food_id'), $rules, $messages);
+            $validator = Validator::make($validationArray, $rules, $messages);
+
+            if ($validator->fails()) {
+                $validation_message = $validator->errors()->first();
+                $response['status'] = 'error';
+                $response['message'] = $validation_message;
+            } else {
+                $response = $this->repository->update($requestParamas, $memberDietPlan);
+            }
         }
         return response()->json($response);
     }
@@ -505,6 +537,65 @@ class MemberDietPlanController extends Controller {
         return response()->json($response);
     }
 
+    public function downloadDietHistory(Request $request){
+        $params['customer'] = $request->customer;
+        $params['from_date'] = $request->from;
+        $params['to_date'] = $request->to;
+
+        
+        try{
+
+            $fileFormat = 'csv';
+            $validFormat = ['csv', 'xls', 'xlsx'];
+
+            set_time_limit(0);
+            $response = [];
+
+            $uniqueTimeStr = Carbon::today()->toDateString();
+            $fileName = 'Datewise-Diet-Plan'.$uniqueTimeStr;
+            $data = $result = $this->repository->dateWiseBookedResources($params);
+            
+            Excel::create($fileName, function($excel) use ($data) {
+                $excel->sheet('Datewise-Diet-Plan', function($sheet) use($data) {
+
+                    $data->chunk(250, function($records) use($sheet) {
+
+                        $recordsData = array_map(function($item) {
+                            $tempItem = (array) $item;
+
+                            $requireExportData = [
+//                                'index' => '',
+                                'date' => $tempItem['diet_date'],
+                                'member' => $tempItem['member_name'],
+                                'diet_schedule' => ucwords($tempItem['diet_schedule_type']),
+                                'diet_plan' => ucwords($tempItem['diet_plan_name']).'-'.$tempItem['plan_type_name'].'-'.$tempItem['diet_calories'],
+                                'food_type' => $tempItem['food_type'],
+                                'food_name' => $tempItem['food_name'],
+                                'serving_recommended' => $tempItem['servings_recommended'],
+                                'measure' => $tempItem['measure'],
+                                'calories'=> $tempItem['calories'],
+                                'total_calories' => $tempItem['calories']*$tempItem['servings_recommended'],
+                            ];
+
+                            return $requireExportData;
+                            $i++;
+                        }, $records);
+
+                        $sheet->fromArray($recordsData, null, 'A1', false, false);
+                    });
+// Add before first row
+                    $sheet->prependRow(1, array('Date','Member', 'Diet Schedule Type', 'Diet Plan', 'Food Type', 'Food Name','Servings Recommended','Measure','Calories','Total Calories'));
+                });
+            })->export('xls');
+            
+        } catch (\Exception $e){
+            $exceptionDetails = $e->getMessage();
+            $response['status'] = 'error';
+            $response['message'] = "<b> Error Details</b> - " . $exceptionDetails;
+            Log::error(trans('admin::messages.not-exported', ['name' => 'Diet Plan Report']), ['Error Message' => $exceptionDetails, 'Current Action' => Route::getCurrentRoute()->getActionName()]);
+
+        }
+    }
 
 
 }

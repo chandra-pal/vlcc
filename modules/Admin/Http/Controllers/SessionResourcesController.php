@@ -14,10 +14,10 @@ namespace Modules\Admin\Http\Controllers;
 use Auth;
 use Datatables;
 use Illuminate\Support\Str;
+use Mockery\Exception;
 use Modules\Admin\Repositories\SessionResourcesRepository;
 use Modules\Admin\Services\Helper\MemberHelper;
 use Illuminate\Http\Request;
-use Mockery\Exception;
 use Excel;
 use Session;
 use Carbon\Carbon;
@@ -54,9 +54,9 @@ class SessionResourcesController extends Controller {
         $created_by_user_type = Auth::guard('admin')->user()->userType->id;
         $arrTimes['start_time'] = config('settings.APP_SESSION_BOOKING_START_TIME');
         $arrTimes['end_time'] = config('settings.APP_SESSION_BOOKING_END_TIME');
-        $timestamp = strtotime($arrTimes['end_time']) + 60 * 60;
+        $timestamp = strtotime($arrTimes['end_time']) + 60 * 30;
         $arrTimes['end_time_resource_calendar'] = date('H:i', $timestamp);
-        if ($created_by_user_type == 7 || $created_by_user_type == 8 || $created_by_user_type == 9 || $created_by_user_type == 11) {//7:CH, 8:SH, 9:ATH, 11:CA
+        if ($created_by_user_type == 4 || $created_by_user_type == 7 || $created_by_user_type == 8 || $created_by_user_type == 9 || $created_by_user_type == 11) {//7:CH, 8:SH, 9:ATH, 11:CA
             // Fetch Centers list
             $centersList = $memberHelper->getCentersList();
         } else if ($created_by_user_type == 7) {
@@ -81,7 +81,6 @@ class SessionResourcesController extends Controller {
         }
 
         $result = $this->repository->fetchResources($params);
-
         $resources = [];
         foreach ($result as $key => $value) {
             $resources[] = [
@@ -92,7 +91,6 @@ class SessionResourcesController extends Controller {
         }
         return response()->json($resources);
     }
-
 
     public function getResourcesAvailability(Request $request) {
         $params = $request->all();
@@ -108,7 +106,6 @@ class SessionResourcesController extends Controller {
         }
 
         $result = $this->repository->getResourcesAvailability($params);
-
         $events = [];
         foreach ($result as $key => $value) {
             $param['start_time'] = $value['start_time'];
@@ -129,6 +126,23 @@ class SessionResourcesController extends Controller {
                 'end' => $value['availability_date'] . "T" . $value['end_time'],
                 'title' => "",
             ];
+
+
+            
+            /*$sessionList = $this->repository->fetchSessionList($param, $params['flag']);
+            
+            foreach ($sessionList->toArray() as $s_key => $s_value) {
+                if ($resource_id == $s_value['resource_id']) {
+                    $events[] = [
+                        'id' => $s_value['id'],
+                        'resourceId' => $s_value['resource_id'],
+                        'start' => $value['availability_date'] . 'T' . date('H:i:s', strtotime($s_value['start_time'])),
+                        'end' => $value['availability_date'] . 'T' . date('H:i:s', strtotime($s_value['end_time'])),
+                        'title' => $s_value['first_name'],
+                        'backgroundColor' => 'yellow',
+                    ];
+                }
+            }*/
         }
         $result = $this->repository->getBookedResources($params);
 
@@ -149,6 +163,7 @@ class SessionResourcesController extends Controller {
                 'title' => $value['first_name']."-".$value['mobile_number'],
             ];
         }
+      
         return response()->json($events);
     }
 
@@ -192,6 +207,7 @@ class SessionResourcesController extends Controller {
             if ($params['flag'] == 1){
                 $fileTitle1 = 'Datewise-Staff-';
                 $fileTitle2 = 'Datewise_Staff_';
+
            } elseif ($params['flag'] == 2){
 
                 $fileTitle1 = 'Datewise-Machine-';
@@ -201,7 +217,6 @@ class SessionResourcesController extends Controller {
                 $fileTitle1 = 'Datewise-Room-';
                 $fileTitle2 = 'Datewise_Room_';
             }
-
 
             $uniqueTimeStr = Carbon::today()->toDateString();
             $fileName = $fileTitle1.$uniqueTimeStr;

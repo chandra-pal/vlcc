@@ -98,32 +98,74 @@ class SessionBookingsRepository extends BaseRepository
 //        return $response;
 //    }
 
-    public function data($params = [])
-    {
+
+    public function data($params = []) {
+
+                if(isset($params['center_id']) && !empty($params['center_id'])){
+                    $centerQuery = " AND VC.id = '" . $params['center_id'] . "' ";
+                }else{
+                    $centerQuery = "";
+                }
+
+                
+//                if(isset($params['customer_gender']) && !empty($params['customer_gender'])){
+//                    $genderQuery = " AND M.gender = '" . $params['customer_gender'] . "' ";                                   
+//                }else{
+//                    $genderQuery = "";
+//                }
+                
+                if(isset($params['customer_gender']) && !empty($params['customer_gender'])){                    
+                    if( $params['customer_gender'] == '2'){ 					
+                    	$genderQuery = " AND M.gender in ( 0 , '" . $params['customer_gender'] . "' ) ";
+                    } else {					
+			            $genderQuery = " AND M.gender = '" . $params['customer_gender'] . "' ";
+                    }  
+                } else {
+
+                    $genderQuery = "";
+                }
+
+                if(isset($params['customer_service_cat']) && !empty($params['customer_service_cat'])){
+                    if( $params['customer_service_cat'] == '100000001'){
+                    	$serviceQuery = " AND MSB.package_id NOT IN (0) AND MPS.service_category = '" . $params['customer_service_cat'] . "' ";
+                    } else {
+			$serviceQuery = " AND ( MSB.package_id IN (0) OR MPS.service_category = '" . $params['customer_service_cat'] . "' )";
+                    }
+
+                } else {
+                    $serviceQuery = "";
+                }
+
+                if(isset($params['customer_id']) && !empty($params['customer_id'])){
+                    $custQuery = " AND MSB.member_id = '" . $params['customer_id'] . "' ";
+                }else{
+                    $custQuery = "";
+                }
+
         $response = '';
         if (isset($params['session_date'])) {
-            if ($params['user_type_id'] == 4 || $params['user_type_id'] == 8) { //Dietician, Slimming Head
-                $response = SessionBookings::with('MemberPackage', 'Member')
-                    ->where('dietician_id', $params['user_id'])
-                    ->where('session_date', $params['session_date'])
-                    ->orderBy('session_date', 'DESC')
-                    ->orderBy('start_time', 'ASC')
-                    ->get();
-            } elseif ($params['user_type_id'] == 6 || $params['user_type_id'] == 9 || $params['user_type_id'] == 5 || $params['user_type_id'] == 7 || $params['user_type_id'] == 11) { // Physiotherapist, Center Head, Doctors, ATH and Center Admin
-                $centerIds = DB::select("SELECT group_concat(center_id) as center_id FROM admin_centers WHERE user_id = " . $params['user_id'] . "");
-                if (isset($centerIds[0]) && isset($centerIds[0]->center_id) && $centerIds[0]->center_id != '') {
-                    $response = SessionBookings::with('MemberPackage', 'Member')
-                        ->where('session_date', $params['session_date'])
-                        ->whereRaw("FIND_IN_SET(dietician_id,(select group_concat(user_id) FROM admin_centers WHERE center_id IN( " . $centerIds[0]->center_id . ")))")
-                        ->get();
-                } else {
-                    $response = collect();
-                }
+            if ($params['center_id'] == 0 && $params['customer_gender'] == 0 && $params['customer_service_cat'] == 0 && $params['customer_id'] == 0) {
+                //final SQL
+             //$result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by,  M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['user_id'] . " AND MSB.dietician_id = ". $params['user_id'] . " AND MSB.session_date = '" . $params['session_date'] . "'");
+
+                $result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by, MSB.session_comment, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['user_id'] . " AND MSB.session_date BETWEEN '".Date('Y-m-d', strtotime("-2 days"))."' AND '" . $params['session_date'] . "'");
+
+            }else{
+                
+                //$result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by, MSB.session_comment, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['user_id'] . " AND MSB.session_date BETWEEN '".Date('Y-m-d', strtotime("-2 days"))."' AND '" . $params['session_date'] . "'" . $centerQuery . $genderQuery . $serviceQuery . $custQuery);
+              
+                $result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by, MSB.session_comment, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN member_package_services MPS ON MPS.id = MSB.service_id LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['user_id'] . " AND MSB.session_date BETWEEN '".Date('Y-m-d', strtotime("-2 days"))."' AND '" . $params['session_date'] . "'" . $centerQuery . $genderQuery . $serviceQuery . $custQuery); 
             }
         } else {
-            if (isset($params["logged_in_user_type_id"]) && $params["logged_in_user_type_id"] == 9) {
-                $response = SessionBookings::with('Member')->where('member_id', $params['customer_id'])->get();
+
+              if ($params['center_id'] == 0 && $params['customer_gender'] == 0 && $params['customer_service_cat'] == 0 && $params['customer_id'] == 0) {
+                  //Finalworking SQL
+//                 $result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['dietician_id'] . " AND MSB.dietician_id = ". $params['dietician_id']);
+
+                 $result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['dietician_id']);
+
             } else {
+
                 if (isset($params["customer_id"]) && !empty($params["customer_id"])) {
                     $response = SessionBookings::with('Member')
                         ->where('dietician_id', $params['dietician_id'])
@@ -133,9 +175,16 @@ class SessionBookingsRepository extends BaseRepository
                     $response = SessionBookings::with('Member')->where('dietician_id', $params['dietician_id'])
                         ->get();
                 }
+
+                //Final working sql
+//                $result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.package_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB  LEFT JOIN members M ON MSB.member_id = M.id LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['dietician_id'] . " AND MSB.dietician_id = ". $params['dietician_id'] . $centerQuery . $genderQuery . $custQuery);
+
+
+               $result = DB::select("SELECT MSB.id, MSB.member_id, MSB.dietician_id, MSB.service_id, MSB.session_date, MSB.start_time, MSB.end_time, MSB.status, MSB.created_by, MSB.session_comment, M.first_name, M.last_name, M.mobile_number, M.gender, VC.center_name FROM member_session_bookings MSB LEFT JOIN member_package_services MPS ON MPS.id = MSB.service_id  LEFT JOIN members M ON MSB.member_id = M.id  LEFT JOIN vlcc_centers VC ON M.crm_center_id = VC.crm_center_id LEFT JOIN admin_centers AC ON VC.id = AC.center_id WHERE AC.user_id = ". $params['dietician_id']  .  $centerQuery . $genderQuery . $serviceQuery . $custQuery);
+
             }
         }
-        return $response;
+        return $result;
     }
 
     /**
@@ -164,8 +213,8 @@ class SessionBookingsRepository extends BaseRepository
                 $memberSessionBookingResources->member_id = $inputs['member_id'];
                 $memberSessionBookingResources->resource_id = $staff_value;
                 $memberSessionBookingResources->resource_type = 1;
-                $memberSessionBookingResources->resource_start_time = $inputs['start_time'];
-                $memberSessionBookingResources->resource_end_time = $inputs['end_time'];
+                $memberSessionBookingResources->resource_start_time = isset($inputs['staff_start_time']) ? date('H:i', strtotime($inputs['staff_start_time'][$staff_key])) : '00:00:00';
+                $memberSessionBookingResources->resource_end_time = isset($inputs['staff_end_time']) ? date('H:i', strtotime($inputs['staff_end_time'][$staff_key])) : '00:00:00';
                 $memberSessionBookingResources->save();
             }
 
@@ -176,8 +225,8 @@ class SessionBookingsRepository extends BaseRepository
                     $memberSessionBookingResources->member_id = $inputs['member_id'];
                     $memberSessionBookingResources->resource_id = $machine_value;
                     $memberSessionBookingResources->resource_type = 2;
-                    $memberSessionBookingResources->resource_start_time = $inputs['start_time'];
-                    $memberSessionBookingResources->resource_end_time = $inputs['end_time'];
+                    $memberSessionBookingResources->resource_start_time = isset($inputs['machine_start_time']) ? date('H:i', strtotime($inputs['machine_start_time'][$machine_key])): '00:00:00';
+                    $memberSessionBookingResources->resource_end_time = isset($inputs['machine_end_time']) ? date('H:i', strtotime($inputs['machine_end_time'][$machine_key])): '00:00:00';
                     $memberSessionBookingResources->save();
                 }
             }
@@ -189,8 +238,8 @@ class SessionBookingsRepository extends BaseRepository
                     $memberSessionBookingResources->member_id = $inputs['member_id'];
                     $memberSessionBookingResources->resource_id = $room_value;
                     $memberSessionBookingResources->resource_type = 3;
-                    $memberSessionBookingResources->resource_start_time = $inputs['start_time'];
-                    $memberSessionBookingResources->resource_end_time = $inputs['end_time'];
+                    $memberSessionBookingResources->resource_start_time = isset($inputs['room_start_time']) ? date('H:i', strtotime($inputs['room_start_time'][$room_key])): '00:00:00';
+                    $memberSessionBookingResources->resource_end_time = isset($inputs['room_end_time']) ? date('H:i', strtotime($inputs['room_end_time'][$room_key])): '00:00:00';
                     $memberSessionBookingResources->save();
                 }
             }
@@ -298,8 +347,8 @@ class SessionBookingsRepository extends BaseRepository
                 $availabilityInsertOrUpdate = [
                     'resource_id' => $staff_value,
                     'resource_type' => 1,
-                    'resource_start_time' => $inputs['start_time'],
-                    'resource_end_time' => $inputs['end_time'],
+                    'resource_start_time' => isset($inputs['staff_start_time']) ? date('H:i', strtotime($inputs['staff_start_time'][$staff_key])): '00:00:00',
+                    'resource_end_time' => isset($inputs['staff_end_time']) ? date('H:i', strtotime($inputs['staff_end_time'][$staff_key])): '00:00:00',
                 ];
 
                 $memberSessionBookingResources->updateOrCreate($whereClause, $availabilityInsertOrUpdate);
@@ -319,8 +368,8 @@ class SessionBookingsRepository extends BaseRepository
                     $availabilityInsertOrUpdate = [
                         'resource_id' => $machine_value,
                         'resource_type' => 2,
-                        'resource_start_time' => $inputs['start_time'],
-                        'resource_end_time' => $inputs['end_time'],
+                        'resource_start_time' => isset($inputs['machine_start_time']) ? date('H:i', strtotime($inputs['machine_start_time'][$machine_key])): '00:00:00',
+                        'resource_end_time' => isset($inputs['machine_end_time']) ? date('H:i', strtotime($inputs['machine_end_time'][$machine_key])): '00:00:00',
                     ];
 
                     $memberSessionBookingResources->updateOrCreate($whereClause, $availabilityInsertOrUpdate);
@@ -339,8 +388,8 @@ class SessionBookingsRepository extends BaseRepository
                 $availabilityInsertOrUpdate = [
                     'resource_id' => $room_value,
                     'resource_type' => 3,
-                    'resource_start_time' => $inputs['start_time'],
-                    'resource_end_time' => $inputs['end_time'],
+                    'resource_start_time' => isset($inputs['room_start_time']) ? date('H:i', strtotime($inputs['room_start_time'][$room_key])): '00:00:00',
+                    'resource_end_time' => isset($inputs['room_end_time']) ? date('H:i', strtotime($inputs['room_end_time'][$room_key])): '00:00:00',
                 ];
 
                 $memberSessionBookingResources->updateOrCreate($whereClause, $availabilityInsertOrUpdate);
@@ -507,11 +556,19 @@ class SessionBookingsRepository extends BaseRepository
                 ->orderBY('service_name', 'ASC')->lists('service_name', 'id');
 
 
-        $remaining_services = MemberPackageServices::select(['id', 'service_name'])
+        if ($params['package_id'] != 0){
+            $remaining_services = MemberPackageServices::select(['id', 'service_name'])
                 ->where('member_id', $params['member_id'])
                 ->where('package_id', $params['package_id'])
                 ->whereRaw('services_booked-services_consumed  >  0')
+                //->whereRaw('services_paid  >  0')
                 ->orderBY('service_name', 'ASC')->lists('service_name', 'id');
+        } else {
+            $remaining_services = BeautyServices::select(['id', 'service_name'])
+                ->where('status', 1)
+                ->orderBY('service_name', 'ASC')->lists('service_name', 'id');
+        }
+
 
         /*$unpaid_services = MemberPackageServices::select(['id', 'service_name'])
                 ->where('member_id', $params['member_id'])
@@ -647,7 +704,7 @@ class SessionBookingsRepository extends BaseRepository
         $resources = implode(",", $params['id']);
         DB::setFetchMode(PDO::FETCH_ASSOC);
 
-        $machine_result = DB::select("SELECT S.id,S.start_time, S.end_time, M.first_name, R.resource_id from member_session_bookings S INNER JOIN member_session_booking_resources R ON S.id=R.session_id INNER JOIN members M ON S.member_id=M.id WHERE S.session_date='" . $params['availability_date'] . "' AND R.resource_type=" . $flag . " AND R.resource_id IN (" . $resources . ") AND R.resource_start_time BETWEEN '" . $params['start_time'] . "' AND '" . $params['end_time'] . "'");
+        $machine_result = DB::select("SELECT S.id,R.resource_start_time AS start_time, R.resource_end_time AS end_time, M.first_name, R.resource_id from member_session_bookings S INNER JOIN member_session_booking_resources R ON S.id=R.session_id INNER JOIN members M ON S.member_id=M.id WHERE S.session_date='" . $params['availability_date'] . "' AND R.resource_type=" . $flag . " AND R.resource_id IN (" . $resources . ") AND R.resource_start_time BETWEEN '" . $params['start_time'] . "' AND '" . $params['end_time'] . "'");
 
         DB::setFetchMode(PDO::FETCH_CLASS);
         return collect($machine_result);
@@ -698,6 +755,15 @@ class SessionBookingsRepository extends BaseRepository
             ->update(['status' => 5]);
         return 1;
     }
+    
+    //Function to get Member Package Services for view todas session data table
+
+    public function getTodaysMemberPackageServices($servicesIds) {
+
+         $response = DB::table('member_package_services')->select('service_name')->whereIn('id', explode(",", $servicesIds))->get();
+       // $response = DB::select("select service_name from member_package_services where id IN($servicesData)");
+        return $response;
+    }
 
     public function sendSms($to, $params = [])
     {
@@ -724,20 +790,48 @@ class SessionBookingsRepository extends BaseRepository
         return $mobile_no;
     }
 
-    public function bookingHistoryStatus($user_name, $time_from, $time_to)
-    {
-        $var = DB::select("SELECT members.dietician_username,members.first_name, members.mobile_number,member_session_bookings.package_id, member_packages.package_title,member_session_bookings.session_date,member_session_bookings.start_time, 
-        member_session_bookings.end_time,member_session_bookings.status, adm.first_name as Created_BY, adm1.first_name as Updated_BY , member_session_bookings.id AS session_id,
-        (SELECT GROUP_CONCAT(mps.service_name) FROM member_session_bookings AS mbs_new
-        INNER JOIN member_package_services AS mps ON FIND_IN_SET(mps.id, mbs_new.service_id) > 0
-        WHERE mbs_new.id = session_id) as service_name , beauty_services.service_name as service_name1
-        FROM `member_session_bookings` LEFT JOIN members ON members.id = member_session_bookings.member_id 
-        LEFT JOIN member_package_services ON member_package_services.id = member_session_bookings.service_id
-        LEFT JOIN member_packages ON member_packages.id = member_session_bookings.package_id LEFT JOIN admins as adm ON adm.id = member_session_bookings.created_by
-        LEFT JOIN admins as adm1 ON adm1.id = member_session_bookings.updated_by
-        LEFT JOIN beauty_services ON beauty_services.id = member_session_bookings.service_id
-        WHERE (member_session_bookings.dietician_id='$user_name' AND (member_session_bookings.session_date >='$time_from' AND member_session_bookings.session_date <= '$time_to'))
-        ORDER BY member_session_bookings.session_date DESC ");
-        return $var;
-    }
+    public function bookingHistoryStatus($params, $flag)
+	{
+        if($params['member_id'] == 0 || $params['member_id'] == "") {
+            $var = DB::table('member_session_bookings')
+                ->select('members.dietician_username','members.first_name','members.mobile_number','member_session_bookings.package_id', 'member_packages.package_title','member_session_bookings.session_date','member_session_bookings.start_time',
+                    'member_session_bookings.end_time','member_session_bookings.status','adm.first_name as Created_BY', 'adm1.first_name as Updated_BY' , 'member_session_bookings.id AS session_id',
+                    DB::raw("(SELECT GROUP_CONCAT(mps.service_name) FROM member_session_bookings AS mbs_new INNER JOIN member_package_services AS mps ON FIND_IN_SET(mps.id, mbs_new.service_id) > 0
+     WHERE mbs_new.id = session_id) as service_name"),'beauty_services.service_name as service_name1')
+                ->leftJoin( 'members', 'members.id','=','member_session_bookings.member_id')
+                ->leftJoin('member_package_services','member_package_services.id','=','member_session_bookings.service_id')
+                ->leftJoin('member_packages','member_packages.id','=','member_session_bookings.package_id')
+                ->leftJoin('admins as adm','adm.id','=','member_session_bookings.created_by')
+                ->leftJoin('admins as adm1', 'adm1.id','=', 'member_session_bookings.updated_by')
+                ->leftJoin('beauty_services','beauty_services.id','=','member_session_bookings.service_id')
+                ->leftJoin('vlcc_centers','members.crm_center_id','=','vlcc_centers.crm_center_id')
+                ->leftJoin('admin_centers','vlcc_centers.id','=','admin_centers.center_id')
+                ->where('admin_centers.user_id','=',$params['dietician_id'])
+                ->where('member_session_bookings.session_date','>=',$params['from'])
+                ->where('member_session_bookings.session_date','<=',$params['to'])
+                ->orderBy('member_session_bookings.session_date','DESC');
+        } else {
+            $var = DB::table('member_session_bookings')
+                ->select('members.dietician_username', 'members.first_name', 'members.mobile_number', 'member_session_bookings.package_id', 'member_packages.package_title', 'member_session_bookings.session_date', 'member_session_bookings.start_time',
+                    'member_session_bookings.end_time', 'member_session_bookings.status', 'adm.first_name as Created_BY', 'adm1.first_name as Updated_BY', 'member_session_bookings.id AS session_id',
+                    DB::raw("(SELECT GROUP_CONCAT(mps.service_name) FROM member_session_bookings AS mbs_new INNER JOIN member_package_services AS mps ON FIND_IN_SET(mps.id, mbs_new.service_id) > 0
+     WHERE mbs_new.id = session_id) as service_name"), 'beauty_services.service_name as service_name1')
+                ->leftJoin('members', 'members.id', '=', 'member_session_bookings.member_id')
+                ->leftJoin('member_package_services', 'member_package_services.id', '=', 'member_session_bookings.service_id')
+                ->leftJoin('member_packages', 'member_packages.id', '=', 'member_session_bookings.package_id')
+                ->leftJoin('admins as adm', 'adm.id', '=', 'member_session_bookings.created_by')
+                ->leftJoin('admins as adm1', 'adm1.id', '=', 'member_session_bookings.updated_by')
+                ->leftJoin('beauty_services', 'beauty_services.id', '=', 'member_session_bookings.service_id')
+                ->where('member_session_bookings.member_id', '=', $params['member_id'])
+                ->where('member_session_bookings.session_date', '>=', $params['from'])
+                ->where('member_session_bookings.session_date', '<=', $params['to'])
+                ->orderBy('member_session_bookings.session_date', 'DESC');
+        }
+	
+	if($flag == 1 )
+		return $var->get();
+	else
+		return $var;
+	
+	}
 }

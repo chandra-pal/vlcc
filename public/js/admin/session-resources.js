@@ -25,8 +25,8 @@ siteObjJs.admin.sessionResourcesJs = function () {
 
 //        $('body').on("click", ".tab-click", function () {
 //            var flag = $(this).attr("id");
-//            if ($("#center_select").val() != '' && $("#availability_date").val() != '') {
-//                handleAvailabilityCalendar($("#availability_date").val(), $("#center_select").val(), flag);
+//            if ($("#center_select").val() != '' && $("#from_date").val() != '') {
+//                handleAvailabilityCalendar($("#from_date").val(), $("#center_select").val(), flag);
 //            }
 //        });
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -60,6 +60,7 @@ siteObjJs.admin.sessionResourcesJs = function () {
             "minTime": $("#minTime").val(),
             "maxTime": $("#maxTime1").val(),
             "height": "auto",
+            "aspectRatio": "1",
             views: {
                 agendaTwoDay: {
                     type: 'agenda',
@@ -79,17 +80,26 @@ siteObjJs.admin.sessionResourcesJs = function () {
             },
 
             "events": function (start, end, timezone, callback) {
-                $.ajax({
-                    url: "session-resources/resource-availability",
-                    dataType: 'json',
-                    type: "POST",
-                    "data": {center_id: center, availability_date: date, flag: flag},
-                    success: function (data) {
-                        callback(data);
-                        // $('#resource_calender_' + flag).fullCalendar('refetchEvents');
-                    }
-                });
+                 $.ajax({
+                     url: "session-resources/resource-availability",
+                     dataType: 'json',
+                     type: "POST",
+                     "data": {center_id: center, availability_date: date, flag: flag},
+                     success: function (data) {
+                         callback(data);
+                         // $('#resource_calender_' + flag).fullCalendar('refetchEvents');
+                     }
+                 });
             },
+
+
+            eventRender: function (event, element) {
+                element.attr('title', event.title);
+                element.find('span.fc-title').html(element.find('span.fc-title').text());
+                element.find('div.fc-title').html(element.find('div.fc-title').text());
+            }
+
+
         });
     };
 
@@ -109,6 +119,7 @@ siteObjJs.admin.sessionResourcesJs = function () {
     };*/
 
     var sessionResourceDate = function (dateArray) {
+
         $('#from_date').datepicker({
            format: 'dd-mm-yyyy',
             autoclose: 1,

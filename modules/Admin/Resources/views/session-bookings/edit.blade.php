@@ -17,6 +17,7 @@
                 @include('admin::session-bookings.form')
                 <tr>
                     <td colspan="6">
+                        <span id="resource-time-error" style="color: red;"></span>
                         @if($cancelFlag == 1)
                         <button type="submit" class="btn green submit_session" disabled>{!! trans('admin::messages.save') !!}</button>
                         @else

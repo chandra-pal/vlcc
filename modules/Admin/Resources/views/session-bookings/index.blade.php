@@ -24,6 +24,17 @@
 {!! HTML::style( URL::asset('css/admin/admin-user.css') ) !!}
 @stop
 
+@section('styles')
+<style>
+    .fc-time-grid-event.fc-short .fc-time:before, .fc-time-grid-event.fc-short .fc-time:after {
+        display: none !important;
+    }
+
+    .fc-time-grid-event.fc-short .fc-time span {
+        display: block;
+    }
+</style>
+@stop
 @section('scripts')
 @parent
 {!! HTML::script( URL::asset('global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ) !!}
@@ -78,13 +89,14 @@
         </div>
         @if(!empty(Auth::guard('admin')->user()->hasAdd))
         <div class="actions">
-            <a href="javascript:;" class="btn blue btn-add-big btn-expand-form"><i class="fa fa-plus"></i><span class="hidden-480">Add Appointment</span></a>
+            <a href="javascript:;" class="btn blue btn-add-big btn-expand-form"><i class="fa fa-plus"></i><span class="hidden-480">Add Slimming Appointment</span></a>
         </div>
         @endif
 
         <div class="actions" style="margin-right: 35px;">
             <input type="hidden" id="logged_in_user_type_id" name="logged_in_user_type_id" value="{{Auth::guard('admin')->user()->userType->id}}">
             <input type="hidden" id="logged_in_user_id" name="logged_in_user_id" value="{{Auth::guard('admin')->user()->id}}">
+
             <a href="./view-todays-sessions" class="btn blue btn-add-big"><span class="hidden-480">View Todays Appointments</span></a>
         </div>
         <div class="actions" style="margin-right: 35px; ">

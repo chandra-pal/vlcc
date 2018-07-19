@@ -272,6 +272,7 @@
                         <th width='1%'>#</th>
                         <th width='1%'>ID</th>
                         <th>CRM Package Id</th>
+                        <th>Center</th>
                         <th>Title</th>
                         <th>Start Date</th>
                         <th>End Date</th>

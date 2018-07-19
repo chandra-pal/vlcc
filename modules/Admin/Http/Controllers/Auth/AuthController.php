@@ -89,6 +89,7 @@ class AuthController extends Controller {
      * @return Response
      */
     public function getLogin() {
+        //return "<h1>VLCC - Slimmers Admin Panel</h1><h2>Application under maintainence!</h2>";
         return view('admin::auth.username-validate');
     }
 

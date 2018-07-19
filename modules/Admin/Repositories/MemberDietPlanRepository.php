@@ -17,6 +17,7 @@ use Modules\Admin\Models\DietScheduleType;
 use Modules\Admin\Models\Food;
 use Modules\Admin\Models\DietPlanDetail;
 use Exception;
+use Modules\Admin\Models\MemberDietPlanDetail;
 use Route;
 use Log;
 use Cache;
@@ -57,10 +58,10 @@ class MemberDietPlanRepository extends BaseRepository {
 //GROUP BY items.food_id, items.diet_schedule_type_id
 //ORDER BY items.diet_schedule_type_id, items.active DESC");
 
-        $member_diet_plan_details = DB::select("SELECT id, diet_plan_id, diet_schedule_type_id, schedule_name, food_type_id, food_type_name, food_id,  food_name, measure, calories, serving_size, serving_unit, servings_recommended, active, created_at FROM (
-(SELECT items.id, items.diet_plan_id, items.diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, items.created_at, 1 AS active FROM member_diet_plan_details items LEFT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id WHERE items.member_id = " . $member_id . " AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1)
+        $member_diet_plan_details = DB::select("SELECT id, diet_plan_id, diet_schedule_type_id, schedule_name, food_type_id, food_type_name, food_id,  food_name, measure, calories, serving_size, serving_unit, servings_recommended, active FROM (
+(SELECT items.id, items.diet_plan_id, items.diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, 1 AS active FROM member_diet_plan_details items LEFT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id WHERE items.member_id = " . $member_id . " AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.diet_date = '" . date('Y-m-d', strtotime($params['dietDate'])) . "' AND items.status = 1)
 UNION (
-SELECT items.id, items.diet_plan_id, diet_schedule_types.id as diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, items.created_at, 0 AS active FROM diet_plan_details items RIGHT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1 LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id
+SELECT items.id, items.diet_plan_id, diet_schedule_types.id as diet_schedule_type_id, diet_schedule_types.schedule_name, items.food_id, food_types.id as food_type_id, food_types.food_type_name, foods.food_name, foods.measure, foods.calories, foods.serving_size, foods.serving_unit, items.servings_recommended, 0 AS active FROM diet_plan_details items RIGHT JOIN diet_schedule_types ON items.diet_schedule_type_id = diet_schedule_types.id AND items.diet_plan_id = " . $params["diet_plan_id"] . " AND items.status = 1 LEFT JOIN foods ON items.food_id = foods.id LEFT JOIN food_types ON foods.food_type_id = food_types.id
 )
 )
 AS items
@@ -93,12 +94,15 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
         return $response;
     }
 
-    public function getMemberPlan($memberID) {
+    public function getMemberPlan($memberID,$dietDate) {
+        DB::setFetchMode(PDO::FETCH_ASSOC);
         $memberID = (int) $memberID;
         $cacheKey = str_replace(['\\'], [''], __METHOD__) . ':' . md5(json_encode($memberID));
         //Cache::tags not suppport with files and Database
         //$response = Cache::tags(MemberDietPlan::table())->remember($cacheKey, $this->ttlCache, function() use($memberID) {
-        return MemberDietPlan::select('diet_plan_id')->has('DietPlan')->whereId($memberID)->where('diet_plan_id', '!=', 0)->orderBY('id')->first();
+        //return MemberDietPlan::select('diet_plan_id')->has('DietPlan')->whereId($memberID)->where('diet_plan_id', '!=', 0)->orderBY('id')->first();
+        //return MemberDietPlanDetail::select('diet_plan_id')->where('member_id',$memberID)->where(DB::raw("DATE(diet_date) = '".date('Y-m-d', strtotime($dietDate))."'"))->where('diet_plan_id', '!=', 0)->orderBY('id')->first();
+        return DB::select("SELECT diet_plan_id FROM member_diet_plan_details WHERE member_id = ".$memberID." AND diet_date = '".date('Y-m-d', strtotime($dietDate))."' AND diet_plan_id != 0 order by id limit 1");
         //});
 
         return $response;
@@ -116,6 +120,7 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
             // Delete Data from Database for that member_id & diet_plan_id
             $delete_success = DB::table('member_diet_plan_details')
                     ->where('member_id', '=', $inputs["id"])
+                    ->where('diet_date', '=', date('Y-m-d', strtotime($inputs["diet_date"])))
                     ->delete();
 
             $final_memder_diet_plan_details = array();
@@ -126,7 +131,7 @@ ORDER BY items.diet_schedule_type_id, items.active DESC
                 if ($checked_food) {
                     if ((isset($inputs["diet_schedule_type_id"][$key]) && isset($inputs["food_id"][$key]) && isset($inputs["servings_recommended"][$key])) && (!empty($inputs["diet_schedule_type_id"][$key]) && !empty($inputs["food_id"][$key]) && !empty($inputs["servings_recommended"][$key]) && $inputs["servings_recommended"][$key] != 0)) {
                         // Insert Data into table member_diet_plan_details
-                        $insert_array = array("member_id" => $inputs["id"], "diet_plan_id" => $inputs["diet_plan_id"], "diet_schedule_type_id" => $inputs["diet_schedule_type_id"][$key], "food_id" => $inputs["food_id"][$key], "servings_recommended" => $inputs["servings_recommended"][$key], "status" => "1", "created_by" => "1", "created_at" => date("Y-m-d H:i:s"));
+                        $insert_array = array("member_id" => $inputs["id"], "diet_plan_id" => $inputs["diet_plan_id"], "diet_schedule_type_id" => $inputs["diet_schedule_type_id"][$key], "food_id" => $inputs["food_id"][$key], "servings_recommended" => $inputs["servings_recommended"][$key], "status" => "1",'diet_date' =>date('Y-m-d', strtotime($inputs['diet_date'])), "created_by" => "1", "created_at" => date("Y-m-d H:i:s"));
                         $final_memder_diet_plan_details[] = $insert_array;
                     }
                 }
@@ -230,6 +235,24 @@ public function updateDietPlan($inputs, $memberDietPlan){
         $result = DB::select("SELECT calories FROM diet_plans WHERE id = " . $dietPlanId . "");
         DB::setFetchMode(PDO::FETCH_CLASS);
         return $result[0];
+    }
+
+    public function dateWiseBookedResources($params){
+        return $request_details = DB::table('member_diet_plan_details AS mdpd')
+            ->leftJoin('members', 'mdpd.member_id', '=', 'members.id')
+            ->leftJoin('diet_plans AS dp', 'mdpd.diet_plan_id', '=', 'dp.id')
+            ->leftJoin('diet_schedule_types AS dst', 'mdpd.diet_schedule_type_id', '=', 'dst.id')
+            ->leftJoin('foods', 'mdpd.food_id', '=', 'foods.id')
+            ->leftJoin('food_types AS ft', 'foods.food_type_id', '=', 'ft.id')
+            ->select(DB::raw('CONCAT(members.first_name, " ", members.last_name) AS member_name'),'dst.schedule_name AS diet_schedule_type',
+                DB::raw('(CASE WHEN dp.plan_type = 1 THEN "Veg" ELSE "Non Veg" END) AS plan_type_name'),'dp.plan_name AS diet_plan_name','dp.calories AS diet_calories',
+                'ft.food_type_name AS food_type','foods.food_name','mdpd.servings_recommended','foods.measure','foods.calories','mdpd.diet_date')
+            ->where('mdpd.member_id','=',$params["customer"])
+            ->where('mdpd.diet_date', ">=", date('Y-m-d', strtotime($params['from_date'])))
+            ->where('mdpd.diet_date', "<=", date('Y-m-d', strtotime($params['to_date'])))
+            ->orderBY('mdpd.diet_date', 'ASC');
+                
+            
     }
 
     public function getDietPlanDate($memberID) {

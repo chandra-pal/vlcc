@@ -20,6 +20,35 @@ siteObjJs.admin.sessionBookingsJs = function () {
 
         $('body').on("click", "a.mark-session-complete", function (e) {
             var id = $(this).attr('id');
+            var center_id = $("#center_select").val();
+            if (center_id != 0 && center_id != undefined) {
+               center_id = center_id;
+            } else {
+                 center_id = 0;
+            }
+            
+            var customer_gender = $("#customer_gender").val();
+            if (customer_gender != 0 && customer_gender != undefined) {
+               customer_gender = customer_gender;
+            } else {
+                 customer_gender = 0;
+                 
+            }
+            
+            var customer_service_cat = $("#customer_service_cat").val();
+            if (customer_service_cat != 0 && customer_service_cat != undefined) {
+               customer_service_cat = customer_service_cat;
+            } else {
+                 customer_service_cat = 0;
+                 
+            }
+            
+            var customerId = $(this).val();
+            if(customerId != "" && customerId != undefined){
+                customerId = customerId;
+            }else{
+                customerId = 0;
+            }
             var actionUrl = adminUrl + '/update-session-status';
             $.ajax({
                 url: actionUrl,
@@ -30,7 +59,8 @@ siteObjJs.admin.sessionBookingsJs = function () {
                 success: function (data)
                 {
                     $('#todays-sessions-table').dataTable().fnDestroy();
-                    handleTable();
+                    //handleTable();
+                    handleTable(center_id,customer_gender,customer_service_cat,customerId);
                 },
                 error: function (jqXhr, json, errorThrown)
                 {
@@ -70,8 +100,20 @@ siteObjJs.admin.sessionBookingsJs = function () {
             $('#session_date').val('');
             $("#used-services-block").hide();
         });
-
-        $('body').on('change', '#customer_select', function (e) {
+        
+        $('body').on('change', '#center_select', function (e) {
+           
+//            $('#session_start_time').val("");
+//            $('#session_end_time').val("");
+//            $("#staff_id").select2('val', 'empty');
+//            $("#machine_id").select2('val', 'empty');
+//            $("#room_id").select2('val', 'empty');
+//            $('#staff_calender').html('');
+//            $('#machine_calender').html('');
+//            $('#room_calender').html('');
+//            $('#session_date').val('');
+//            $("#service_id").select2('val', '');
+//            $("#package_id").select2('val', '');
             $('#edit-session-bookings').parents('div.portlet-body.form').find('.btn-collapse').trigger('click');
             $('#todays-sessions-table').empty("");
             $('#fullcalendar').fullCalendar('destroy');
@@ -85,50 +127,230 @@ siteObjJs.admin.sessionBookingsJs = function () {
             $('#room_calender').html('');
             $('#session_date').val('');
             $("#service_id").select2('val', '');
-
-            if ($(this).val() != 0) {
-                var customerId = $(this).val();
-                getAvailabilityList(customerId);
+            //$("#customer_gender").select2('val', '');
+            //$("#customer_select").select2('val', '');
+            
+            var center_id = $("#center_select").val();
+            if (center_id != 0 && center_id != undefined) {
+                center_id = center_id;
             } else {
-                var customerId = 0;
+                 center_id = 0;
             }
-            handleCalendar(customerId);
-            fetchPackageList(customerId);
-            if (customerId == 0) {
-                fetchServiceList(0, 0);
+            
+            var customer_gender = $("#customer_gender").val();
+            if (customer_gender != 0 && customer_gender != undefined) {
+               customer_gender = customer_gender;
+            } else {
+               customer_gender = 0;
             }
+            
+         //   fetchCustomerList(center_id, customer_gender);
+           
+            var customer_service_cat = $("#customer_service_cat").val();
+            if(customer_service_cat != "" && customer_service_cat != undefined){
+                customer_service_cat = customer_service_cat;
+            }else{
+                customer_service_cat = 0;
+            }
+            
+            fetchCustomerList(center_id, customer_gender, customer_service_cat);
+            
+            var customerId = $("#customer_select").val();
+            if(customerId != "" && customerId != undefined){
+                customerId = customerId;
+            }else{
+                customerId = 0; 
+            }            
+            handleCalendar(center_id,customer_gender,customer_service_cat,customerId);
+            //handleCalendar(center_id,customer_gender,customerId);
+            handleTable(center_id,customer_gender,customer_service_cat,customerId);            
         });
 
-        $('body').on('change', '#service_id', function (e) {
-            var form = this.form;
-            var formId = this.form.id;
-            checkSessionAvailable(formId);
-        });
 
-        $('body').on('change', '#center_select', function (e) {
+           $('body').on('change', '#customer_gender', function (e) {
+            $('#edit-session-bookings').parents('div.portlet-body.form').find('.btn-collapse').trigger('click');
+            $('#todays-sessions-table').empty("");
+            $('#fullcalendar').fullCalendar('destroy');
             $('#session_start_time').val("");
             $('#session_end_time').val("");
-            $("#staff_id").select2('val', 'empty');
-            $("#machine_id").select2('val', 'empty');
-            $("#room_id").select2('val', 'empty');
+            $("#staff_id").select2();
+            $("#machine_id").select2();
+            $("#room_id").select2();
             $('#staff_calender').html('');
             $('#machine_calender').html('');
             $('#room_calender').html('');
             $('#session_date').val('');
             $("#service_id").select2('val', '');
-            $("#package_id").select2('val', '');
-            var centerId = $(this).val();
-            if (centerId != "") {
-                var actionUrl = adminUrl + '/members/centerwise-members';
-                $.ajax({
-                    url: actionUrl,
-                    cache: false,
-                    dataType: "json",
-                    type: "POST",
-                    "data": {center_id: centerId},
-                    success: function (data)
-                    {
-                        $(".members_list").html("");
+           // $("#center_select").select2('val', '');
+            //$("#customer_select").select2('val', '');
+            
+            var center_id = $("#center_select").val();
+            if (center_id != 0 && center_id != undefined) {
+               center_id = center_id;
+            } else {
+                 center_id = 0;
+            }
+           
+            var customer_gender = $(this).val();
+            if (customer_gender != 0 && customer_gender != undefined) {
+               customer_gender = customer_gender;
+            } else {
+                 customer_gender = 0;
+            }
+             
+           // fetchCustomerList(center_id, customer_gender);
+            
+            var customer_service_cat = $("#customer_service_cat").val();
+            if(customer_service_cat != "" && customer_service_cat != undefined){
+                customer_service_cat = customer_service_cat;
+            }else{
+                customer_service_cat = 0;
+            }
+            
+            if($('#center_select').length > 0 && $('#center_select').val() == "" && $('#customer_select').val() == 0){
+                        
+            } else {
+                fetchCustomerList(center_id, customer_gender, customer_service_cat);
+            }
+            
+            var customerId = $("#customer_select").val();
+            if(customerId != "" && customerId != undefined){
+                customerId = customerId;
+            }else{
+                customerId = 0;
+            }            
+            handleCalendar(center_id,customer_gender,customer_service_cat,customerId);
+            handleTable(center_id,customer_gender,customer_service_cat,customerId);
+        });
+        
+        
+        $('body').on('change', '#customer_service_cat', function (e) {
+            $('#edit-session-bookings').parents('div.portlet-body.form').find('.btn-collapse').trigger('click');
+            $('#todays-sessions-table').empty("");
+            $('#fullcalendar').fullCalendar('destroy');
+            $('#session_start_time').val("");
+            $('#session_end_time').val("");
+            $("#staff_id").select2();
+            $("#machine_id").select2();
+            $("#room_id").select2();
+            $('#staff_calender').html('');
+            $('#machine_calender').html('');
+            $('#room_calender').html('');
+            $('#session_date').val('');
+            $("#service_id").select2('val', '');
+           // $("#center_select").select2('val', '');
+            //$("#customer_select").select2('val', '');
+            
+            var center_id = $("#center_select").val();
+            if (center_id != 0 && center_id != undefined) {
+               center_id = center_id;
+            } else {
+                 center_id = 0;
+            }
+            
+            var customer_gender = $("#customer_gender").val();
+            if (customer_gender != 0 && customer_gender != undefined) {
+               customer_gender = customer_gender;
+            } else {
+                 customer_gender = 0;
+            }
+           
+            var customer_service_cat = $(this).val();
+            if (customer_service_cat != 0 && customer_service_cat != undefined) {
+               customer_service_cat = customer_service_cat;
+            } else {
+                 customer_service_cat = 0;
+            }             
+//            fetchCustomerList(center_id, customer_gender);
+            
+            var customerId = $("#customer_select").val();
+            if(customerId != "" && customerId != undefined){
+                customerId = customerId;
+            }else{
+                customerId = 0;
+            }
+            
+            if($('#center_select').length > 0 && $('#center_select').val() == "" && $('#customer_select').val() == 0){
+                        
+            } else {
+                fetchCustomerList(center_id, customer_gender, customer_service_cat);
+            }
+            
+            handleCalendar(center_id,customer_gender,customer_service_cat,customerId);
+            handleTable(center_id,customer_gender,customer_service_cat,customerId);
+        });
+
+
+       $('body').on('change', '#customer_select', function (e) {
+            $('#edit-session-bookings').parents('div.portlet-body.form').find('.btn-collapse').trigger('click');
+            $('#todays-sessions-table').empty("");
+            $('#fullcalendar').fullCalendar('destroy');
+            $('#session_start_time').val("");
+            $('#session_end_time').val("");
+            $("#staff_id").select2();
+            $("#machine_id").select2();
+            $("#room_id").select2();
+            $('#staff_calender').html('');
+            $('#machine_calender').html('');
+            $('#room_calender').html('');
+            $('#session_date').val('');
+            $("#service_id").select2('val', '');
+            //$("#customer_gender").select2('val', '');
+            //$("#center_select").select2('val', '');
+
+            var center_id = $("#center_select").val();
+            if (center_id != 0 && center_id != undefined) {
+               center_id = center_id;
+            } else {
+                 center_id = 0;
+            }
+            
+            var customer_gender = $("#customer_gender").val();
+            if (customer_gender != 0 && customer_gender != undefined) {
+               customer_gender = customer_gender;
+            } else {
+                 customer_gender = 0;
+                 
+            }
+            
+            var customer_service_cat = $("#customer_service_cat").val();
+            if (customer_service_cat != 0 && customer_service_cat != undefined) {
+               customer_service_cat = customer_service_cat;
+            } else {
+                 customer_service_cat = 0;
+                 
+            }
+            
+            var customerId = $(this).val();
+            if(customerId != "" && customerId != undefined){
+                customerId = customerId;
+                getAvailabilityList(customerId);
+            }else{
+                customerId = 0;
+            }
+           
+            handleCalendar(center_id,customer_gender,customer_service_cat,customerId);
+            handleTable(center_id,customer_gender,customer_service_cat,customerId);
+            fetchPackageList(customerId);
+            if (customerId == 0) {
+                fetchServiceList(0, 0);
+            }
+
+        });
+
+
+       // Function To List Customer Data of selected center/gender
+    var fetchCustomerList = function (center_id, customer_gender, customer_service_cat) {
+        var actionUrl = adminUrl + '/members/centerwise-members';
+        $.ajax({
+            url: actionUrl,
+            cache: false,
+            dataType: "json",
+            type: "POST",
+            "data": {center_id: center_id, customer_gender: customer_gender , customer_service_cat : customer_service_cat},
+            success: function (data)
+            {
+                $(".members_list").html("");
                         $(".members_list").html(data.members_list);
                         $("#customer_select").select2({
                             allowClear: true,
@@ -136,33 +358,104 @@ siteObjJs.admin.sessionBookingsJs = function () {
                             width: null
                         });
                         var customer_id = $('#customer_select').val();
+                        var customer_service_cat = $('#customer_service_cat').val();
                         if (customer_id != "" && customer_id != 0) {
                             $('#fullcalendar').fullCalendar('destroy');
-                            handleCalendar(customer_id);
+                           // handleCalendar(customer_id);
+                           handleCalendar(center_id,customer_gender,customer_service_cat,customer_id);
                         }
-                    },
-                    error: function (jqXhr, json, errorThrown)
-                    {
-                        var errors = jqXhr.responseJSON;
-                        var errorsHtml = '';
-                        $.each(errors, function (key, value) {
-                            errorsHtml += value[0] + '<br />';
-                        });
-                        // alert(errorsHtml, "Error " + jqXhr.status + ': ' + errorThrown);
-                        Metronic.alert({
-                            type: 'danger',
-                            message: errorsHtml,
-                            container: $('#ajax-response-text'),
-                            place: 'prepend',
-                            closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
-                        });
-                    }
+            },
+            
+            error: function (jqXhr, json, errorThrown)
+            {
+                var errors = jqXhr.responseJSON;
+                var errorsHtml = '';
+                $.each(errors, function (key, value) {
+                    errorsHtml += value[0] + '<br />';
+                });
+                // alert(errorsHtml, "Error " + jqXhr.status + ': ' + errorThrown);
+                Metronic.alert({
+                    type: 'danger',
+                    message: errorsHtml,
+                    container: $('#ajax-response-text'),
+                    place: 'prepend',
+                    closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
                 });
             }
+            
         });
+    };
 
-        $('.submit_session').click(function (e) {
-            console.log(e);
+
+        $('body').on('change', '#service_id', function (e) {
+            var form = this.form;
+            var formId = this.form.id;
+            checkSessionAvailable(formId);
+        });
+        
+        //$('.submit_session').click(function (e) {
+        $('body').on('click', '.submit_session', function (e) {
+
+            var form_id = $(this).closest("form").attr('id');
+            var startTime = $('#'+form_id+' #session_start_time').val();
+            var endTime = $('#'+form_id+' #session_end_time').val();
+            var startResource = $("input.resource-start-time");
+            var endResource = $("input.resource-end-time");
+            var len = startResource.length;
+            console.log(len);
+            var i;
+            var count = 0;
+            for (i=0; i<len; i++){
+                if (startResource[i].value != '' && endResource[i].value != '' && ((Date.parse('01/01/2011 ' + endResource[i].value) < Date.parse('01/01/2011 ' + startResource[i].value)) || (Date.parse('01/01/2011 ' + startResource[i].value) - Date.parse('01/01/2011 ' + endResource[i].value) == 0))) {
+                    count++;
+
+                }
+            }
+
+            if (count > 0){
+                $('#' + form_id + ' #resource-time-error').html(" Resource End time should be greater than Resource start time");
+                return false;
+            } else{
+                $('#' + form_id + ' #resource-time-error').html("");
+            }
+            //console.log(startResource[0].value);
+
+
+            $("input.resource-start-time").each(function(){
+                //var idIndex = $(this).data('index');
+
+                if($(this).val() == '' || $(this).val() == null){
+                    $(this).data('msg-required','Required');
+                    $(this).data('rule-required',true);
+
+                } else if ($(this).val() != '' && ((Date.parse('01/01/2011 ' + $(this).val()) < Date.parse('01/01/2011 ' + startTime)) || (Date.parse('01/01/2011 ' + $(this).val()) > Date.parse('01/01/2011 ' + endTime)))) {
+                    $(this).data('msg-required','Invalid Time');
+                    $(this).data('rule-required',true);
+                    
+
+                } else {
+                    $(this).data('rule-required',false);
+
+                }
+            });
+
+
+            $("input.resource-end-time").each(function(){
+                //var idIndex = $(this).data('index');
+                if($(this).val() == '' || $(this).val() == null){
+                    $(this).data('msg-required','Required');
+                    $(this).data('rule-required',true);
+
+                } else if ($(this).val() != '' && ((Date.parse('01/01/2011 ' + $(this).val()) < Date.parse('01/01/2011 ' + startTime)) || (Date.parse('01/01/2011 ' + $(this).val()) > Date.parse('01/01/2011 ' + endTime)))) {
+                    $(this).data('msg-required','Invalid Time');
+                    $(this).data('rule-required',true);
+
+                } else {
+                    $(this).data('rule-required',false);
+
+                }
+            });
+
             var selectedVal = $('#customer_select').val();
             if (selectedVal == "") {
                 $(".customer_error").html("Please select Customer.");
@@ -171,6 +464,32 @@ siteObjJs.admin.sessionBookingsJs = function () {
                 $(".customer_error").html("");
                 $("div#s2id_customer_select a.select2-choice").css("border", "1px solid #e5e5e5");
             }
+        });
+
+        $('body').on('change', 'input.resource-start-time', function (e) {
+            var form_id = $(this).closest("form").attr('id');
+            var startTime = $('#'+form_id+' #session_start_time').val();
+            var endTime = $('#'+form_id+' #session_end_time').val();
+
+            $("input.resource-start-time").each(function(){
+                if ($(this).val() != '' && ((Date.parse('01/01/2011 ' + $(this).val()) < Date.parse('01/01/2011 ' + startTime)) || (Date.parse('01/01/2011 ' + $(this).val()) > Date.parse('01/01/2011 ' + endTime)))) {
+                    $(this).val('')
+                }
+            });
+
+        });
+
+        $('body').on('change', 'input.resource-end-time', function (e) {
+            var form_id = $(this).closest("form").attr('id');
+            var startTime = $('#'+form_id+' #session_start_time').val();
+            var endTime = $('#'+form_id+' #session_end_time').val();
+
+            $("input.resource-end-time").each(function(){
+                if ($(this).val() != '' && ((Date.parse('01/01/2011 ' + $(this).val()) < Date.parse('01/01/2011 ' + startTime)) || (Date.parse('01/01/2011 ' + $(this).val()) > Date.parse('01/01/2011 ' + endTime)))) {
+                    $(this).val('')
+                }
+            });
+
         });
 
         $('.togglelable, .btn-expand-form').click(function (e) {
@@ -188,6 +507,9 @@ siteObjJs.admin.sessionBookingsJs = function () {
             $("#machine_id").select2('val', 'empty');
             $("#room_id").select2('val', 'empty');
             $(".select2-search-choice").remove();
+            $("#set-staff-availability").html('');
+            $("#set-machine-availability").html('');
+            $("#set-room-availability").html('');
             /*$("#machine_id").data('rule-required',true);
             $("#room_id").data('rule-required',true);
             $(".session_tr_machine").attr("style", "");
@@ -207,6 +529,29 @@ siteObjJs.admin.sessionBookingsJs = function () {
             $("#time-to").val("");
         });
 
+		$('.date-submit').click(function(){
+            var customer = $("#customer_select").val();
+            var fromDate = $("#time-from").val();
+            var toDate = $("#time-to").val();
+            $("#selected_customer").val(customer);
+            var arrStartDate = fromDate.split("-");
+            var date1 = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+            var arrEndDate = toDate.split("-");
+            var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
+            if (fromDate == "") {
+                $("#date-error").css('display', 'block');
+                return false;
+            }
+            if (date1 > date2) {
+                $("#date-range-error").css('display', 'block');
+                return false;
+            }
+            else {
+                $("#date-range-error").css('display', 'none');
+            }
+            
+		});
+		
         $('body').on('change', '.session_status', function (e) {
             var session_status = $(this).val();
             $('.cancellation_comment').val('');
@@ -253,10 +598,10 @@ siteObjJs.admin.sessionBookingsJs = function () {
             var diff = new Date(new Date(session_date) - todaysDate);
             // get days
             var days = diff / 1000 / 60 / 60 / 24;
-            if (Math.floor(days) >= 30) {
+            if (Math.floor(days) >= 90) {
                 Metronic.alert({
                     type: 'danger',
-                    message: "Booking date should be before 30 days from today.",
+                    message: "Booking date should be before 90 days from today.",
                     container: $('#ajax-response-text'),
                     place: 'prepend',
                     closeInSeconds: siteObjJs.admin.commonJs.constants.alertCloseSec
@@ -348,7 +693,16 @@ siteObjJs.admin.sessionBookingsJs = function () {
         });
 
         $('body').on('change', '#staff_id', function (e) {
+
             var form_id = $(this).closest("form").attr('id');
+            if (e.added){
+                $("#"+form_id+" #set-staff-availability").append('<div id="staff-'+e.added.id+'"><table><tr><td>'+e.added.text+'</td><td><input type="text" id="resource_start_time_'+e.added.id+'" name="staff_start_time[]" data-index="'+e.added.id+'" class="resource-start-time form-control"></td><td><input type="text" id="resource_end_time_'+e.added.id+'" name="staff_end_time[]" data-index="'+e.added.id+'" class="resource-end-time form-control"></td></tr></table></div>');
+                handleResourceDateTimePicker(form_id,'');
+            } else if (e.removed){
+                var removedDivId = 'staff-'+e.removed.id;
+                $("#"+form_id+" #set-staff-availability #"+removedDivId).remove();
+
+            }
             if ($(this).val() != 0 && $(this).val() != null) {
                 if ('' != $("#" + form_id + " #session_date").val()) {
                     $("#" + form_id + " #session_date_error").html('');
@@ -366,6 +720,14 @@ siteObjJs.admin.sessionBookingsJs = function () {
 
         $('body').on('change', '#machine_id', function (e) {
             var form_id = $(this).closest("form").attr('id');
+            if (e.added && e.added.id != 9999999){
+                $("#"+form_id+" #set-machine-availability").append('<div id="machine-'+e.added.id+'"><table><tr><td>'+e.added.text+'</td><td><input type="text" id="machine_resource_start_time_'+e.added.id+'" name="machine_start_time[]" data-index="'+e.added.id+'" class="resource-start-time form-control"></td><td><input type="text" id="machine_resource_end_time_'+e.added.id+'" name="machine_end_time[]" data-index="'+e.added.id+'" class="resource-end-time form-control"></td></tr></table></div>');
+                handleResourceDateTimePicker(form_id,'');
+            } else if (e.removed && e.removed.id !=9999999){
+                var removedDivId = 'machine-'+e.removed.id;
+                $("#"+form_id+" #set-machine-availability #"+removedDivId).remove();
+
+            }
             var addedId;
             var addedText;
             if (e.added){
@@ -375,6 +737,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
             if (addedId == 9999999){
                 $(this).val(addedId);
                 var len = $("#machine_list ul .select2-search-choice").length;
+                $("#"+form_id+" #set-machine-availability").html('');
                 if (len > 0){
                     $("#machine_list ul .select2-search-choice").not(':last').remove();
                 }
@@ -404,6 +767,14 @@ siteObjJs.admin.sessionBookingsJs = function () {
 
         $('body').on('change', '#room_id', function (e) {
             var form_id = $(this).closest("form").attr('id');
+            if (e.added && e.added.id !=9999999){
+                $("#"+form_id+" #set-room-availability").append('<div id="room-'+e.added.id+'"><table><tr><td>'+e.added.text+'</td><td><input type="text" id="room_resource_start_time_'+e.added.id+'" name="room_start_time[]" data-index="'+e.added.id+'" class="resource-start-time form-control"></td><td><input type="text" id="room_resource_end_time_'+e.added.id+'" name="room_end_time[]" data-index="'+e.added.id+'" class="resource-end-time form-control"></td></tr></table></div>');
+                handleResourceDateTimePicker(form_id,'');
+            } else if (e.removed && e.removed.id !=9999999){
+                var removedDivId = 'room-'+e.removed.id;
+                $("#"+form_id+" #set-room-availability #"+removedDivId).remove();
+
+            }
             var addedId;
             var addedText;
             if (e.added){
@@ -414,6 +785,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
                 $(this).val(addedId);
                 //$("#room_list ul .select2-search-choice:not(:last)").remove();
                 var len = $("#room_list ul .select2-search-choice").length;
+                $("#"+form_id+" #set-room-availability").html('');
                 if (len > 0){
                     $("#room_list ul .select2-search-choice").not(':last').remove();
                 }
@@ -473,7 +845,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
         });
     };
 
-    var handleDatePicker = function () {
+    var handleDatePicker = function (dateArray) {
         if (!jQuery().datepicker) {
             return;
         }
@@ -507,6 +879,28 @@ siteObjJs.admin.sessionBookingsJs = function () {
 //            }
 
         });
+		$('#time-from').datepicker({
+           format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#time-to').datepicker('setStartDate', startDate);
+        }).on('clearDate', function (selected) {
+            $('#time-to').datepicker('setStartDate', null);
+        });
+
+        $('#time-to').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: 1,
+            datesDisabled: dateArray,
+        }).on('changeDate', function (selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#time-from').datepicker('setEndDate', endDate);
+        }).on('clearDate', function (selected) {
+           $('#time-from').datepicker('setEndDate', null);
+       });
+		
     };
 
     var checkSessionAvailable = function (formId) {   
@@ -676,6 +1070,11 @@ siteObjJs.admin.sessionBookingsJs = function () {
             dropdown: true,
             scrollbar: true,
             change: function (time) {
+                $(".resource-start-time").val('');
+                $(".resource-end-time").val('');
+                $('.resource-start-time').timepicker('option', 'minTime', $(this).val());
+                $('.resource-end-time').timepicker('option', 'minTime', $(this).val());
+                handleResourceDateTimePicker(formId,'');
                 checkSessionAvailable(formId);
 //                var startTime = $('#' + formId + ' #session_start_time').val();
 //                var endTime = $('#' + formId + ' #session_end_time').val();
@@ -726,6 +1125,11 @@ siteObjJs.admin.sessionBookingsJs = function () {
             change: function (time) {
                 var startTime = $('#' + formId + ' #session_start_time').val();
                 var endTime = $('#' + formId + ' #session_end_time').val();
+                $(".resource-start-time").val('');
+                $(".resource-end-time").val('');
+                $('.resource-start-time').timepicker('option', 'maxTime', $(this).val());
+                $('.resource-end-time').timepicker('option', 'maxTime', $(this).val());
+                handleResourceDateTimePicker(formId,'');
                 checkSessionAvailable(formId);
 //                if (startTime != '' && (Date.parse('01/01/2011 ' + endTime) < Date.parse('01/01/2011 ' + startTime)))
 //                {
@@ -746,10 +1150,59 @@ siteObjJs.admin.sessionBookingsJs = function () {
         });
     };
 
+
+    var handleResourceDateTimePicker = function (formId, defaultDate) {
+
+        /*var start_time = $('#config_session_start_time').val();
+        var end_time = $('#config_session_end_time').val();
+        var end_time_slot = $('#session_booking_end_time_for_start_time').val();*/
+
+        var start_time = $('#'+formId+' #session_start_time').val();
+        var end_time = $('#'+formId+' #session_end_time').val();
+        var end_time_slot = $('#'+formId+' #session_end_time').val();
+
+        $('#' + formId + ' .resource-start-time').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: start_time,
+            maxTime: end_time_slot,
+            //minTime: start_time,
+            //maxTime: end_time,
+            //defaultTime: start_time,
+            startTime: start_time,
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true,
+            change: function (time) {
+                //checkSessionAvailable(formId);
+
+            }
+        });
+
+        $('#' + formId + ' .resource-end-time').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: start_time,
+            maxTime: end_time,
+            //minTime: start_time,
+            //maxTime: end_time,
+            //defaultTime: start_time,
+            startTime: start_time,
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true,
+            change: function (time) {
+                //var startTime = $('#' + formId + ' #session_start_time').val();
+                //var endTime = $('#' + formId + ' #session_end_time').val();
+                //checkSessionAvailable(formId);
+
+            }
+        });
+    };
+
     // Method to fetch and place edit form with data using ajax call
     var fetchDataForEdit = function (id) {
-        console.log("function called");
-        //$('.portlet-body').on('click', '.edit-form-link', function () {
+        //$('.portlet-body').on('click', '.edit-form-link', function () {        
         var session_id = id;
         var actionUrl = adminUrl + '/session-bookings/' + session_id + '/edit';
         $.ajax({
@@ -776,6 +1229,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
                 $("#edit-session-bookings #room_id").select2();
 
                 handleDateTimePicker('edit-session-bookings', '');
+                handleResourceDateTimePicker('edit-session-bookings', '');
                 handleDatePicker();
                 siteObjJs.validation.formValidateInit('#edit-session-bookings', handleAjaxRequest);
 
@@ -819,7 +1273,8 @@ siteObjJs.admin.sessionBookingsJs = function () {
         //});
     };
 
-    var handleTable = function () {
+    var handleTable = function (center_id,customer_gender,customer_service_cat,customerId) {
+        $('#todays-sessions-table').dataTable().fnDestroy();
         grid = new Datatable();
         grid.init({
             src: $('#todays-sessions-table'),
@@ -858,7 +1313,9 @@ siteObjJs.admin.sessionBookingsJs = function () {
                 },
                 "ajax": {
                     "url": adminUrl + "/view-todays-sessions/data",
-                    "type": "GET"
+                    "type": "POST",
+                    "data":{center_id:center_id,customer_gender:customer_gender,customer_service_cat:customer_service_cat,customer_id: customerId},
+                    "dataType": "json",
                 },
                 "order": [
                     //[2, "asc"],
@@ -1000,7 +1457,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
         );
     }
 
-    var handleCalendar = function (customerId) {
+    var handleCalendar = function (center_id,customer_gender,customer_service_cat,customerId) {
 //        if (session_page_type == "notification") {
 //            var actionUrl = adminUrl+"data";
 //        } else {
@@ -1035,6 +1492,10 @@ siteObjJs.admin.sessionBookingsJs = function () {
                     var img_tag = "<img src='" + assetsUrl + "/loading-spinner-default.gif' class='loading_image'/>";
                     $("#edit_form").html(img_tag);
                     fetchDataForEdit(event.id);
+                    getAvailabilityList(event.member_id);                    
+                    if( $('#customer_select > option').length <= 1 ) {
+                        $("#customer_select").html("<option selected = 'selected' value=" + event.member_id + ">" + event.mobile_number + "</option>");
+                    }
                     $("#customer_select").select2("val", event.member_id); //set the value
                     /*$("#customer_select").select2({
                      allowClear: true,
@@ -1057,7 +1518,7 @@ siteObjJs.admin.sessionBookingsJs = function () {
                     url: actionUrl,
                     dataType: 'json',
                     type: "POST",
-                    "data": {customer_id: customerId},
+                    "data": {center_id:center_id,customer_gender:customer_gender,customer_service_cat:customer_service_cat,customer_id: customerId},
                     success: function (data) {
                         callback(data);
                     }
@@ -1138,13 +1599,32 @@ siteObjJs.admin.sessionBookingsJs = function () {
         //main function to initiate the module
         init: function () {
             initializeListener();
-            handleTable();
+            //handleTable(center_id,customer_gender,customerId);
+            if ($('#center_select').length > 0 && $('#center_select').val() != "" && $('#center_select').val() != 0) {
+                var center_id = $('#center_select').val();
+            } else {
+                var center_id = 0;
+            }
+            
+            if ($('#customer_gender').length > 0 && $('#customer_gender').val() != "" && $('#customer_gender').val() != 0) {
+                var customer_gender = $('#customer_gender').val();
+            } else {
+                var customer_gender = 0;
+            }
+            
+            if ($('#customer_service_cat').length > 0 && $('#customer_service_cat').val() != "" && $('#customer_service_cat').val() != 0) {
+                var customer_service_cat = $('#customer_service_cat').val();
+            } else {
+                var customer_service_cat = 0;
+            }
+            
             if ($('#customer_select').length > 0 && $('#customer_select').val() != "" && $('#customer_select').val() != 0) {
                 var customer_id = $('#customer_select').val();
             } else {
                 var customer_id = 0;
             }
-            handleCalendar(customer_id);
+            handleCalendar(center_id,customer_gender,customer_service_cat,customer_id);
+            handleTable(center_id,customer_gender,customer_service_cat,customer_id);
             handleDatePicker();
             handleDateTimePicker('create-session-bookings', '');
             //fetchDataForEdit();

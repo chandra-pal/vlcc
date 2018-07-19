@@ -64,20 +64,36 @@ class MemberActivityLogController extends Controller {
     public function index() {
         $memberHelper = new MemberHelper();
         $membersList = [];
-        if(Auth::guard('admin')->user()->userType->id == 9 || Auth::guard('admin')->user()->userType->id == 5) {
-            $centersList = $memberHelper->getCentersList();
+//        if(Auth::guard('admin')->user()->userType->id == 9 || Auth::guard('admin')->user()->userType->id == 5) {
+//            $centersList = $memberHelper->getCentersList();
+//            if (Session::get('center_id') != '') {
+//                $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
+//            }
+//        }  elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
+//            $centers = $memberHelper->getCentersList();
+//            $centerId = key($centers);
+//            if (isset($centerId) && $centerId != '') {
+//                $membersList = $this->centerRepository->getMembersList($centerId);
+//            }
+//        } else {
+//            $membersList = $memberHelper->getUserWiseMemberList();
+//        }
+        
+        if(count($memberHelper->getCentersList()) > 1) {
+            $centersList = $memberHelper->getCentersList();            
             if (Session::get('center_id') != '') {
                 $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
             }
-        }  elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
-            $centers = $memberHelper->getCentersList();
-            $centerId = key($centers);
+        } elseif ((Auth::guard('admin')->user()->userType->id == 4) || (Auth::guard('admin')->user()->userType->id == 5) || (Auth::guard('admin')->user()->userType->id == 7) || (Auth::guard('admin')->user()->userType->id == 8) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
+            $centersList = $memberHelper->getCentersList();
+            $centerId = key($centersList);
             if (isset($centerId) && $centerId != '') {
                 $membersList = $this->centerRepository->getMembersList($centerId);
-            }
+            }    
         } else {
             $membersList = $memberHelper->getUserWiseMemberList();
         }
+        
         $date = \Carbon\Carbon::now()->format('d-m-Y');
         return view('admin::member-activity-log.index', compact('membersList', 'date', 'centersList'));
     }

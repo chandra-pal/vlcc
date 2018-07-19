@@ -19,8 +19,10 @@
             <thead></thead>
             <tbody>
                 @include('admin::session-bookings.form')
+
                 <tr>
-                    <td colspan="5"> 
+                    <td colspan="5">
+                        <span id="resource-time-error" style="color: red;"></span>
                         <button type="submit" class="btn green submit_session">{!! trans('admin::messages.submit') !!}</button>
                         <button type="button" class="btn default btn-collapse btn-collapse-form">{!! trans('admin::messages.cancel') !!}</button>
                     </td>

@@ -35,26 +35,35 @@ class MemberHelper
         $membersList = [];
         $dieticienList = [];
         $memberContactList = [];
+        $center_ids = [];
+
+        $userInfoHelper = new UserInfoHelper();
+        $user_center = $userInfoHelper->getLoggedInUserCenter(Auth::guard('admin')->user()->id);
+        if (!empty($user_center)) {
+            $center_ids = array_column($user_center, 'crm_center_id');
+        }
         if (Auth::guard('admin')->user()->userType->id == 4 || Auth::guard('admin')->user()->userType->id == 8) {
             $params['username'] = Auth::guard('admin')->user()->username;
             //$membersList = $membersRepository->listMembersDataByDietician($params)->toArray();  
-            
             // New Code => Display same members list on My Clients page & Customer Dropdown page
-            $userInfoHelper = new UserInfoHelper();
-            $user_center = $userInfoHelper->getLoggedInUserCenter(Auth::guard('admin')->user()->id);
-            //$response = Member::orderBy('first_name')->where('dietician_username', $params['username'])->whereStatus("1")->get();
-            $response = Member::select('id', DB::raw('CONCAT_WS(" ",mobile_number, "-", first_name, last_name) AS full_name'))->orderBy('first_name')->where('dietician_username', $params['username'])->whereStatus("1")->get();
-            //$first = Member::orderBy('first_name')->where('dietician_username', $params['username'])->where('status', 1)->get();
+            // get members whose dietician_username = logged in user's username
             $first = Member::select('id', DB::raw('CONCAT_WS(" ",mobile_number, "-", first_name, last_name) AS full_name'))->orderBy('first_name')->where('dietician_username', $params['username'])->where('status', 1)->get();
-            
-            //$second = Member::select('members.*')->with('Centers')->orderBy('first_name')->where('dietician_username', '')->where('crm_center_id', $user_center[0]['crm_center_id'])->where('status', 1)->get();
-            $second = Member::select('id', DB::raw('CONCAT_WS(" ",mobile_number, "-", first_name, last_name) AS full_name'))->with('Centers')->orderBy('first_name')->where('dietician_username', '')->where('crm_center_id', $user_center[0]['crm_center_id'])->where('status', 1)->get();            
-            $response = $first->merge($second)->toArray(); // Contains foo and bar.
+
+
+            // get all members of center of logged in dietician & where dietician_username is blank
+            $second = Member::select('id', DB::raw('CONCAT_WS(" ",mobile_number, "-", first_name, last_name) AS full_name'))->with('Centers')->orderBy('first_name')->where('dietician_username', '')->whereIn('crm_center_id', $center_ids)->where('status', 1)->get();
+
+            $response = $first->merge($second); // Contains foo and bar.
+            // get those members whose package is transferred in center of logged in user and base center is not equal to  center of logged in user
+            $third = $membersRepository->getPackageTransferredMembers($center_ids);
+            $result = $response->merge($third);
+            $response = $result;
+
             $result = [];
-            foreach($response as $key=>$value) {
+            foreach ($response as $key => $value) {
                 $name = $response[$key]["full_name"];
                 $res[$response[$key]["id"]] = $name;
-                $result = $res+$result;
+                $result = $res + $result;
             }
             $membersList = $result;
         } else if (Auth::guard('admin')->user()->userType->id == 1 || Auth::guard('admin')->user()->userType->id == 2) {

@@ -16,6 +16,7 @@
                         <th>A Code</th>
                         <th>Diet & Activity Deviation, if any</th>
                         <th>Therapist</th>
+                        <th>Session Comment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,9 @@
                         </td>
                         <td>
                             {!! Form::select('therapist_id', [''=> trans('admin::messages.select-name', [ 'name' => trans('admin::controller/cpr.select-therapist') ])] + $therapistList, null, ['class'=>'select2me form-control form-filter select-therapist', 'id' => 'therapist_id', 'data-rule-required'=>'true', 'data-msg-required'=>'Please select Therapist.']) !!}
+                        </td>
+                        <td>
+                            {!! Form::textarea('session_comment', null, ['class'=>'form-control',  'id'=>'session_comment'])!!}
                         </td>
                     </tr>
                 </tbody>

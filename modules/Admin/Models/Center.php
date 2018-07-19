@@ -25,7 +25,7 @@ class Center extends BaseModel {
      *
      * @var array
      */
-    protected $fillable = ['address', 'area', 'city_id', 'state_id', 'country_id', 'pincode', 'latitude', 'longitude', 'phone_number', 'status'];
+    protected $fillable = ['address', 'area', 'crm_center_id', 'city_id', 'state_id', 'country_id', 'pincode', 'latitude', 'longitude', 'phone_number', 'status'];
 
     /**
      * get name of the state from State model when used in join

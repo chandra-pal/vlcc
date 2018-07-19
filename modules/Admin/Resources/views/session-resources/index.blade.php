@@ -76,7 +76,6 @@
             {!! Form::hidden('from_date', $date , ['class'=>'form-control availability-date', 'id'=>'availability_date' ])!!}
 
 
-
             <!--                <div class="form-group col-md-12">
                                     <label class="col-md-3 control-label">{!! trans('admin::controller/session-resources.select-center') !!} <span class="required" aria-required="true">*</span></label>
                                     <div class="col-md-4">

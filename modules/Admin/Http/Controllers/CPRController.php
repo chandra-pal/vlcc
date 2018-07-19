@@ -82,27 +82,45 @@ class CPRController extends Controller
         $sessionData = [];
         $memberHelper = new MemberHelper();
         $membersList = [];
-        if (Auth::guard('admin')->user()->userType->id == 9 || Auth::guard('admin')->user()->userType->id == 5) {
-            $centersList = $memberHelper->getCentersList();
+        $memberPackages = [];
+        $selectedPackage = '';
+//        if (Auth::guard('admin')->user()->userType->id == 9 || Auth::guard('admin')->user()->userType->id == 5) {
+//            $centersList = $memberHelper->getCentersList();
+//            if (Session::get('center_id') != '') {
+//                $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
+//            }
+//        } elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
+//            $centers = $memberHelper->getCentersList();
+//            $centerId = key($centers);
+//            if (isset($centerId) && $centerId != '') {
+//                $membersList = $this->centerRepository->getMembersList($centerId);
+//            }
+//        } else {
+//            $membersList = $memberHelper->getUserWiseMemberList();
+//        }
+        
+        if(count($memberHelper->getCentersList()) > 1) {
+            $centersList = $memberHelper->getCentersList();            
             if (Session::get('center_id') != '') {
                 $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
             }
-        } elseif (Auth::guard('admin')->user()->userType->id == 7 || Auth::guard('admin')->user()->userType->id == 8) {
-            $centers = $memberHelper->getCentersList();
-            $centerId = key($centers);
+        } elseif ((Auth::guard('admin')->user()->userType->id == 4) || (Auth::guard('admin')->user()->userType->id == 5) || (Auth::guard('admin')->user()->userType->id == 7) || (Auth::guard('admin')->user()->userType->id == 8) || (Auth::guard('admin')->user()->userType->id == 9) || (Auth::guard('admin')->user()->userType->id == 11)) {
+            $centersList = $memberHelper->getCentersList();
+            $centerId = key($centersList);
             if (isset($centerId) && $centerId != '') {
                 $membersList = $this->centerRepository->getMembersList($centerId);
-            }
+            }    
         } else {
             $membersList = $memberHelper->getUserWiseMemberList();
         }
-
+        
         if ($session_id == 0) {
             // Check if Member id is present in session
             $memberID = Session::get('member_id');
             if (!empty($memberID)) {
                 $latest_session_id = 0;
-                $latest_session_id = $this->repository->getLatestSessionId($memberID);
+                $center_id = (Session::get('center_id') != "") ? Session::get('center_id') : 0;
+                $latest_session_id = $this->repository->getLatestSessionId($memberID, $center_id);
                 if ($latest_session_id == 0 || empty($latest_session_id)) {
                     // Session id not available. Display only personal info & BCA data & disable all submit buttons
                     $disableSubmit = 0;
@@ -111,7 +129,11 @@ class CPRController extends Controller
                     $cprData = $this->repository->validateSession($params);
                     $session_id = $latest_session_id;
                     $sessionData = $cprData->toArray();
+                    $selectedPackage = $sessionData[0]['package_id'];
                 }
+                // Fetch Member packages of selected member
+                $params["member_id"] = $memberID;
+                $memberPackages = $this->sessionBooking->getMemberPackages($params)->toArray();
             } else {
                 // Member id not present in session
                 // Retrieve Customer list of logged in dietician & display customer list in Dropdown & Disable CPR form
@@ -129,11 +151,27 @@ class CPRController extends Controller
                 Session::set('center_id', $centerId);
                 $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
             }
+            // Fetch Member packages of selected member
+            $params["member_id"] = $sessionData[0]['member_id'];
+            $memberPackages = $this->sessionBooking->getMemberPackages($params)->toArray();
+            $memberPackageGuids = $this->sessionBooking->getPackageGuids($memberPackages)->toArray();
+            // Get packages of member whose status is inactive
+            $inaciveMemberPackages = $this->sessionBooking->getInactiveMemberPackages($sessionData[0]['member_id'])->toArray();
+            if (!empty($inaciveMemberPackages)) {
+                foreach ($inaciveMemberPackages as $inaciveMemberPackage) {
+                    if (!in_array($inaciveMemberPackage["crm_package_guid"], $memberPackageGuids)) {
+                        $memberPackages[$inaciveMemberPackage["id"]] = $inaciveMemberPackage["package_title"];
+                    }
+                }
+            }
+            $selectedPackage = $sessionData[0]['package_id'];
+            //$memberPackages[$selectedPackage] = $sessionData[0]['member_package']['package_title'];
         }
 
         //if ($cprData->toArray()) {
         $member_id = isset($sessionData[0]['member_id']) ? $sessionData[0]['member_id'] : $memberID;
         $package_id = isset($sessionData[0]['package_id']) ? $sessionData[0]['package_id'] : $this->repository->getPackageId($member_id);
+        $session_center_id = isset($sessionData[0]['crm_center_id']) ? $sessionData[0]['crm_center_id'] : '';
 
         $slimmingProgrammeRecordCount = $this->repository->getSlimmingProgrammeRecordCount($member_id);
         $checkHypertension = $this->repository->checkHypertension($member_id);
@@ -178,7 +216,7 @@ class CPRController extends Controller
         if (isset($member_id) && !empty($member_id)) {
             $sessionDateDataSpot = $this->repository->getSessionInfoSpot($member_id);
         }
-        return view('admin::cpr.index', compact('session_id', 'food_habbit_types', 'package_id', 'member_id', 'medical_problem_types', 'logged_in_by_user_type', 'logged_in_user_id', 'measurement_record_fields', 'measurement_record_fields_str', 'required', 'membersList', 'centersList', 'sessionDateList', 'acl_flag', 'sessionDateData', 'sessionDateDataSpot', 'therapistList'));
+        return view('admin::cpr.index', compact('session_id', 'food_habbit_types', 'package_id', 'member_id', 'medical_problem_types', 'logged_in_by_user_type', 'logged_in_user_id', 'measurement_record_fields', 'measurement_record_fields_str', 'required', 'membersList', 'centersList', 'sessionDateList', 'acl_flag', 'sessionDateData', 'sessionDateDataSpot', 'therapistList', 'memberPackages', 'selectedPackage', 'session_center_id'));
         //} else {
         //return abort(403, 'Unauthorized action.');
         //}
@@ -315,7 +353,8 @@ class CPRController extends Controller
      * store session record summary
      *
      */
-    public function storeSessionRecords(SessionRecordCreateRequest $request) {
+    public function storeSessionRecords(SessionRecordCreateRequest $request)
+    {
         $response = $this->repository->storeSessionRecord($request->all());
         return response()->json($response);
     }
@@ -385,7 +424,7 @@ class CPRController extends Controller
                     if ($sessionRecord->otp_verified) {
                         $actionList = "<p class='session_wrapper" . $sessionRecord->id . "'><span id='.$sessionRecord->id.''>Verified<span></p>";
                     } else {
-                        if (!empty(Auth::guard('admin')->user()->hasAdd) && Auth::guard('admin')->user()->userType->id != 5) {
+                        if (!empty(Auth::guard('admin')->user()->hasAdd) && Auth::guard('admin')->user()->id == $sessionRecord->created_by) {
                             $actionList = '<p class="session_wrapper' . $sessionRecord->id . '"><a href="javascript:;" class="btn default margin-bottom-5 green verify_otp"  id =' . $sessionRecord->id . '>Verify Otp</a></p>';
                         } else {
                             $actionList = "Not verified";
@@ -400,20 +439,24 @@ class CPRController extends Controller
                         $message = $this->repository->getServiceExecutionResponse($sessionRecord->session_id, $sessionRecord->id, $sessionRecord->member_id);
                         // If service execution flag is 2. Failed  CLM Service execution failed
                         $actionList = "<p class=''><span>Failed</span>";
-                        $actionList .= '<a style="margin-left: 10px;" href="javascript:;" id ="retry-clm-execution-' . $sessionRecord->id . '" class="btn btn-xs default retry-clm-execution-call" title="Retry"><i class="fa fa-refresh"></i></a></p>';
+                        if (!empty(Auth::guard('admin')->user()->hasAdd) && Auth::guard('admin')->user()->id == $sessionRecord->created_by) {
+                            $actionList .= '<a style="margin-left: 10px;" href="javascript:;" id ="retry-clm-execution-' . $sessionRecord->id . '" class="btn btn-xs default retry-clm-execution-call" title="Retry"><i class="fa fa-refresh"></i></a></p>';
+                        }
                         $actionList .= '<p>' . $message . '</p>';
                     } else if ($sessionRecord->service_executed == 1) {
                         // If service execution flag is 1 - .txt File is created and status is pending
                         $actionList = "<p class=''><span>Pending</span>";
-                        $actionList .= '<a style="margin-left: 10px;" href="javascript:;" id ="refresh-clm-execution-' . $sessionRecord->id . '"  class="btn btn-xs default refresh-session-record" title="refresh"><i class="fa fa-refresh"></i></a></p>';
+                        if (!empty(Auth::guard('admin')->user()->hasAdd) && Auth::guard('admin')->user()->id == $sessionRecord->created_by) {
+                            $actionList .= '<a style="margin-left: 10px;" href="javascript:;" id ="refresh-clm-execution-' . $sessionRecord->id . '"  class="btn btn-xs default refresh-session-record" title="refresh"><i class="fa fa-refresh"></i></a></p>';
+                        }
                     } else if ($sessionRecord->service_executed == 3) {
                         $actionList = "<p class=''><span>Executed<span></p>";
                     } else {
                         // If service execution flag is 0 - Not executed yet
-                        if (!empty(Auth::guard('admin')->user()->hasAdd)) {
+                        if (!empty(Auth::guard('admin')->user()->hasAdd) && Auth::guard('admin')->user()->id == $sessionRecord->created_by) {
                             $actionList = '<p class="service_execution_' . $sessionRecord->id . '"><a href="javascript:;" class="btn default margin-bottom-5 green service_execution"  id =' . $sessionRecord->id . '>Service Execution</a></p>';
                         } else {
-                            $actionList = "";
+                            $actionList = "Not Executed";
                         }
                     }
                     $actionList .= '<input type="hidden" id="session_id' . $sessionRecord->id . '" name="session_id' . $sessionRecord->id . '" value=' . $sessionRecord->session_id . '>';
@@ -424,6 +467,9 @@ class CPRController extends Controller
                     $name = $therapist_name["first_name"] . " " . $therapist_name["last_name"] . " - " . $therapist_name["username"];
                     $name .= '<input type="hidden" id="therapist' . $sessionRecord->id . '" name="therapist' . $sessionRecord->id . '" value=' . $therapist_name["username"] . '>';
                     return $name;
+                })
+                ->addColumn('session_comment', function ($sessionRecord) {
+                    return $sessionRecord->session_comment  = ($sessionRecord->session_comment == '') ?  'N/A'  :   $sessionRecord->session_comment;
                 })
                 ->make(true);
     }
@@ -781,6 +827,7 @@ class CPRController extends Controller
             $params['dietician_id'] = filter_var($logged_in_user_id, FILTER_SANITIZE_NUMBER_INT);
             $disableSubmit = 1;
             $sessionData = [];
+            $selectedPackage = '';
             $memberHelper = new MemberHelper();
             if (Auth::guard('admin')->user()->userType->id == 9 || Auth::guard('admin')->user()->userType->id == 5) {
                 $centersList = $memberHelper->getCentersList();
@@ -789,7 +836,10 @@ class CPRController extends Controller
 
             // Fetch latest session if of selected member
             $latest_session_id = 0;
-            $latest_session_id = $this->repository->getLatestSessionId($member_id);
+            $array["member_id"] = $request->all()["member_id"];
+            $memberPackages = $this->sessionBooking->getMemberPackages($array, 0)->toArray();
+            $center_id = (Session::get('center_id') != "") ? Session::get('center_id') : 0;
+            $latest_session_id = $this->repository->getLatestSessionId($member_id, $center_id);
             $session_id = $latest_session_id;
             if ($latest_session_id == 0 || empty($latest_session_id)) {
                 // Session id not available. Display only personal info & BCA data & disable all submit buttons
@@ -798,10 +848,24 @@ class CPRController extends Controller
                 $params["session_id"] = $latest_session_id;
                 $cprData = $this->repository->validateSession($params);
                 $sessionData = $cprData->toArray();
+                $selectedPackage = $sessionData[0]['package_id'];
+
+                $memberPackageGuids = $this->sessionBooking->getPackageGuids($memberPackages)->toArray();
+                // Get packages of member whose status is inactive
+                $inaciveMemberPackages = $this->sessionBooking->getInactiveMemberPackages($sessionData[0]['member_id'])->toArray();
+                if (!empty($inaciveMemberPackages)) {
+                    foreach ($inaciveMemberPackages as $inaciveMemberPackage) {
+                        if (!in_array($inaciveMemberPackage["crm_package_guid"], $memberPackageGuids)) {
+                            $memberPackages[$inaciveMemberPackage["id"]] = $inaciveMemberPackage["package_title"];
+                        }
+                    }
+                }
+                //$memberPackages[$selectedPackage] = $sessionData[0]['member_package']['package_title'];
             }
 
             $package_id = isset($sessionData[0]['package_id']) ? $sessionData[0]['package_id'] : 0;
             $member_id = isset($sessionData[0]['member_id']) ? $sessionData[0]['member_id'] : $member_id;
+            $session_center_id = isset($sessionData[0]['crm_center_id']) ? $sessionData[0]['crm_center_id'] : '';
 
             $slimmingProgrammeRecordCount = $this->repository->getSlimmingProgrammeRecordCount($member_id);
             $checkHypertension = $this->repository->checkHypertension($member_id);
@@ -850,7 +914,7 @@ class CPRController extends Controller
 
             $response['status'] = "success";
             $response['latest_session_id'] = $session_id;
-            $response['form'] = view('admin::cpr.cpr-ajax', compact('session_id', 'food_habbit_types', 'package_id', 'member_id', 'medical_problem_types', 'logged_in_by_user_type', 'logged_in_user_id', 'measurement_record_fields', 'measurement_record_fields_str', 'required', 'membersList', 'centersList', 'sessionDateList', 'acl_flag', 'sessionDateData', 'sessionDateDataSpot', 'therapistList'))->render();
+            $response['form'] = view('admin::cpr.cpr-ajax', compact('session_id', 'food_habbit_types', 'package_id', 'member_id', 'medical_problem_types', 'logged_in_by_user_type', 'logged_in_user_id', 'measurement_record_fields', 'measurement_record_fields_str', 'required', 'membersList', 'centersList', 'sessionDateList', 'acl_flag', 'sessionDateData', 'sessionDateDataSpot', 'therapistList', 'memberPackages', 'selectedPackage', 'session_center_id'))->render();
             return response()->json($response);
         } else {
             

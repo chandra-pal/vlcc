@@ -64,8 +64,7 @@ class membersController extends Controller
                 fwrite($file, $data);
                 fclose($file);
 
-                if ($customerDetails['MOBILE_NO'] != "" && $customerDetails['CRM_MEMBER_GUID'] != "") {
-
+                if ($customerDetails['MOBILE_NO'] != "" && $customerDetails['CRM_MEMBER_GUID'] != "" && $customerDetails['CRM_CENTER_ID'] != "") {
                     //DB::table('members')->where('mobile_number', $customerDetails['MOBILE_NO'])->where("crm_member_guid", "!=", $customerDetails['CRM_MEMBER_GUID'])->update(['status' => "0"]);
 
                     $check = Member::select('id', 'mobile_number', 'crm_member_guid')->where('crm_member_guid', trim($customerDetails['CRM_MEMBER_GUID']))->where("status", "=", 1)->first();
@@ -90,6 +89,13 @@ class membersController extends Controller
                             'created_by' => 1,
                             'created_at' => $current_time
                         ]);
+                        
+//                        $membeCenterId = DB::table('member_centers')->insertGetId([
+//                            'member_id' => $memberId,
+//                            'crm_center_id' => $customerDetails['CRM_CENTER_ID'],
+//                            'status' => 1
+//                        ]);
+                        
                         $response = $this->getResponse('Success', parent::SUCCESS_RESPONSE_CODE, null, 'Customer added successfully.');
                     } else {
                         // Member exists, update member

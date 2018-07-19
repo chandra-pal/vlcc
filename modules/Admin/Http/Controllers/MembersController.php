@@ -19,6 +19,7 @@ use Modules\Admin\Repositories\CenterRepository;
 use Modules\Admin\Services\Helper\MemberHelper;
 use Modules\Admin\Services\Helper\ImportHelper;
 use Session;
+use Modules\Admin\Services\Helper\UserInfoHelper;
 
 class MembersController extends Controller
 {
@@ -75,26 +76,6 @@ class MembersController extends Controller
         $params['username'] = Auth::guard('admin')->user()->username;
         $params['user_type_id'] = Auth::guard('admin')->user()->user_type_id;
         $params['user_id'] = Auth::guard('admin')->user()->id;
-//        $import = $this->importHelper->importMemberData($params);
-//
-//        $listDieticianCustomers = $this->repository->listMemberData($params);
-//
-//        $apiResult = $listDieticianCustomers;
-//        $listMembers = $this->repository->data($request->all())->toArray();
-//
-//        $memberArr = array();
-//        foreach ($listMembers as $member) {
-//            $memberArr[$member['mobile_number']] = $member['id'];
-//        }
-//
-//        $apiRes = array();
-//        if (!empty($apiResult['data']['customers']['response'])) {
-//            $apiRes = array_shift($apiResult['data']['customers']['response']);
-//            Session::set('memberListGlobal', $apiRes);
-//        }
-//        $apiOutput = collect($apiRes);
-//        $memberList =  $this->repository->listMembers($params);
-//        Session::set('memberListGlobal', $memberList);
 
         $memberList = $this->repository->data($request->all(), $params); //->toArray();
         $member = $memberList->toArray();
@@ -214,10 +195,30 @@ class MembersController extends Controller
 
     // Function to get Members list of selected center
     public function getCenterWiseMembersList(Request $request) {
-        $center_id = filter_var($request->all()["center_id"], FILTER_SANITIZE_NUMBER_INT);
+       // $center_id = filter_var($request->all()["center_id"], FILTER_SANITIZE_NUMBER_INT);
+        $userInfoHelper = new UserInfoHelper();
+        $memberHelper = new MemberHelper();
+        $countCenters = $memberHelper->getCentersList();           
+        if(isset($countCenters) && count($countCenters) > 1) {
+            $center_id = filter_var($request->all()["center_id"], FILTER_SANITIZE_NUMBER_INT);
+        } else {
+            $user_center = $userInfoHelper->getLoggedInUserCenter(Auth::guard('admin')->user()->id);
+            $center_id = $user_center[0]['center_id'];
+        }
+        
         Session::set('center_id', $center_id);
-        $membersList = $this->centerRepository->getMembersList($center_id);
-        $response['members_list'] = View('admin::partials.center-customers-dropdown', compact('membersList'))->render();
+        
+        if((isset($request->all()["customer_gender"]) && !empty($request->all()["customer_gender"]))  || (isset($request->all()["customer_service_cat"]) && !empty($request->all()["customer_service_cat"])) ){
+            $memGender = filter_var($request->all()["customer_gender"], FILTER_SANITIZE_NUMBER_INT);
+            $serviceCategory = filter_var($request->all()["customer_service_cat"], FILTER_SANITIZE_NUMBER_INT);
+            //$membersList = $this->centerRepository->getMembersListWithGender($center_id,$memGender);
+             $membersList = $this->centerRepository->getMembersListWithGender(Session::get('center_id'),$memGender,$serviceCategory);
+        }else{
+            //$membersList = $this->centerRepository->getMembersList($center_id);
+            $membersList = $this->centerRepository->getMembersList(Session::get('center_id'));
+        }
+        
+        $response['members_list'] = View('admin::partials.customer-dropdown', compact('membersList'))->render();
         return response()->json($response);
     }
     
